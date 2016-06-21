@@ -1,0 +1,425 @@
+#StyleNewsletterCreate{
+    font-family: Arial,Helvetica,sans-serif;
+    font-size: 12px;
+    text-align: justify;
+    line-height: 20px;
+    width: 600px;
+    background: #fff;
+    margin: 0;
+    padding:20px 0;
+}
+
+#build .well{
+    min-height: 300px;
+}
+
+#viewBuild{
+    width: 600px;
+    padding:0 20px;
+    background: #fff;
+}
+
+.component-menu{
+    background: none repeat scroll 0 0 #4f5259;
+    padding: 5px 10px 5px;
+    argin-bottom: 20px;
+    border: 1px solid #3d3f45;
+    width: 600px;
+    display: block;
+    height: 150px;
+    color: #fff;
+    text-align: center;
+    clear: both;
+}
+
+.component-menu h5{
+    color: #fff;
+    font-size: 16px;
+    text-transform: uppercase;
+}
+
+.component-bloc a{
+    background: none repeat scroll 0 0 #fff;
+    box-shadow: 1px 1px 1px 1px #4d5057;
+    color: #000;
+    display: block;
+    float: left;
+    font-size: 11px;
+    height: 80px;
+    line-height: 12px;
+    margin: 0 3px 5px 3px;
+    padding: 5px;
+    text-align: center;
+    text-decoration: none;
+    width: 76px;
+    cursor: pointer;
+}
+
+.component-bloc a:hover{
+    -webkit-box-shadow: 2px 2px 2px 2px #3d3f45;
+    box-shadow: 2px 2px 2px 2px #3d3f45;
+}
+
+.component-bloc a img{
+    width: 50px;
+    display: block;
+    margin: 0 auto;
+    color: #000;
+}
+
+.component-build{
+    position: relative;
+}
+
+#build{
+    min-height: 50px;
+    height: auto;
+    padding:20px 0;
+    margin: 10px 0;
+    position: relative;
+}
+
+.thumbnail.big img{
+    width: auto;
+}
+
+.edit_content{
+    position: relative;
+    display: block;
+}
+
+.create_content_form{
+    margin-left: 20px;
+}
+
+.edit_content_form,.create_content_form{
+    position: absolute;;
+    left: 610px;
+    top: -20px;
+    width: 480px;
+    z-index: 100;
+    display: none;
+}
+
+.create_content_form{
+    display: block;
+}
+
+.create_bloc{
+    display: none;
+    min-height: 180px;
+}
+
+.edit_content_form .panel label, .create_content_form .panel label{
+    font-weight: bold;
+}
+
+.create_content{
+    clear: both;
+    display: block;
+    height: 300px;
+}
+
+.edit_content_form:before,
+.create_content_form:before {
+    color: #85c744;
+    content: "◄";
+    display: block;
+    font-size: 25px;
+    font-weight: bold;
+    height: 10px;
+    left: -21px;
+    position: absolute;
+    top: 25px;
+    width: 10px;
+}
+
+.edit_content_form:before {
+    color: #efa131;
+}
+
+.create_content_form:before {
+    left: -11px;
+    top: -9px;
+}
+
+.panel .redactor-box {
+    margin-bottom: 0px;
+}
+
+.onBuild{
+    margin: 0 !important;
+}
+
+#optionsNewsletter{
+    position: absolute;
+    width: 270px;
+    top: 0;
+    left: 640px;
+}
+
+.panel-body .form-group:last-child{
+    margin-bottom: 0;
+}
+
+.chart{
+    width: 100%;
+    height: 300px;
+    display: block;
+    padding: 20px 20px 25px 35px;
+    margin-bottom: 20px;
+    position: relative;
+}
+
+.chart-ruler{
+    width: 35px;
+    text-align: center;
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 278px;
+    padding-top: 10px;
+    color: #696969;
+    border-right: 1px solid #e1e1e1;
+}
+
+.chart-ruler span{
+    width: 100%;
+    height: 5%;
+    line-height: 5%;
+    color: #666666;
+    display: block;
+}
+
+.chart-ruler span.min{
+    position: absolute;
+    bottom: -5px;
+}
+
+.chart-ruler span.max{
+    position: absolute;
+    top: 15px;
+}
+
+.chart:after{
+    content: ".";
+    visibility: hidden;
+    clear: both;
+}
+
+.column{
+    width: 8.3%;
+    height: 100%;
+    margin: 0;
+    float: left;
+    position: relative;
+}
+
+.inner-column{
+    width: 12.5%;
+    height: 100%;
+    margin: 0 5%;
+    float: left;
+    position: relative;
+}
+
+.column p{
+    bottom: -38px;
+    display: block;
+    padding:  5px 0 0 0;
+    position: absolute;
+    text-align: center;
+    width: 100%;
+    color: #666666;
+    border-top: 1px solid #e1e1e1;
+}
+
+.column .fill{
+    width: 100%;
+    position: absolute;
+    bottom: -2px;
+    margin-right: 3px;
+    display: block;;
+}
+.label{
+    text-align: center;
+}
+
+#chart-data{
+    width: 100%;
+    height: 30px;
+    margin-bottom: 10px;
+    display: block;
+}
+
+#chart-data li{
+    width: 95px;
+    position: relative;
+    padding-left: 30px;
+    height: 25px;
+    display: block;
+    float: left;
+    margin:3px;
+}
+
+#chart-data li span{
+    width: 20px;
+    height: 20px;
+    display: block;
+    background: #000;
+    position: absolute;;
+    top: 0;
+    left: 0;
+}
+
+.margeUpDown{
+    margin: 20px 0;
+}
+
+#build label{
+    margin-bottom: 2px;
+}
+
+.finishEdit{
+    display: none;
+}
+
+div#fieldChooser,div#fieldChooser2 {
+    width: 630px;
+    height: 300px;
+}
+
+.fc-field {
+    width: 280px;
+    height: 28px;
+    padding: 5px;
+    box-shadow: 0px 0px 2px 0px rgba(222, 222, 222, 1.0);
+}
+
+.fc-field:hover {
+    outline: #cacaca solid 1px;
+}
+
+.fc-selected {
+    background-color: #ffe284;
+}
+
+.fc-selected:hover {
+    background-color: #ffd448;
+}
+
+.fc-field-list {
+    width: 300px;
+    height: 300px;
+    margin: 0px;
+    padding: 3px;
+    overflow: scroll;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+    transition: border 0.2s linear 0s, box-shadow 0.2s linear 0s;
+}
+
+.fc-source-fields {
+    float: left;
+}
+
+.fc-destination-fields {
+    float: right;
+}
+
+/**
+ * For the correct positioning of the placeholder element, the dnd-list and
+ * it's children must have position: relative
+ */
+.listArrets ul[dnd-list],
+.listArrets ul[dnd-list] > li {
+    position: relative;
+}
+
+/**
+ * The dnd-list should always have a min-height,
+ * otherwise you can't drop to it once it's empty
+ */
+.listArrets ul[dnd-list] {
+    min-height: 42px;
+    width: 45%;
+    height: 300px;
+    float: left;
+    margin: 0px;
+    padding: 3px;
+    overflow: scroll;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    box-shadow: 0 1px 1px rgba(0, 0, 0, 0.075) inset;
+    transition: border 0.2s linear 0s, box-shadow 0.2s linear 0s;
+}
+
+/**
+ * The dnd-list should always have a min-height,
+ * otherwise you can't drop to it once it's empty
+ */
+.listArrets.forArrets ul[dnd-list] {
+    width: 280px;
+}
+
+.listArrets.forArrets ul[dnd-list]:first-child {
+    margin-right: 20px;
+}
+
+/**
+ * The dndDraggingSource class will be applied to
+ * the source element of a drag operation. It makes
+ * sense to hide it to give the user the feeling
+ * that he's actually moving it.
+ */
+.listArrets ul[dnd-list] .dndDraggingSource {
+    display: none;
+}
+
+/**
+ * An element with .dndPlaceholder class will be
+ * added to the dnd-list while the user is dragging
+ * over it.
+ */
+.listArrets ul[dnd-list] .dndPlaceholder {
+    display: block;
+    background-color: #ddd;
+    min-height: 42px;
+}
+
+/**
+ * The dnd-lists's child elements currently MUST have
+ * position: relative. Otherwise we can not determine
+ * whether the mouse pointer is in the upper or lower
+ * half of the element we are dragging over. In other
+ * browsers we can use event.offsetY for this.
+ */
+.listArrets ul[dnd-list] li {
+    width: 100%;
+    height: auto;
+    line-height: 18px;
+    padding: 5px;
+    cursor: pointer;
+    box-shadow: 0px 0px 2px 0px rgba(222, 222, 222, 1.0);
+}
+
+.listArrets ul[dnd-list] li:first-child{
+    margin-top: 5px;
+}
+
+.listArrets ul[dnd-list] li:last-child{
+    margin-bottom: 40px;
+}
+/**
+ * Show selected elements in green
+ */
+.listArrets ul[dnd-list] li.selected {
+    background-color: #dff0d8;
+    color: #3c763d;
+}
+
+.errorUpload{
+    text-align: center !important;
+}
