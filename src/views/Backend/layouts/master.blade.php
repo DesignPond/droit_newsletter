@@ -84,6 +84,17 @@
     <!-- messages and errors -->
     @include('newsletter::Backend.partials.message')
 
+    <div class="dropdown" style="margin-bottom: 20px;">
+        <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Newsletter &nbsp;<span class="caret"></span></button>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+            <li><a href="{{ url('build/newsletter') }}">Newsletter</a></li>
+            <li><a href="{{ url('build/subscriber') }}">Abonnés</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="{{ url('build/import') }}">Importer des abonnés</a></li>
+            <li><a href="{{ url('build/liste') }}">Listes hors campagnes</a></li>
+        </ul>
+    </div>
+
     @yield('content')
 </div>
 

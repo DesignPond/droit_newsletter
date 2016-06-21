@@ -54,9 +54,9 @@ You have to implement upload routes for wysiwyg redactor.js
 ### Navigation menu items
 
 + Newsletters list: build/newsletter
-+ Campagnes: build/campagne
-+ Subscribers: build/subscribers
-+ Import: build/import
++ Subscribers: build/subscriber
++ Import subscribers: build/import
++ External email lists: build/liste
 
 ## Change log
 
