@@ -28,10 +28,21 @@ The content is meant to be used with arrets and categories content
 
 ### Configuration
 
-Publish config files with php artisan vendor:publish
-In newsletter.php define building blocs to use if you enable "groupe" you have to enable "arret", both go with another!
-Define the models path.
-Add Mailjet credentials to your .env file
+1. Publish  with php artisan vendor:publish
+
+     **Required**
+     + Assets --tag=public 
+     + Migrations --tag=migrations
+     + Seeders --tag=seeds
+     
+     **Optionnal**
+     + Views --tag=views
+     + Config --tag=config  
+ 
+2. Migrate tables and seed types with **php artisan db:seed --class=TypeSeeder** 
+3. In newsletter.php define building blocs to use if you enable "groupe" you have to enable "arret", both go with another!
+4. Define the models path.
+5. Add Mailjet credentials to your .env file
 
 ### Usage with Arrets and Categories
 

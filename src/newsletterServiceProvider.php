@@ -34,6 +34,10 @@ class newsletterServiceProvider extends ServiceProvider
         ], 'migrations');
 
         $this->publishes([
+            __DIR__ . '/database/seeds' => base_path('database/seeds')
+        ], 'seeds');
+
+        $this->publishes([
             __DIR__.'/config/newsletter.php' => config_path('newsletter.php'),
         ]);
 
