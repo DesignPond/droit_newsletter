@@ -79,7 +79,7 @@ If you discover any security related issues, please email cindy.leschaud@gmail.c
 
 ## Credits
 
-- [Cindy Leschaud][http://www.designpond.ch]
+[Cindy Leschaud](http://www.designpond.ch)
 
 ## License
 
