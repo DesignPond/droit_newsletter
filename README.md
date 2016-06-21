@@ -2,6 +2,8 @@
 
 Newsletter interface builder and send via mailjet api
 
+!!! WARNING work in progress this is a specific package for specific content !!!
+
 ## Install
 
 Via Composer
@@ -35,9 +37,18 @@ Add Mailjet credentials to your .env file
 
 You have to Implement ajax routes:
 ``` php
-    Route::get('ajax/arrets/{id}',   'ArretController@simple'); // build.js
-    Route::get('ajax/arrets',        'ArretController@arrets'); // build.js
-    Route::get('ajax/categories',    'CategorieController@categories'); // utils.js
+   Route::get('ajax/arrets/{id}',   'ArretController@simple'); // build.js
+   Route::get('ajax/arrets',        'ArretController@arrets'); // build.js
+   Route::get('ajax/categories',    'CategorieController@categories'); // utils.js
+```
+
+You have to implement upload routes for wysiwyg redactor.js
+
+```php
+   Route::post('uploadRedactor', 'UploadController@uploadRedactor');
+   Route::post('uploadJS', 'UploadController@uploadJS');
+   Route::get('imageJson/{id?}', ['uses' => 'UploadController@imageJson']);
+   Route::get('fileJson/{id?}', ['uses' => 'UploadController@fileJson']);
 ```
 
 ### Navigation menu items
