@@ -1,5 +1,34 @@
 $(function() {
 
+    var url = location.protocol + "//" + location.host+"/";
+
+    $('.colorpicker').colorPicker();
+
+    var $selects = $('.chooseCategorie');
+
+    $selects.each(function (index, value) {
+
+        var self = $(this);
+
+        jQuery.ajax({
+            dataType: 'json',
+            success: function(data)
+            {
+                var items = [];
+                // Loop over ajax data response
+                jQuery.each(data, function(key, val) {
+                    items.push('<option value="' + val.id + '">' + val.title + '</option>');
+                });
+                // Join all html, append to select and show the select
+                var all = items.join('');
+
+                self.append(all);
+            },
+            url: url + 'ajax/categories'
+        });
+
+    });
+
     $('body').on('click','.deleteContentBloc',function(event){
 
         var $this  = $(this);
@@ -11,7 +40,7 @@ $(function() {
         if (answer)
         {
             $.ajax({
-                url     : 'build/content/' + id,
+                url     : url + 'build/content/' + id,
                 data    : { id: id , _token : _token},
                 type    : "DELETE",
                 success : function(data) {
@@ -22,9 +51,22 @@ $(function() {
                 }
             });
         }
-
         return false;
+    });
 
+    $('body').on('click','.deleteAction',function(event){
+
+        var $this  = $(this);
+        var action = $this.data('action');
+        var what   = $this.data('what');
+
+        var what = (0 === what.length ? 'supprimer' : what);
+        var answer = confirm('Voulez-vous vraiment ' + what + ' : '+ action +' ?');
+
+        if (answer){
+            return true;
+        }
+        return false;
     });
 
     /**
@@ -64,7 +106,7 @@ $(function() {
         var $this  = $(this);
         var id     = $this.attr('rel');
         var w = $( document ).width();
-        w = w - 990;
+        w = w - 600 - w/4;
         var h = $( document ).height();
 
         $('.create_bloc').hide();

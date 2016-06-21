@@ -37,6 +37,10 @@ class newsletterServiceProvider extends ServiceProvider
             __DIR__.'/config/newsletter.php' => config_path('newsletter.php'),
         ]);
 
+        $this->publishes([
+            __DIR__.'/assets' => public_path('newsletter'),
+        ], 'public');
+
         $this->loadViewsFrom(__DIR__.'/views', 'newsletter');
 
         $this->publishes([

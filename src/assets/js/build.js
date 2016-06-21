@@ -4,21 +4,23 @@ var App = angular.module('newsletter', ["angular-redactor","flow","ngSanitize","
 
 }).config(function(redactorOptions) {
         /* Redactor wysiwyg editor configuration */
+
+        var url = location.protocol + "//" + location.host+"/";
+
         redactorOptions.minHeight        = 120;
         redactorOptions.maxHeight        = 240;
         redactorOptions.formattingTags   = ['p', 'h2', 'h3','h4'];
-        redactorOptions.fileUpload       = 'admin/uploadRedactor?_token=' + $('meta[name="_token"]').attr('content');
-        redactorOptions.imageUpload      = 'admin/uploadRedactor?_token=' + $('meta[name="_token"]').attr('content');
-        redactorOptions.imageManagerJson = 'admin/imageJson';
-        redactorOptions.fileManagerJson  = 'admin/fileJson';
-        redactorOptions.plugins          = ['imagemanager','filemanager'];
+        redactorOptions.fileUpload       = url + 'uploadRedactor?_token=' + $('meta[name="_token"]').attr('content');
+        redactorOptions.imageUpload      = url + 'uploadRedactor?_token=' + $('meta[name="_token"]').attr('content');
+        redactorOptions.imageManagerJson = url + 'imageJson';
+        redactorOptions.fileManagerJson  = url + 'fileJson';
+        redactorOptions.plugins          = ['imagemanager','filemanager','source','iconic','alignment'];
         redactorOptions.lang             = 'fr';
-        redactorOptions.buttons          = ['html','|','formatting','bold','italic','|','unorderedlist','orderedlist','outdent','indent','|','image','file','link','alignment'];
-
+        redactorOptions.buttons          = ['format','bold','italic','|','lists','|','image','file','link','alignment'];
 }).config(['flowFactoryProvider', function (flowFactoryProvider) {
         /* Flow image upload configuration */
         flowFactoryProvider.defaults = {
-            target: 'admin/uploadJS',
+            target:  url + 'uploadJS',
             testChunks:false,
             singleFile: true,
             query:{ _token : $("meta[name='_token']").attr('content') } ,
@@ -76,6 +78,12 @@ var App = angular.module('newsletter', ["angular-redactor","flow","ngSanitize","
     };
 });
 
+App.filter('to_trusted', ['$sce', function($sce){
+    return function(text) {
+        return $sce.trustAsHtml(text);
+    };
+}]);
+
 /**
  * Retrive all arrets blocs for bloc arret
  */
@@ -83,25 +91,20 @@ App.factory('Arrets', ['$http', '$q', function($http, $q) {
     return {
         query: function() {
             var deferred = $q.defer();
-            $http.get('/admin/ajax/arrets', { cache: true }).success(function(data) {
+            $http.get('/ajax/arrets', { cache: true }).success(function(data) {
                 deferred.resolve(data);
-            }).error(function(data) {
-                deferred.reject(data);
-            });
+            }).error(function(data) {deferred.reject(data);});
             return deferred.promise;
         },
         simple: function(id) {
             var deferred = $q.defer();
-            $http.get('/admin/ajax/arrets/'+ id).success(function(data) {
+            $http.get('/ajax/arrets/'+ id).success(function(data) {
                 deferred.resolve(data);
-            }).error(function(data) {
-                deferred.reject(data);
-            });
+            }).error(function(data) {deferred.reject(data);});
             return deferred.promise;
         }
     };
 }]);
-
 
 /**
  * Form controller, controls the form for creating new content blocs
@@ -119,7 +122,6 @@ App.controller("CreateController",['$scope','$http','myService', function($scope
     });
 
 }]);
-
 
 /**
  * Form controller, controls the form for creating new content blocs
@@ -156,8 +158,6 @@ App.controller("EditController",['$scope','$http','myService', function($scope,$
 
         if(idItem)
         {
-            console.log(idItem);
-
             $( "#sortGroupe_" + idItem ).sortable( "disable" );
             $( ".sortGroupe .groupe_rang").css({ "border":"none"});
         }
@@ -194,7 +194,7 @@ App.controller("EditController",['$scope','$http','myService', function($scope,$
                 $.ajax({
                     data: data,
                     type: 'POST',
-                    url: url+ 'admin/sortingGroup'
+                    url: url+ 'build/sortingGroup'
                 });
             }
         });
@@ -219,10 +219,9 @@ App.controller('SelectController', ['$scope','$http','Arrets','myService',functi
 
     /* function for refreshing the asynchronus retrival of blocs */
     this.refresh = function() {
-        Arrets.query()
-            .then(function (data) {
-                self.arrets = data;
-            });
+        Arrets.query().then(function (data) {
+            self.arrets = data;
+        });
     }
 
     if(self.arrets.length == 0){
@@ -249,8 +248,7 @@ App.controller('SelectController', ['$scope','$http','Arrets','myService',functi
         Arrets.simple(id)
             .then(function (data) {
                 self.arret = data;
-                self.categories = data.arrets_categories;
-
+                self.categories = data.categories;
                 //get substring
                 self.date = myService.convertDateArret(self.arret.pub_date)
             });
@@ -274,15 +272,10 @@ App.controller("MultiSelectionController",['$scope',"Arrets","myService", functi
 
     /* function for refreshing the asynchronus retrival of blocs */
     this.refresh = function() {
-
-        Arrets.query()
-            .then(function (data) {
-
-                self.items  = data;
-                //console.log(self.items);
-                self.models = myService.convertArret(self.items, self.models);
-
-            });
+        Arrets.query().then(function (data) {
+            self.items  = data;
+            self.models = myService.convertArret(self.items, self.models);
+        });
     }
 
     if(self.items.length == 0){
@@ -290,18 +283,15 @@ App.controller("MultiSelectionController",['$scope',"Arrets","myService", functi
     }
 
     this.dropped = function(item){
-
         angular.forEach(self.models.lists.B, function(value, key){
             value.isSelected = true;
         });
         angular.forEach(self.models.lists.A, function(value, key){
             value.isSelected = false;
         });
-
     };
 
 }]);
-
 
 App.directive('bindContent', function() {
     return {

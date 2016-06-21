@@ -11,7 +11,7 @@ $(function() {
             $.ajax({
                 data: data,
                 type: 'POST',
-                url: url+ 'admin/campagne/sorting'
+                url: url+ 'build/sorting'
             });
         }
     });

@@ -22,11 +22,11 @@ $ composer require designpond/newsletter
 
 This package is used with Laravel 5.2.
 Created for multiple websites of La Faculté de droit de l'Université de Neuchâtel.
-The content il meant to be used with arrets and categories content
+The content is meant to be used with arrets and categories content
 
 ### Configuration
 
-publish config files with php artisan vendor:publish
+Publish config files with php artisan vendor:publish
 In newsletter.php define building blocs to use if you enable "groupe" you have to enable "arret", both go with another!
 Define the models path.
 Add Mailjet credentials to your .env file

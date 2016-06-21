@@ -17,6 +17,7 @@
     width: 600px;
     padding:0 20px;
     background: #fff;
+    border: 1px solid #f5f5f5;
 }
 
 .component-menu{
@@ -422,4 +423,17 @@ div#fieldChooser,div#fieldChooser2 {
 
 .errorUpload{
     text-align: center !important;
+}
+
+.dataTables_filter{
+    float: right;
+}
+
+.dataTables_filter input{
+    margin-left: 5px;
+    margin-bottom: 15px;
+}
+
+.dataTables_wrapper .row{
+    margin-right: 0;
 }
