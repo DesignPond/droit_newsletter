@@ -39,7 +39,7 @@ class newsletterServiceProvider extends ServiceProvider
 
         $this->publishes([
             __DIR__.'/config/newsletter.php' => config_path('newsletter.php'),
-        ]);
+        ], 'config');
 
         $this->publishes([
             __DIR__.'/assets' => public_path('newsletter'),
