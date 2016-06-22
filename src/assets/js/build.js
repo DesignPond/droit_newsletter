@@ -17,6 +17,7 @@ var App = angular.module('newsletter', ["angular-redactor","flow","ngSanitize","
         redactorOptions.plugins          = ['imagemanager','filemanager','source','iconic','alignment'];
         redactorOptions.lang             = 'fr';
         redactorOptions.buttons          = ['format','bold','italic','|','lists','|','image','file','link','alignment'];
+    
 }).config(['flowFactoryProvider', function (flowFactoryProvider) {
         /* Flow image upload configuration */
         flowFactoryProvider.defaults = {
@@ -44,11 +45,8 @@ var App = angular.module('newsletter', ["angular-redactor","flow","ngSanitize","
 
             var months  = ["janvier", "février", "mars", "avril", "mai", "juin", "juillet", "août", "septembre", "octobre", "novembre", "décembre"];
             var newdate = convertdate.getDate();
-            if (newdate < 10)
-            {
-                newdate = "0" + newdate;
-            }
-            var output = newdate + " " + months[convertdate.getMonth()] + " " + convertdate.getFullYear();
+            newdate     = newdate < 10 ? "0" + newdate : newdate;
+            var output  = newdate + " " + months[convertdate.getMonth()] + " " + convertdate.getFullYear();
             return output;
         },
         convertArret: function(data, models){
@@ -89,16 +87,16 @@ App.filter('to_trusted', ['$sce', function($sce){
  */
 App.factory('Arrets', ['$http', '$q', function($http, $q) {
     return {
-        query: function() {
+        query: function(site_id) {
             var deferred = $q.defer();
-            $http.get('/ajax/arrets', { cache: true }).success(function(data) {
+            $http.get('/ajax/arrets/' + site_id, { cache: true }).success(function(data) {
                 deferred.resolve(data);
             }).error(function(data) {deferred.reject(data);});
             return deferred.promise;
         },
         simple: function(id) {
             var deferred = $q.defer();
-            $http.get('/ajax/arrets/'+ id).success(function(data) {
+            $http.get('/ajax/arret/'+ id).success(function(data) {
                 deferred.resolve(data);
             }).error(function(data) {deferred.reject(data);});
             return deferred.promise;
@@ -210,7 +208,7 @@ App.controller("EditController",['$scope','$http','myService', function($scope,$
  * Select arret controller, select an arret and display's it
  */
 App.controller('SelectController', ['$scope','$http','Arrets','myService',function($scope,$http,Arrets,myService){
-
+    
     /* assign empty values for arrets */
     this.arrets = [];
     this.arret  = false;
@@ -219,7 +217,11 @@ App.controller('SelectController', ['$scope','$http','Arrets','myService',functi
 
     /* function for refreshing the asynchronus retrival of blocs */
     this.refresh = function() {
-        Arrets.query().then(function (data) {
+
+        var site_id = $('#main').data('site');
+        site_id = !site_id ? null : site_id;
+
+        Arrets.query(site_id).then(function (data) {
             self.arrets = data;
         });
     }
@@ -249,7 +251,6 @@ App.controller('SelectController', ['$scope','$http','Arrets','myService',functi
             .then(function (data) {
                 self.arret = data;
                 self.categories = data.categories;
-                //get substring
                 self.date = myService.convertDateArret(self.arret.pub_date)
             });
     };
@@ -272,7 +273,11 @@ App.controller("MultiSelectionController",['$scope',"Arrets","myService", functi
 
     /* function for refreshing the asynchronus retrival of blocs */
     this.refresh = function() {
-        Arrets.query().then(function (data) {
+
+        var site_id = $('#main').data('site');
+        site_id = !site_id ? null : site_id;
+
+        Arrets.query(site_id).then(function (data) {
             self.items  = data;
             self.models = myService.convertArret(self.items, self.models);
         });

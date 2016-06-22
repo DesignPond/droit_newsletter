@@ -6,6 +6,9 @@ $(function() {
 
     var $selects = $('.chooseCategorie');
 
+    var site_id = $('#main').data('site');
+    site_id = !site_id ? null : site_id;
+
     $selects.each(function (index, value) {
 
         var self = $(this);
@@ -24,7 +27,7 @@ $(function() {
 
                 self.append(all);
             },
-            url: url + 'ajax/categories'
+            url: url + 'ajax/categories/' + site_id
         });
 
     });

@@ -7,7 +7,7 @@
                 <h3 style="text-align: left;font-family: sans-serif;">{{ $bloc->groupe->categorie->title }}</h3>
             </td>
             <td width="160" align="center" valign="top" class="resetMarge">
-                <img width="130" border="0" src="{{ asset('newsletter/pictos/'.$bloc->groupe->categorie->image) }}" alt="{{ $bloc->groupe->categorie->title }}" />
+                <img width="130" border="0" src="{{ asset(config('newsletter.path.categorie').$bloc->groupe->categorie->image) }}" alt="{{ $bloc->groupe->categorie->title }}" />
             </td>
         </tr><!-- space -->
     </table>
@@ -23,7 +23,7 @@
                         <h3 style="text-align: left;font-family: sans-serif;">{{ $arret->dumois ? 'Arrêt du mois : ' : '' }}{{ $arret->reference }} du {{ $arret->pub_date->formatLocalized('%d %B %Y') }}</h3>
                         <p class="abstract">{!! $arret->abstract !!}</p>
                         <div>{!! $arret->pub_text !!}</div>
-                        <p><a href="{{ asset('files/arrets/'.$arret->file) }}">Télécharger en pdf</a></p>
+                        <p><a href="{{ asset(config('newsletter.path.arret').$arret->file) }}">Télécharger en pdf</a></p>
                     </div>
                 </td>
                 <td width="25" height="1" class="resetMarge" valign="top" style="font-size: 1px; line-height: 1px;margin: 0;padding: 0;"></td><!-- space -->

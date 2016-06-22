@@ -1,5 +1,4 @@
-<form class="row form-horizontal" name="arretForm" method="post" action="<?php echo url('build/content'); ?>">
-    <?php echo csrf_field(); ?>
+<form class="row form-horizontal" name="arretForm" method="post" action="<?php echo url('build/content'); ?>">{{ csrf_field() }}
 
     <div class="col-md-7" id="StyleNewsletterCreate"></div>
     <div class="col-md-5 create_content_form">
@@ -32,8 +31,8 @@
                 </div>
                 <div class="clearfix"></div>
                 <div class="btn-group" style="margin-top: 10px;">
-                    <input type="hidden" value="<?php echo $bloc->id; ?>" name="type_id">
-                    <input type="hidden" value="<?php echo $campagne->id; ?>" name="campagne">
+                    <input type="hidden" value="{{ $bloc->id }}" name="type_id">
+                    <input type="hidden" value="{{ $campagne->id }}" name="campagne">
                     <button type="submit" class="btn btn-sm btn-success">Envoyer</button>
                     <button type="button" class="btn btn-sm btn-default cancelCreate">Annuler</button>
                 </div>

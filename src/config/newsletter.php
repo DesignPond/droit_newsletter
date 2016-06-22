@@ -12,6 +12,11 @@ return [
     ],
 
     /*
+    * Is used for mutiple sites
+    * */
+    'multi' => true,
+
+    /*
      * Is used with Arrets and Categories
      * */
     'components' => [
@@ -21,7 +26,7 @@ return [
         4 => 'Text et image à gauche',
         5 => 'Arrêt',
         6 => 'Text',
-       // 7 => 'Groupe'
+        7 => 'Groupe'
     ],
 
     /*
@@ -30,5 +35,23 @@ return [
     'models' => [
         'arret'  => 'App\Droit\Arret\Entities\Arret',
         'groupe' => 'App\Droit\Arret\Entities\Groupe',
+        'site'   => 'App\Droit\Site\Entities\Site',
+    ],
+
+    /*
+     * Define categories, arrets and analyses path
+     * */
+
+    'path' => [
+        'categorie' => 'files/pictos/',
+        'arret'     => 'files/arrets/',
+        'analyse'   => 'files/analyses/',
+        'author'    => 'files/authors/',
+    ],
+
+    'link' => [
+        'arret'     => url('jurisprudence'),
+        'analyse'   => url('jurisprudence')
     ]
+
 ];

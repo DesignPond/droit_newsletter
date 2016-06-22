@@ -3,9 +3,8 @@
       flow-fileError="handleErrorsUpload( $file, $message, $flow )"
       flow-files-submitted="$flow.upload()"
       class="row" name="blocForm" class="form-horizontal"
-      method="post" action="<?php echo url('build/content'); ?>">
+      method="post" action="<?php echo url('build/content'); ?>">{{ csrf_field() }}
 
-    <?php echo csrf_field(); ?>
     <div class="col-md-7" id="StyleNewsletterCreate">
         <!-- Bloc content-->
         <table border="0" width="560" align="center" cellpadding="0" cellspacing="0" class="resetTable">
@@ -20,14 +19,14 @@
                     <div class="thumbnail big" ng-show="$flow.files.length"><img flow-img="$flow.files[0]" /></div>
 
                     <p style="visibility: hidden;height: 1px;margin: 0;"><input type="text" class="uploadImage" name="image" value="{[{ $flow.files[0].name }]}"></p>
+
                     <p class="errorUpload bg-danger text-danger" style="display: none;"></p>
                 </td>
             </tr>
             <tr><td colspan="3" height="25"></td></tr>
             <tr>
-                <td valign="top" align="left" width="100%" class="resetMarge contentForm">
+                <td valign="top" align="center" width="100%" class="resetMarge contentForm">
                     <h2 ng-bind="create.titre"></h2>
-                    <div ng-bind-html="create.contenu | to_trusted"></div>
                 </td>
             </tr>
         </table>
@@ -39,20 +38,16 @@
             <div class="panel-body">
                 <div class="form-group">
                     <label>Titre</label>
-                    <input bind-content ng-model="create.titre" type="text" value="" required name="titre" class="form-control">
+                    <input bind-content ng-model="create.titre" type="text" value="" name="titre" class="form-control">
                 </div>
                 <div class="form-group">
                     <label>Ajouter un lien sur l'image</label>
                     <input type="text" value="" name="lien" class="form-control">
                 </div>
                 <div class="form-group">
-                    <label>Texte</label>
-                    <textarea bind-content redactor ng-model="create.contenu" required name="contenu" class="form-control" rows="10"></textarea>
-                </div>
-                <div class="form-group">
                     <div class="btn-group">
-                        <input type="hidden" value="<?php echo $campagne->id; ?>" name="campagne">
-                        <input type="hidden" value="<?php echo $bloc->id; ?>" name="type_id">
+                        <input type="hidden" value="{{ $bloc->id }}" name="type_id">
+                        <input type="hidden" value="{{ $campagne->id }}" name="campagne">
                         <button type="submit" class="btn btn-sm btn-success">Envoyer</button>
                         <button type="button" class="btn btn-sm btn-default cancelCreate">Annuler</button>
                     </div>

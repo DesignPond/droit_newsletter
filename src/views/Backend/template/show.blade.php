@@ -27,12 +27,37 @@
                                 <input type="text" required class="form-control" name="titre" value="{{ $newsletter->titre }}">
                             </div>
                         </div>
+
                         <div class="form-group">
-                            <label for="message" class="col-sm-3 control-label">Numéro de la liste</label>
+                            <label for="message" class="col-sm-3 control-label">Nom de la liste</label>
                             <div class="col-sm-5">
-                                <input value="{{ $newsletter->list_id }}" name="list_id" disabled=""> Liste d'envoi
+                                <select class="form-control" required name="list_id">
+                                    <option value="">Choix de la liste</option>
+                                    @if(!empty($lists))
+                                        @foreach($lists as $list)
+                                            <option {{ $newsletter->list_id == $list->ID ? 'selected' :'' }} value="{{ $list->ID }}">{{ $list->Name }}</option>
+                                        @endforeach
+                                    @endif
+                                </select>
                             </div>
                         </div>
+
+                        @if(config('newsletter.multi') && isset($sites))
+                            <div class="form-group">
+                                <label for="message" class="col-sm-3 control-label">Site</label>
+                                <div class="col-sm-3">
+                                    @if(!$sites->isEmpty())
+                                        <select class="form-control" name="site_id">
+                                            <option value="">Appartient au site</option>
+                                            @foreach($sites as $site)
+                                                <option {{ $newsletter->site_id == $site->id ? 'selected' : '' }} value="{{ $site->id }}">{{ $site->nom }}</option>
+                                            @endforeach
+                                        </select>
+                                    @endif
+                                </div>
+                            </div>
+                        @endif
+
                         <div class="form-group">
                             <label for="message" class="col-sm-3 control-label">Envoyé par</label>
                             <div class="col-sm-5">

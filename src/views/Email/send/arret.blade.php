@@ -10,7 +10,7 @@
                         <h3 style="text-align: left;font-family: sans-serif;">{{ $bloc->arret->reference }} du {{ $bloc->arret->pub_date->formatLocalized('%d %B %Y') }}</h3>
                         <p class="abstract">{!! $bloc->arret->abstract !!}</p>
                         <div>{!! $bloc->arret->pub_text !!}</div>
-                        <p><a href="{{ asset('files/arrets/'.$bloc->arret->file) }}">Télécharger en pdf</a></p>
+                        <p><a href="{{ asset(config('newsletter.path.arret').$bloc->arret->file) }}">Télécharger en pdf</a></p>
                     </td>
                     <td width="25" height="1" class="resetMarge" valign="top" style="font-size: 1px; line-height: 1px;margin: 0;padding: 0;"></td><!-- space -->
                     <td align="center" valign="top" width="160" class="resetMarge">

@@ -1,7 +1,7 @@
 @extends('newsletter::Backend.layouts.master')
 @section('content')
 
-<div id="main" ng-app="newsletter"><!-- main div for app-->
+<div id="main" ng-app="newsletter" data-site="{{ $campagne->newsletter->site_id }}"><!-- main div for app-->
 
     <div class="row">
         <div class="col-md-12">
@@ -43,7 +43,7 @@
                                 @foreach($campagne->content as $bloc)
                                     @if(in_array($bloc->type->id ,array_keys(config('newsletter.components'))))
                                         <div class="bloc_rang" id="bloc_rang_{{ $bloc->id }}" data-rel="{{ $bloc->id }}">
-                                            {!! view('newsletter::Backend.build.edit.'.$bloc->type->partial)->with(['bloc' => $bloc])->__toString() !!}
+                                            {!! view('newsletter::Backend.build.edit.'.$bloc->type->partial)->with(['bloc' => $bloc, 'campagne' => $campagne])->__toString() !!}
                                         </div>
                                     @endif
                                 @endforeach

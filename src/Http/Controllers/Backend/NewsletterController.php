@@ -46,9 +46,6 @@ class NewsletterController extends Controller
      */
     public function create()
     {
-        $lists = $this->mailjet->getAllLists();
-        $lists = (isset($lists->Data) ? $lists->Data : []);
-
         return view('newsletter::Backend.template.create')->with(['lists' => $lists]);
     }
 

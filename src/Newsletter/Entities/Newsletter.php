@@ -5,7 +5,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Newsletter extends Model {
 
-	protected $fillable = ['titre','from_name','from_email','return_email','unsuscribe','preview','list_id','color','logos','header','soutien'];
+	protected $fillable = ['titre','from_name','from_email','return_email','unsuscribe','preview','site_id','list_id','color','logos','header','soutien'];
 
     use SoftDeletes;
 
@@ -40,5 +40,13 @@ class Newsletter extends Model {
     public function sent()
     {
         return $this->hasMany('\designpond\newsletter\Newsletter\Entities\Newsletter_campagnes')->where('status','=','envoyé')->orderBy('updated_at','DESC');
+    }
+
+    public function site()
+    {
+        if(config('newsletter.multi'))
+        {
+            return $this->belongsTo(config('newsletter.models.site'));
+        }
     }
 }

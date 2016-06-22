@@ -30,8 +30,8 @@ class NewsletterCampagneEloquent implements NewsletterCampagneInterface{
 	public function find($id)
 	{
         $with = ['newsletter','content'];
-		$with = in_array(5,array_keys(config('newsletter.components'))) ? array_merge($with,['content.arret']) : $with;
-        $with = in_array(7,array_keys(config('newsletter.components'))) ? array_merge($with,['content.groupe.arrets','content.groupe.categorie']) : $with;
+		$with = in_array(5,array_keys(config('newsletter.components'))) ? array_merge($with,['content.arret','newsletter.site']) : $with;
+        $with = in_array(7,array_keys(config('newsletter.components'))) ? array_merge($with,['content.groupe.arrets','content.groupe']) : $with;
 
 		return $this->campagne->with($with)->find($id);
 	}
