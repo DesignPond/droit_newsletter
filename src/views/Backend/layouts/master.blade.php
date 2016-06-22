@@ -13,29 +13,12 @@
 
     <!-- Styles -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="<?php echo asset('css/jquery-ui.min.css');?>">
 
     @if(isset($isNewsletter))
-        <link rel="stylesheet" href="<?php echo asset('newsletter/css/backend/newsletter.css'); ?>">
-        <link rel="stylesheet" href="<?php echo asset('newsletter/css/frontend/newsletter.css'); ?>">
-        @if(isset($campagne))
-            <style type="text/css">
-                #StyleNewsletter h2, #StyleNewsletterCreate h2{
-                    color: {{ $campagne->newsletter->color }};
-                }
-                #StyleNewsletter .contentForm h3,
-                #StyleNewsletter .contentForm h4,
-                #StyleNewsletterCreate .contentForm h3,
-                #StyleNewsletterCreate .contentForm h4
-                {
-                    color: {{ $campagne->newsletter->color }};
-                }
-            </style>
-        @endif
+        @include('newsletter::Style.main', ['campagne' => isset($campagne) ? : null])
+        @include('newsletter::Style.redactor')
     @endif
-
-    <link rel="stylesheet" type="text/css" href="<?php echo asset('js/redactor/redactor.css'); ?>">
-    <link rel="stylesheet" type="text/css" href="<?php echo asset('js/redactor/alignment.css'); ?>">
-    <link rel="stylesheet" type="text/css" href="<?php echo asset('css/jquery-ui.min.css');?>">
 
 </head>
 <body id="app-layout">
@@ -52,7 +35,7 @@
             </button>
 
             <!-- Branding Image -->
-            <a class="navbar-brand" href="{{ url('/') }}">Laravel</a>
+            <a class="navbar-brand" href="{{ url('/') }}">Newsletter</a>
         </div>
 
         <div class="collapse navbar-collapse" id="app-navbar-collapse">
@@ -96,23 +79,19 @@
     </div>
 
     @yield('content')
+
 </div>
 
 <!-- JavaScripts -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.3/jquery.min.js" integrity="sha384-I6F5OKECLVtK/BL+8iSLDEHowSAfUo76ZL9+kGAgTRdiByINKJaqTPH/QVNS1VDb" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.js"></script>
-<script type="text/javascript" src="<?php echo asset('js/redactor/redactor.js');?>"></script>
-<script type="text/javascript" src="<?php echo asset('js/redactor/fr.js');?>"></script>
-<script type="text/javascript" src="<?php echo asset('js/redactor/source.js');?>"></script>
-<script type="text/javascript" src="<?php echo asset('js/redactor/imagemanager.js');?>"></script>
-<script type="text/javascript" src="<?php echo asset('js/redactor/filemanager.js');?>"></script>
-<script type="text/javascript" src="<?php echo asset('js/redactor/alignment.js');?>"></script>
-<script type="text/javascript" src="<?php echo asset('js/redactor/iconic.js');?>"></script>
 <script src="https://code.jquery.com/ui/1.11.4/jquery-ui.min.js"></script>
 
 @if(isset($isNewsletter))
-    @include('newsletter::Backend.build.scripts')
+    @include('newsletter::Script.redactor')
+    @include('newsletter::Script.angular')
+    @include('newsletter::Script.datatables')
+    @include('newsletter::Script.main')
 @endif
 
 </body>

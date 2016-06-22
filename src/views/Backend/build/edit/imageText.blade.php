@@ -36,7 +36,7 @@
         <tr>
             <td valign="top" align="left" width="100%" class="resetMarge contentForm">
                 <h2 ng-bind="edit.titre">{{ $bloc->titre }}</h2>
-                <div ng-bind-html="edit.contenu">{{ $bloc->contenu }}</div>
+                <div ng-bind-html="edit.contenu">{!! $bloc->contenu !!}</div>
             </td>
         </tr>
         <tr bgcolor="ffffff"><td colspan="3" height="35" class="blocBorder"></td></tr><!-- space -->

@@ -24,34 +24,28 @@ $ composer require designpond/newsletter
 
 This package is used with Laravel 5.2.
 Created for multiple websites of La Faculté de droit de l'Université de Neuchâtel.
-The content is meant to be used with arrets and categories content
+The content is meant to be used with arrets, analyse, categories and multi sites
 
 ### Configuration
 
-1. Publish  with php artisan vendor:publish
+1. Publish with php artisan vendor:publish
 
      **Required**
-     + Assets --tag=public 
+     + Assets --tag=assets 
      + Migrations --tag=migrations
      + Seeders --tag=seeds
      
      **Optionnal**
      + Views --tag=views
+     + Master layout --tag=layouts  
      + Config --tag=config  
  
 2. Migrate tables and seed types with **php artisan db:seed --class=TypeSeeder** 
 3. In newsletter.php define building blocs to use if you enable "groupe" you have to enable "arret", both go with another!
-4. Define the models path.
+4. Define the models and files/images paths.
 5. Add Mailjet credentials to your .env file
 
-### Usage with Arrets and Categories
-
-You have to Implement ajax routes:
-``` php
-   Route::get('ajax/arrets/{id}',   'ArretController@simple'); // build.js
-   Route::get('ajax/arrets',        'ArretController@arrets'); // build.js
-   Route::get('ajax/categories',    'CategorieController@categories'); // utils.js
-```
+### Usage simple
 
 You have to implement upload routes for wysiwyg redactor.js
 
@@ -60,6 +54,15 @@ You have to implement upload routes for wysiwyg redactor.js
    Route::post('uploadJS', 'UploadController@uploadJS');
    Route::get('imageJson/{id?}', ['uses' => 'UploadController@imageJson']);
    Route::get('fileJson/{id?}', ['uses' => 'UploadController@fileJson']);
+```
+
+### Usage with Arrets and Categories
+
+You have to Implement ajax routes:
+``` php
+   Route::get('ajax/arret/{id}', 'ArretController@simple'); // build.js
+   Route::get('ajax/arrets/{id?}',     'ArretController@arrets'); // build.js
+   Route::get('ajax/categories/{id?}', 'CategorieController@categories'); // utils.js
 ```
 
 ### Navigation menu items

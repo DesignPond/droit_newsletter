@@ -13,6 +13,7 @@ return [
 
     /*
     * Is used for mutiple sites
+    * You need an entitie/model named site with id and slug for folder path
     * */
     'multi' => true,
 
@@ -48,6 +49,10 @@ return [
         'analyse'   => 'files/analyses/',
         'author'    => 'files/authors/',
     ],
+
+    /*
+     * Define arrets and analyses links
+     * */
 
     'link' => [
         'arret'     => url('jurisprudence'),

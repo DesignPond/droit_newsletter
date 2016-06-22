@@ -5,8 +5,7 @@
     <div class="col-md-12">
         <div class="panel panel-primary">
 
-            <form action="{{ url('build/newsletter') }}" data-validate="parsley" method="POST" enctype="multipart/form-data" class="validate-form form-horizontal">
-                {!! csrf_field() !!}
+            <form action="{{ url('build/newsletter') }}"  method="POST" enctype="multipart/form-data" class="form-horizontal">{!! csrf_field() !!}
                 <div class="panel-body">
                     <h4>Ajouter une newsletter</h4>
                     <div class="form-group">

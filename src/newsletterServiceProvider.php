@@ -43,13 +43,17 @@ class newsletterServiceProvider extends ServiceProvider
 
         $this->publishes([
             __DIR__.'/assets' => public_path('newsletter'),
-        ], 'public');
+        ], 'assets');
 
         $this->loadViewsFrom(__DIR__.'/views', 'newsletter');
 
         $this->publishes([
             __DIR__.'/views' => resource_path('views/vendor/newsletter'),
-        ]);
+        ], 'views');
+
+        $this->publishes([
+            __DIR__.'/views/Backend/layouts' => resource_path('views/vendor/newsletter/Backend/layouts'),
+        ], 'layouts');
 
         $this->app['validator']->extend('emailconfirmed', function ($attribute, $value, $parameters)
         {

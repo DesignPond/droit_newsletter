@@ -1,0 +1,1 @@
+<script type="text/javascript" src="{{ asset('newsletter/js/jquery.dataTables.min.js') }}"></script>

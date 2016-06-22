@@ -53,14 +53,13 @@ class ImportWorker implements ImportWorkerInterface
         // path to xls
         $path = public_path('files/'.$file['name']);
 
-        // Read uploded xls
+        // Read uploaded xls
         $results = $this->read($path);
 
         // If the upload is not formatted correctly redirect back
         if(isset($results) && $results->isEmpty() || !array_has($results->toArray(), '0.email') )
         {
             throw new \designpond\newsletter\Exceptions\BadFormatException('Le fichier est vide ou mal formaté');
-            //return redirect()->back()->with(['status' => 'danger', 'message' => 'Le fichier est vide ou mal formaté']);
         }
 
         // we want to import in one of the newsletter subscriber's list
