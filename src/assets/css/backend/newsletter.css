@@ -437,3 +437,8 @@ div#fieldChooser,div#fieldChooser2 {
 .dataTables_wrapper .row{
     margin-right: 0;
 }
+
+.ui-state-highlight{
+    height:40px;
+    display: block;
+}
