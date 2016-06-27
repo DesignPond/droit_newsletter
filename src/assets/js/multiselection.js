@@ -114,7 +114,7 @@ App.factory('Arrets', ['$http', '$q', function($http, $q) {
     return {
         query: function() {
             var deferred = $q.defer();
-            $http.get('admin/ajax/arrets', { cache: true }).success(function(data) {
+            $http.get(window.__env + 'arrets', { cache: true }).success(function(data) {
                 deferred.resolve(data);
             }).error(function(data) {
                 deferred.reject(data);
@@ -123,7 +123,7 @@ App.factory('Arrets', ['$http', '$q', function($http, $q) {
         },
         simple: function(id) {
             var deferred = $q.defer();
-            $http.get('admin/ajax/arrets/'+ id).success(function(data) {
+            $http.get(window.__env + 'arrets/'+ id).success(function(data) {
                 deferred.resolve(data);
             }).error(function(data) {
                 deferred.reject(data);
@@ -141,7 +141,7 @@ App.factory('Analyses', ['$http', '$q', function($http, $q) {
     return {
         simple: function(id) {
             var deferred = $q.defer();
-            $http.get('admin/ajax/analyses/'+ id).success(function(data) {
+            $http.get(window.__env + 'analyses/'+ id).success(function(data) {
                 deferred.resolve(data);
             }).error(function(data) {
                 deferred.reject(data);
@@ -158,7 +158,7 @@ App.factory('Categories', ['$http', '$q', function($http, $q) {
     return {
         query: function() {
             var deferred = $q.defer();
-            $http.get('admin/ajax/categories').success(function(data) {
+            $http.get( window.__env + 'categories').success(function(data) {
                 deferred.resolve(data);
             }).error(function(data) {
                 deferred.reject(data);
@@ -253,27 +253,13 @@ App.controller("MultiSelectionController",['$scope',"$filter","Categories","Arre
         });
     }
 
-    this.showImageName = function (needle) {
-
-        var haystack = ['CO','CCT','LEg','LTr','Fonction publique'];
-
-        var length = haystack.length;
-
-        for(var i = 0; i < length; i++) {
-            if(haystack[i] == needle) return true;
-        }
-        return false;
-    }
-
     this.dropped = function(item){
-
         angular.forEach(self.models.lists.B, function(value, key){
             value.isSelected = true;
         });
         angular.forEach(self.models.lists.A, function(value, key){
             value.isSelected = false;
         });
-
     };
 
 }]);

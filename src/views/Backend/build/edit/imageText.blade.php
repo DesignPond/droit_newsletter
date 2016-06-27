@@ -18,9 +18,9 @@
         <tr>
             <td valign="top" align="center" width="100%" class="resetMarge">
                 <div class="uploadBtn" ng-if="!notedited">
-                    <span class="btn btn-xs btn-info" ng-if="edit.onedit( {{ $bloc->id }} )" flow-btn flow-attrs="{accept:'image/*'}">Changer image</span>
+                    <span class="btn btn-xs btn-info"    ng-if="edit.onedit( {{ $bloc->id }} )" flow-btn flow-attrs="{accept:'image/*'}">Changer image</span>
                     <span class="btn btn-xs btn-warning" ng-show="$flow.files.length" flow-btn flow-attrs="{accept:'image/*'}">Changer</span>
-                    <span class="btn btn-xs btn-danger" ng-show="$flow.files.length" ng-click="$flow.cancel()">Supprimer</span>
+                    <span class="btn btn-xs btn-danger"  ng-show="$flow.files.length" ng-click="$flow.cancel()">Supprimer</span>
                 </div>
                 <div class="thumbnail big" ng-hide="$flow.files.length">
                     <img flow-img="$flow.files[0]" ng-if="notedited"/>

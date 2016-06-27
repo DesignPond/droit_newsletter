@@ -12,12 +12,12 @@ Route::group(['middleware' => ['web']], function () {
     Route::post('subscribe', 'designpond\newsletter\Http\Controllers\Frontend\InscriptionController@subscribe');
     Route::get('activation/{token}', 'designpond\newsletter\Http\Controllers\Frontend\InscriptionController@activation');
 
-    Route::group(['prefix' => 'display'], function () {
+    Route::get('campagne/{id}', 'designpond\newsletter\Http\Controllers\Frontend\CampagneController@show');
 
+    Route::group(['prefix' => 'display'], function () {
         Route::resource('newsletter', 'designpond\newsletter\Http\Controllers\Frontend\NewsletterController');
         Route::get('newsletter/campagne/{id}', 'designpond\newsletter\Http\Controllers\Frontend\NewsletterController@campagne');
         Route::resource('campagne', 'designpond\newsletter\Http\Controllers\Frontend\CampagneController');
-
     });
 
     /*

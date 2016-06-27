@@ -27,7 +27,7 @@ $(function() {
 
                 self.append(all);
             },
-            url: url + 'ajax/categories/' + site_id
+            url: window.__env.ajaxUrl + 'categories/' + site_id
         });
 
     });
@@ -43,7 +43,7 @@ $(function() {
         if (answer)
         {
             $.ajax({
-                url     : url + 'build/content/' + id,
+                url     : __env.adminUrl + 'build/content/' + id,
                 data    : { id: id , _token : _token},
                 type    : "DELETE",
                 success : function(data) {
@@ -82,7 +82,7 @@ $(function() {
 
         $('.create_bloc').hide();
         $('.edit_content_form').hide();
-        $this.hide();
+        //$this.hide();
 
         $('#edit_'+id).show();
 

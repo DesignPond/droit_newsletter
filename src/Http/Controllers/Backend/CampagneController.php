@@ -56,8 +56,7 @@ class CampagneController extends Controller
 
         return view('newsletter::Backend.campagne.show')->with(['campagne' => $campagne, 'blocs' => $blocs]);
     }
-
-
+    
     /**
      * Show the form for editing the campagne.
      * GET /admin/campagne/{id}/edit

@@ -28,7 +28,7 @@ The content is meant to be used with arrets, analyse, categories and multi sites
 
 ### Configuration
 
-1. Publish with php artisan vendor:publish
++ Publish with php artisan vendor:publish
 
      **Required**
      + Assets --tag=assets 
@@ -37,15 +37,17 @@ The content is meant to be used with arrets, analyse, categories and multi sites
      
      **Optionnal**
      + Views --tag=views
-     + Master layout --tag=layouts  
-     + Config --tag=config  
- 
-2. Migrate tables and seed types with **php artisan db:seed --class=TypeSeeder** 
-3. In newsletter.php define building blocs to use if you enable "groupe" you have to enable "arret", both go with another!
-4. Define the models and files/images paths.
-5. Add Mailjet credentials to your .env file
+     + Master layout --tag=layouts
+     + Config --tag=config
+     
++ In newsletter.php define building blocs to use if you enable "groupe" you have to enable "arret", both go with another!
++ Define the models and files/images paths.
++ Add Mailjet credentials to your .env file
++ Migrate tables and seed types with **php artisan db:seed --class=TypeSeeder**
 
 ### Usage simple
+
+If you want routes with prefix set it in **env.js** in **newsletter/js**
 
 You have to implement upload routes for wysiwyg redactor.js
 
@@ -60,9 +62,9 @@ You have to implement upload routes for wysiwyg redactor.js
 
 You have to Implement ajax routes:
 ``` php
-   Route::get('ajax/arret/{id}', 'ArretController@simple'); // build.js
-   Route::get('ajax/arrets/{id?}',     'ArretController@arrets'); // build.js
-   Route::get('ajax/categories/{id?}', 'CategorieController@categories'); // utils.js
+   Route::get('arret/{id}', 'ArretController@simple'); // build.js
+   Route::get('arrets/{id?}',     'ArretController@arrets'); // build.js
+   Route::get('categories/{id?}', 'CategorieController@categories'); // utils.js
 ```
 
 ### Navigation menu items

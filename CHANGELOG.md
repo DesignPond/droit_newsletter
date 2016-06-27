@@ -2,6 +2,11 @@
 
 All Notable changes to `newsletter` will be documented in this file.
 
+## 1.0.3 (released 2016-06-27)
+
+### Added
+- Prefix for routes
+
 ## 1.0.1 (released 2016-06-22)
 
 ### Added

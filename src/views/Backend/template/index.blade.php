@@ -75,7 +75,7 @@
                                                             <form action="{{ url('build/campagne/send') }}" id="sendCampagneForm" method="POST">
                                                                 {!! csrf_field() !!}
                                                                 <input name="id" value="{{ $campagne->id }}" type="hidden">
-                                                                <a href="javascript:;" data-campagne="{{ $campagne->id }}" class="btn btn-sm btn-warning btn-block" id="bootbox-demo-3">
+                                                                <a href="javascript:;" data-campagne="{{ $campagne->id }}" class="btn btn-sm btn-warning btn-block" id="bootbox">
                                                                     <i class="fa fa-exclamation"></i> &nbsp;Envoyer la campagne
                                                                 </a>
                                                             </form>

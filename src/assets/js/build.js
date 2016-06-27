@@ -1,30 +1,33 @@
+
+var url  = location.protocol + "//" + location.host+"/";
+
 var App = angular.module('newsletter', ["angular-redactor","flow","ngSanitize","dndLists"] , function($interpolateProvider)
 {
     $interpolateProvider.startSymbol('{[{').endSymbol('}]}');
+});
 
-}).config(function(redactorOptions) {
+App.constant('__env', window.__env);
+
+App.config(function(redactorOptions,__env) {
         /* Redactor wysiwyg editor configuration */
-
-        var url = location.protocol + "//" + location.host+"/";
-
         redactorOptions.minHeight        = 120;
         redactorOptions.maxHeight        = 240;
         redactorOptions.formattingTags   = ['p', 'h2', 'h3','h4'];
-        redactorOptions.fileUpload       = url + 'uploadRedactor?_token=' + $('meta[name="_token"]').attr('content');
-        redactorOptions.imageUpload      = url + 'uploadRedactor?_token=' + $('meta[name="_token"]').attr('content');
-        redactorOptions.imageManagerJson = url + 'imageJson';
-        redactorOptions.fileManagerJson  = url + 'fileJson';
+        redactorOptions.fileUpload       = __env.adminUrl + 'uploadRedactor?_token=' + $('meta[name="_token"]').attr('content');
+        redactorOptions.imageUpload      = __env.adminUrl + 'uploadRedactor?_token=' + $('meta[name="_token"]').attr('content');
+        redactorOptions.imageManagerJson = __env.adminUrl + 'imageJson';
+        redactorOptions.fileManagerJson  = __env.adminUrl + 'fileJson';
         redactorOptions.plugins          = ['imagemanager','filemanager','source','iconic','alignment'];
         redactorOptions.lang             = 'fr';
         redactorOptions.buttons          = ['format','bold','italic','|','lists','|','image','file','link','alignment'];
     
-}).config(['flowFactoryProvider', function (flowFactoryProvider) {
+}).config(['flowFactoryProvider','__env', function (flowFactoryProvider,__env) {
         /* Flow image upload configuration */
         flowFactoryProvider.defaults = {
-            target:  url + 'uploadJS',
-            testChunks:false,
+            target    :  __env.adminUrl + 'uploadJS',
+            testChunks: false,
             singleFile: true,
-            query:{ _token : $("meta[name='_token']").attr('content') } ,
+            query     : { _token : $("meta[name='_token']").attr('content') } ,
             permanentErrors: [404, 500, 501],
             simultaneousUploads: 4
         };
@@ -85,18 +88,18 @@ App.filter('to_trusted', ['$sce', function($sce){
 /**
  * Retrive all arrets blocs for bloc arret
  */
-App.factory('Arrets', ['$http', '$q', function($http, $q) {
+App.factory('Arrets', ['$http', '$q','__env', function($http, $q,__env) {
     return {
         query: function(site_id) {
             var deferred = $q.defer();
-            $http.get('/ajax/arrets/' + site_id, { cache: true }).success(function(data) {
+            $http.get( __env.ajaxUrl + 'arrets/' + site_id, { cache: true }).success(function(data) {
                 deferred.resolve(data);
             }).error(function(data) {deferred.reject(data);});
             return deferred.promise;
         },
         simple: function(id) {
             var deferred = $q.defer();
-            $http.get('/ajax/arret/'+ id).success(function(data) {
+            $http.get( __env.ajaxUrl + 'arret/'+ id).success(function(data) {
                 deferred.resolve(data);
             }).error(function(data) {deferred.reject(data);});
             return deferred.promise;
@@ -124,7 +127,7 @@ App.controller("CreateController",['$scope','$http','myService', function($scope
 /**
  * Form controller, controls the form for creating new content blocs
  */
-App.controller("EditController",['$scope','$http','myService', function($scope,$http,myService){
+App.controller("EditController",['$scope','$http','myService','__env', function($scope,$http,myService,__env){
 
     $scope.$on('flow::fileError', function (event, $flow, flowFile) {
         event.preventDefault();//prevent file from uploading
@@ -167,9 +170,6 @@ App.controller("EditController",['$scope','$http','myService', function($scope,$
 
     this.editContent = function(idItem){
 
-        var w = $( document ).width();
-        w = w - 890;
-
         myService.setBloc(0);
 
         $scope.editable = idItem;
@@ -177,7 +177,7 @@ App.controller("EditController",['$scope','$http','myService', function($scope,$
         $('.edit_content_form').hide();
 
         var content = $('#bloc_rang_'+idItem);
-        content.find('.edit_content_form').css("width",w).show();
+        content.find('.edit_content_form').css("width",600).show();
 
         $( "#sortable" ).sortable( "disable" );
         content.find('.finishEdit').show();
@@ -192,7 +192,7 @@ App.controller("EditController",['$scope','$http','myService', function($scope,$
                 $.ajax({
                     data: data,
                     type: 'POST',
-                    url: url+ 'build/sortingGroup'
+                    url: url + 'build/sortingGroup'
                 });
             }
         });
@@ -207,7 +207,7 @@ App.controller("EditController",['$scope','$http','myService', function($scope,$
 /**
  * Select arret controller, select an arret and display's it
  */
-App.controller('SelectController', ['$scope','$http','Arrets','myService',function($scope,$http,Arrets,myService){
+App.controller('SelectController', ['$scope','$http','Arrets','myService','__env',function($scope,$http,Arrets,myService,__env){
     
     /* assign empty values for arrets */
     this.arrets = [];
@@ -258,7 +258,7 @@ App.controller('SelectController', ['$scope','$http','Arrets','myService',functi
 }]);
 
 
-App.controller("MultiSelectionController",['$scope',"Arrets","myService", function($scope,Arrets,myService){
+App.controller("MultiSelectionController",['$scope',"Arrets","myService",'__env', function($scope,Arrets,myService,__env){
 
     /* capture this (the controller scope ) as self */
     var self = this;

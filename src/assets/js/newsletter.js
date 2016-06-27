@@ -1,23 +1,24 @@
 
 $(function() {
 
+    if(window){
+        Object.assign(__env, window.__env);
+    }
+
     $('.sendEmailNewsletter').click(function(){
 
         var campagneId = $(this).data('campagne');
         var message    = $('#messageAlert');
 
         bootbox.prompt("Envoyer à cette adresse email", function(result) {
-            if (result === null) {
-                alert('Vous n\'avez pas indiqué d\'adresse email');
-            }
+            if (result === null) { alert('Vous n\'avez pas indiqué d\'adresse email'); }
             else
             {
                 message.find('.alert').addClass('alert-warning');
-                message.find('.alert p').html('Email de test en cours d\'envoi &nbsp;<i class="fa fa-spinner fa-spin"></i>');
-                message.show();
+                message.find('.alert p').html('Email de test en cours d\'envoi &nbsp;<i class="fa fa-spinner fa-spin"></i>').show();
 
                 $.ajax({
-                    url     : 'admin/campagne/test',
+                    url     : __env.__env.adminUrl + 'campagne/test',
                     data    : { id: campagneId , email: result, send_type : 'ajax', _token : $("meta[name='_token']").attr('content')},
                     type    : "POST",
                     success : function(data) {
@@ -41,21 +42,17 @@ $(function() {
         });
     });
 
-    $('#bootbox-demo-3').click(function(){
+    $('#bootbox').click(function(){
         var campagneId = $(this).data('campagne');
         var sujet      = '';
 
-        /**
-         * Get campagne infos
-         */
-        $.get('admin/campagne/simple/' + campagneId , function( campagne ) {
+        /*  Get campagne infos */
+        $.get( window.__env.adminUrl + 'campagne/simple/' + campagneId , function( campagne ) {
             sujet = campagne.sujet;
             console.log(sujet);
         }) .always(function() {
 
-            /**
-             * Modal
-             */
+            /*  Modal */
             bootbox.dialog({
                 message: "Etes-vous sûr de vouloir envoyer la campagne : <strong>" + sujet + "</strong>?",
                 title: "Envoyer la campagne",

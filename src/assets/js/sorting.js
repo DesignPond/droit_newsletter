@@ -19,7 +19,7 @@ $(function() {
             $.ajax({
                 data: data,
                 type: 'POST',
-                url: url+ 'build/sorting'
+                url: url + 'build/sorting'
             });
         }
     });

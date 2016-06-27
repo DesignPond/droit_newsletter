@@ -2,7 +2,6 @@
 
 use designpond\newsletter\Newsletter\Repo\NewsletterContentInterface;
 use designpond\newsletter\Newsletter\Entities\Newsletter_contents as M;
-
 use designpond\newsletter\Newsletter\Helper\Helper;
 
 class NewsletterContentEloquent implements NewsletterContentInterface{
@@ -130,7 +129,8 @@ class NewsletterContentEloquent implements NewsletterContentInterface{
         // if we changed the lien
         if(isset($data['lien']))
         {
-            $contents->lien = $this->helper->sanitizeUrl($data['lien']);
+            $helper = new Helper();
+            $contents->lien = $helper->sanitizeUrl($data['lien']);
         }
 
         $contents->updated_at = date('Y-m-d G:i:s');
