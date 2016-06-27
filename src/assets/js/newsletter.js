@@ -1,5 +1,6 @@
+jQuery(function($){
 
-$(function() {
+    var url = location.protocol + "//" + location.host+"/";
 
     if(window){
         Object.assign(__env, window.__env);
@@ -11,14 +12,17 @@ $(function() {
         var message    = $('#messageAlert');
 
         bootbox.prompt("Envoyer à cette adresse email", function(result) {
-            if (result === null) { alert('Vous n\'avez pas indiqué d\'adresse email'); }
+            if (result === null) {
+                alert('Vous n\'avez pas indiqué d\'adresse email');
+            }
             else
             {
+                message.show();
                 message.find('.alert').addClass('alert-warning');
                 message.find('.alert p').html('Email de test en cours d\'envoi &nbsp;<i class="fa fa-spinner fa-spin"></i>').show();
 
                 $.ajax({
-                    url     : __env.__env.adminUrl + 'campagne/test',
+                    url     : url + 'build/send/test',
                     data    : { id: campagneId , email: result, send_type : 'ajax', _token : $("meta[name='_token']").attr('content')},
                     type    : "POST",
                     success : function(data) {
@@ -33,11 +37,9 @@ $(function() {
                                     $(this).remove();
                                 });
                             }, 3500);
-
                         }
                     }
                 });
-
             }
         });
     });
@@ -47,7 +49,7 @@ $(function() {
         var sujet      = '';
 
         /*  Get campagne infos */
-        $.get( window.__env.adminUrl + 'campagne/simple/' + campagneId , function( campagne ) {
+        $.get( url + 'build/campagne/simple/' + campagneId , function( campagne ) {
             sujet = campagne.sujet;
             console.log(sujet);
         }) .always(function() {
@@ -65,8 +67,7 @@ $(function() {
                         }
                     },
                     main: {
-                        label: "Annuler",
-                        className: "btn-default"
+                        label: "Annuler", className: "btn-default"
                     }
                 }
             });

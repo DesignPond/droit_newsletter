@@ -43,7 +43,7 @@ $(function() {
         if (answer)
         {
             $.ajax({
-                url     : __env.adminUrl + 'build/content/' + id,
+                url     : url + 'build/content/' + id,
                 data    : { id: id , _token : _token},
                 type    : "DELETE",
                 success : function(data) {
