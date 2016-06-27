@@ -13,7 +13,7 @@
             @if(!$newsletter->campagnes->isEmpty())
                 <ul class="list-group">
                     @foreach($newsletter->campagnes as $campagne)
-                        <a href="{{ url('newsletter/campagne/'.$campagne->id) }}" class="list-group-item {{ Request::is('newsletter/campagne/'.$campagne->id) ? 'active' : '' }}">{{ $campagne->sujet }}</a>
+                        <a href="{{ url('display/newsletter/campagne/'.$campagne->id) }}" class="list-group-item {{ Request::is('display/newsletter/campagne/'.$campagne->id) ? 'active' : '' }}">{{ $campagne->sujet }}</a>
                     @endforeach
                 </ul>
             @else

@@ -2,14 +2,24 @@
 
 Route::group(['middleware' => ['web']], function () {
 
-    Route::resource('newsletter', 'designpond\newsletter\Http\Controllers\Frontend\NewsletterController');
-    Route::get('newsletter/campagne/{id}', 'designpond\newsletter\Http\Controllers\Frontend\NewsletterController@campagne');
-    Route::resource('campagne', 'designpond\newsletter\Http\Controllers\Frontend\CampagneController');
-
+    /*
+    |--------------------------------------------------------------------------
+    | designpond\newsletter\Http\Controllers\Frontend Routes
+    |--------------------------------------------------------------------------
+    */
 
     Route::post('unsubscribe', 'designpond\newsletter\Http\Controllers\Frontend\InscriptionController@unsubscribe');
     Route::post('subscribe', 'designpond\newsletter\Http\Controllers\Frontend\InscriptionController@subscribe');
     Route::get('activation/{token}', 'designpond\newsletter\Http\Controllers\Frontend\InscriptionController@activation');
+
+    Route::group(['prefix' => 'display'], function () {
+
+        Route::resource('newsletter', 'designpond\newsletter\Http\Controllers\Frontend\NewsletterController');
+        Route::get('newsletter/campagne/{id}', 'designpond\newsletter\Http\Controllers\Frontend\NewsletterController@campagne');
+        Route::resource('campagne', 'designpond\newsletter\Http\Controllers\Frontend\CampagneController');
+
+    });
+
     /*
     |--------------------------------------------------------------------------
     | designpond\newsletter\Http\Controllers\Backend Routes

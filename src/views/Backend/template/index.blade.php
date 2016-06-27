@@ -45,9 +45,10 @@
                                                <th class="col-md-2">Sujet</th>
                                                <th class="col-md-3">Auteurs</th>
                                                <th class="col-md-1">Status</th>
-                                               <th class="col-md-3"></th>
-                                               <th class="col-md-2"></th>
                                                <th class="col-md-1"></th>
+                                               <th class="col-md-2"></th>
+                                               <th class="col-md-2"></th>
+                                               <th class="col-md-1" style="width: 40px;"></th>
                                            </tr>
                                        </thead>
                                        <tbody>
@@ -63,13 +64,11 @@
                                                         @endif
                                                     </td>
                                                     <td>
-                                                        <div class="btn-group">
-                                                            <a class="btn btn-info btn-sm" href="{{ url('build/campagne/'.$campagne->id) }}">Composer</a>
-                                                            @if($campagne->status == 'envoyé')
-                                                                <a class="btn btn-primary btn-sm" href="{{ url('build/statistics/'.$campagne->id) }}">Stats</a>
-                                                                <a href="javascript:;" class="btn btn-default btn-sm sendEmailNewsletter" data-campagne="{{ $campagne->id }}">Envoyer par email</a>
-                                                            @endif
-                                                        </div>
+                                                        <a class="btn btn-info btn-sm btn-block" href="{{ url('build/campagne/'.$campagne->id) }}">Composer</a>
+                                                        @if($campagne->status == 'envoyé')
+                                                            <a class="btn btn-primary btn-sm btn-block" href="{{ url('build/statistics/'.$campagne->id) }}">Stats</a>
+                                                            <a href="javascript:;" class="btn btn-default btn-sm btn-block sendEmailNewsletter" data-campagne="{{ $campagne->id }}">Envoyer par email</a>
+                                                        @endif
                                                     </td>
                                                     <td>
                                                         @if($campagne->status == 'brouillon')
@@ -81,9 +80,12 @@
                                                                 </a>
                                                             </form>
                                                         @else
-                                                            <?php setlocale(LC_ALL, 'fr_FR.UTF-8');  ?>
                                                            Envoyé le {{ $campagne->updated_at->formatLocalized('%d %b %Y') }} à {{ $campagne->updated_at->toTimeString() }}
                                                         @endif
+                                                    </td>
+                                                    <td>
+                                                        <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#sendToList">Envoyer à une liste</button>
+                                                        @include('newsletter::Backend.template.partials.send', ['campagne' => $campagne])
                                                     </td>
                                                     <td class="text-right">
                                                         <form action="{{ url('build/campagne/'.$campagne->id) }}" method="POST">

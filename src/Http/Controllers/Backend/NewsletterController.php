@@ -9,18 +9,21 @@ use App\Http\Controllers\Controller;
 use designpond\newsletter\Newsletter\Repo\NewsletterInterface;
 use designpond\newsletter\Newsletter\Service\UploadWorker;
 use designpond\newsletter\Newsletter\Worker\MailjetInterface;
+use designpond\newsletter\Newsletter\Repo\NewsletterListInterface;
 
 class NewsletterController extends Controller
 {
     protected $newsletter;
     protected $upload;
     protected $mailjet;
+    protected $list;
 
-    public function __construct(NewsletterInterface $newsletter, UploadWorker $upload, MailjetInterface $mailjet )
+    public function __construct(NewsletterInterface $newsletter, UploadWorker $upload, MailjetInterface $mailjet, NewsletterListInterface $list )
     {
         $this->newsletter = $newsletter;
         $this->upload     = $upload;
         $this->mailjet    = $mailjet;
+        $this->list       = $list;
 
         setlocale(LC_ALL, 'fr_FR.UTF-8');
 
@@ -35,8 +38,9 @@ class NewsletterController extends Controller
     public function index()
     {
         $newsletters = $this->newsletter->getAll();
+        $listes      = $this->list->getAll();
 
-        return view('newsletter::Backend.template.index')->with(['newsletters' => $newsletters]);
+        return view('newsletter::Backend.template.index')->with(['newsletters' => $newsletters, 'listes' => $listes]);
     }
 
     /**

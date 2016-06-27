@@ -100,7 +100,11 @@ class InscriptionController extends Controller
             throw new \designpond\newsletter\Exceptions\SubscribeUserException('Erreur synchronisation email vers mailjet');
         }
 
-        $this->subscription->delete($abonne->email);
+        // Delete person only if no subscription left
+        if($abonne->subscriptions()->isEmpty())
+        {
+            $this->subscription->delete($abonne->email);
+        }
 
         return redirect('/')->with(array('status' => 'success', 'message' => '<strong>Vous avez été désinscrit</strong>'));
     }

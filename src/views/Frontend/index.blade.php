@@ -8,7 +8,7 @@
             @if(!$newsletters->isEmpty())
                 <ul class="list-group">
                     @foreach($newsletters as $newsletter)
-                        <a href="{{ url('newsletter/'.$newsletter->id) }}" class="list-group-item {{ Request::is('newsletter/'.$newsletter->id) ? 'active' : '' }}">{{ $newsletter->titre }}</a>
+                        <a href="{{ url('display/newsletter/'.$newsletter->id) }}" class="list-group-item {{ Request::is('v/newsletter/'.$newsletter->id) ? 'active' : '' }}">{{ $newsletter->titre }}</a>
                     @endforeach
                 </ul>
             @else
@@ -18,4 +18,23 @@
         </div>
     </div><!--END CONTENT-->
 
+    <div class="row">
+        <div class="col-md-12 col-xs-12">
+            <h2>Subscribe</h2>
+            @if(!$newsletters->isEmpty())
+                <h4>{{ $newsletter->titre }}</h4>
+                @include('newsletter::Frontend.partials.subscribe', ['newsletter' => $newsletter])
+            @endif
+        </div>
+    </div><!--END CONTENT-->
+
+    <div class="row">
+        <div class="col-md-12 col-xs-12">
+            <h2>Unsubscribe</h2>
+            @if(!$newsletters->isEmpty())
+                <h4>{{ $newsletter->titre }}</h4>
+                @include('newsletter::Frontend.partials.unsubscribe', ['newsletter' => $newsletter])
+            @endif
+        </div>
+    </div><!--END CONTENT-->
 @stop
