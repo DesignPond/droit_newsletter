@@ -101,7 +101,7 @@ class InscriptionController extends Controller
         }
 
         // Delete person only if no subscription left
-        if($abonne->subscriptions()->isEmpty())
+        if($abonne->subscriptions->isEmpty())
         {
             $this->subscription->delete($abonne->email);
         }

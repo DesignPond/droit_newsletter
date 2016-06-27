@@ -81,7 +81,6 @@ class InscriptionTest extends Orchestra\Testbench\TestCase
         $response = $this->call('POST', 'subscribe', ['email' => 'info@leschaud.ch']);
 
         $this->assertRedirectedTo('/');
-
     }
 
     /**
@@ -90,18 +89,33 @@ class InscriptionTest extends Orchestra\Testbench\TestCase
      */
     public function testRemoveSubscription()
     {
-
         $user = factory(designpond\newsletter\Newsletter\Entities\Newsletter_users::class)->make();
-        $user->subscriptions = factory(designpond\newsletter\Newsletter\Entities\Newsletter_subscriptions::class)->make();
+        $sub1 = factory(designpond\newsletter\Newsletter\Entities\Newsletter_subscriptions::class)->make(['newsletter_id' => 1]);
+        $sub2 = factory(designpond\newsletter\Newsletter\Entities\Newsletter_subscriptions::class)->make(['newsletter_id' => 2]);
+
+        $user->subscriptions = collect([$sub1,$sub2]);
 
         $this->subscription->shouldReceive('findByEmail')->once()->andReturn($user);
-        $this->subscription->shouldReceive('delete')->once();
+        //$this->subscription->shouldReceive('delete')->once();
         $this->worker->shouldReceive('removeContact')->once()->andReturn(true);
 
-        $response = $this->call('POST', 'unsubscribe', ['email' => 'info@leschaud.ch']);
+        $response = $this->call('POST', 'unsubscribe', ['newsletter_id' => 1, 'email' => 'info@leschaud.ch']);
 
         $this->assertRedirectedTo('/');
+    }
 
+    public function testRemoveAllSubscription()
+    {
+        $user = factory(designpond\newsletter\Newsletter\Entities\Newsletter_users::class)->make();
+
+        $user->subscriptions = collect([]);
+        $this->subscription->shouldReceive('findByEmail')->once()->andReturn($user);
+        $this->worker->shouldReceive('removeContact')->once()->andReturn(true);
+        $this->subscription->shouldReceive('delete')->once();
+        
+        $response = $this->call('POST', 'unsubscribe', ['newsletter_id' => 1, 'email' => 'info@leschaud.ch']);
+
+        $this->assertRedirectedTo('/');
     }
 
     /**

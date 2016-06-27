@@ -56,6 +56,17 @@ class CampagneController extends Controller
 
         return view('newsletter::Backend.campagne.show')->with(['campagne' => $campagne, 'blocs' => $blocs]);
     }
+
+    /**
+     * Campagne
+     * AJAX
+     * @param  int  $id
+     * @return Response
+     */
+    public function simple($id){
+
+        return $this->campagne->find($id);
+    }
     
     /**
      * Show the form for editing the campagne.
