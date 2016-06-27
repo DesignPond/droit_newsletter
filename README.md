@@ -30,12 +30,12 @@ The content is meant to be used with arrets, analyse, categories and multi sites
 
 + Publish with php artisan vendor:publish
 
-     **Required**
+    **Required**
      + Assets --tag=assets 
      + Migrations --tag=migrations
      + Seeders --tag=seeds
      
-     **Optionnal**
+    **Optionnal**
      + Views --tag=views
      + Master layout --tag=layouts
      + Config --tag=config
