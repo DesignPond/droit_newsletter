@@ -4,7 +4,7 @@
     <div class="row">
         <div class="col-md-12 col-xs-12">
 
-            <p><a href="{{ url('newsletter/'.$newsletter->id ) }}"><i class="fa fa-arrow-circle-left"></i> Retour</a></p>
+            <p><a href="{{ url('display/newsletter') }}"><i class="fa fa-arrow-circle-left"></i> Retour</a></p>
             <p><i class="fa fa-user"></i> &nbsp; {{ $newsletter->from_name }}</p>
             <p><i class="fa fa-envelope"></i> &nbsp; {{ $newsletter->from_email }}</p>
 

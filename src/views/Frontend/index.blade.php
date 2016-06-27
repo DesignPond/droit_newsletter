@@ -8,7 +8,7 @@
             @if(!$newsletters->isEmpty())
                 <ul class="list-group">
                     @foreach($newsletters as $newsletter)
-                        <a href="{{ url('display/newsletter/'.$newsletter->id) }}" class="list-group-item {{ Request::is('v/newsletter/'.$newsletter->id) ? 'active' : '' }}">{{ $newsletter->titre }}</a>
+                        <a href="{{ url('display/newsletter/'.$newsletter->id) }}" class="list-group-item {{ Request::is('display/newsletter/'.$newsletter->id) ? 'active' : '' }}">{{ $newsletter->titre }}</a>
                     @endforeach
                 </ul>
             @else
