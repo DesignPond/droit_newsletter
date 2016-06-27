@@ -5,14 +5,14 @@
 
         {!! $bloc->arret->pub_text !!}
         @if(isset($bloc->arret->file))
-            <p><a target="_blank" href="{{ asset('files/arrets/'.$bloc->arret->file) }}">Télécharger en pdf</a></p>
+            <p><a target="_blank" href="{{ asset(config('newsletter.path.arret').$bloc->arret->file) }}">Télécharger en pdf</a></p>
         @endif
     </div>
     <div class="col-md-3">
         @if(!$bloc->arret->categories->isEmpty() )
             @foreach($bloc->arret->categories as $categorie)
-                <a target="_blank" href="{{ url('jurisprudence') }}#{{ $bloc->reference }}">
-                    <img style="max-width: 130px;" border="0" alt="{{ $categorie->title }}" src="{{ asset('newsletter/pictos/'.$categorie->image) }}">
+                <a target="_blank" href="{{ url(config('newsletter.link.arret')) }}#{{ $bloc->reference }}">
+                    <img style="max-width: 130px;" border="0"  alt="{{ $categorie->title }}" src="{{ asset(config('newsletter.path.categorie').$categorie->image) }}">
                 </a>
             @endforeach
         @endif
