@@ -2,17 +2,20 @@
 
 use designpond\newsletter\Newsletter\Repo\NewsletterContentInterface;
 use designpond\newsletter\Newsletter\Repo\NewsletterCampagneInterface;
+use designpond\newsletter\Newsletter\Repo\NewsletterInterface;
 use \InlineStyle\InlineStyle;
 
 class CampagneWorker implements CampagneInterface{
 
     protected $content;
     protected $campagne;
+    protected $newsletter;
 
-	public function __construct(NewsletterContentInterface $content, NewsletterCampagneInterface $campagne)
+	public function __construct(NewsletterContentInterface $content, NewsletterCampagneInterface $campagne, NewsletterInterface $newsletter)
 	{
-        $this->content   = $content;
-        $this->campagne  = $campagne;
+        $this->content    = $content;
+        $this->campagne   = $campagne;
+        $this->newsletter = $newsletter;
 	}
 
     public function arretsToHide()
@@ -37,6 +40,16 @@ class CampagneWorker implements CampagneInterface{
     public function infos($id)
     {
         return $this->campagne->find($id);
+    }
+
+    public function siteNewsletter($site_id)
+    {
+        if(config('newsletter.multi'))
+        {
+            return $this->newsletter->getSite($site_id);
+        }
+
+        return null;
     }
 
     public function html($id)

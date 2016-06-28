@@ -22,6 +22,11 @@ class NewsletterEloquent implements NewsletterInterface{
 		return $this->newsletter->find($id);
 	}
 
+	public function getSite($site_id)
+	{
+		return $this->newsletter->where('site_id', '=', $site_id)->get();
+	}
+
 	public function create(array $data){
 
 		$newsletter = $this->newsletter->create(array(

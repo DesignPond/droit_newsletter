@@ -75,17 +75,16 @@ class newsletterServiceProvider extends ServiceProvider
      */
     public function register()
     {
-
         $this->mergeConfigFrom(
             __DIR__.'/config/newsletter.php', 'newsletter'
         );
 
         // Custom Facade for CampagneWorker
-        \App::bind('campagne', function()
+        $this->app['newsworker'] = $this->app->share(function ()
         {
-            return \App::make('designpond\newsletter\Newsletter\Worker\CampagneInterface');
+            return $this->app->make('\designpond\newsletter\Newsletter\Worker\CampagneInterface');
         });
-        
+
         $this->registerMailjetService();
         $this->registerNewsletterService();
         $this->registerContentService();
@@ -169,7 +168,8 @@ class newsletterServiceProvider extends ServiceProvider
         {
             return new \designpond\newsletter\Newsletter\Worker\CampagneWorker(
                 \App::make('designpond\newsletter\Newsletter\Repo\NewsletterContentInterface'),
-                \App::make('designpond\newsletter\Newsletter\Repo\NewsletterCampagneInterface')
+                \App::make('designpond\newsletter\Newsletter\Repo\NewsletterCampagneInterface'),
+                \App::make('designpond\newsletter\Newsletter\Repo\NewsletterInterface')
             );
         });
     }

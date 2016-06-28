@@ -12,6 +12,6 @@ class Campagne extends Facade {
      */
     protected static function getFacadeAccessor()
     {
-        return 'campagne'; // the IoC binding.
+        return 'newsworker'; // the IoC binding.
     }
 }
