@@ -20,7 +20,6 @@
                     <div class="panel-body">
 
                         <div class="row">
-
                             <div class="col-md-7">
                                 <h3>{{ $newsletter->titre }}</h3>
                             </div>
@@ -39,69 +38,28 @@
                         <div class="row">
                             <div class="col-md-12">
                                 @if(!$newsletter->campagnes->isEmpty())
-                                    <table class="table table-bordered table-striped">
-                                       <thead>
-                                           <tr>
-                                               <th class="col-md-2">Sujet</th>
-                                               <th class="col-md-3">Auteurs</th>
-                                               <th class="col-md-1">Status</th>
-                                               <th class="col-md-1"></th>
-                                               <th class="col-md-2"></th>
-                                               <th class="col-md-2"></th>
-                                               <th class="col-md-1" style="width: 40px;"></th>
-                                           </tr>
-                                       </thead>
-                                       <tbody>
-                                            @foreach($newsletter->campagnes as $campagne)
-                                                <tr>
-                                                    <td><strong><a href="{{ url('build/campagne/'.$campagne->id.'/edit') }}">{{ $campagne->sujet }}</a></strong></td>
-                                                    <td>{{ $campagne->auteurs }}</td>
-                                                    <td>
-                                                        @if($campagne->status == 'brouillon')
-                                                            <span class="label label-default">Brouillon</span>
-                                                        @else
-                                                            <span class="label label-success">Envoyé</span>
-                                                        @endif
-                                                    </td>
-                                                    <td>
-                                                        <a class="btn btn-info btn-sm btn-block" href="{{ url('build/campagne/'.$campagne->id) }}">Composer</a>
-                                                        @if($campagne->status == 'envoyé')
-                                                            <a class="btn btn-primary btn-sm btn-block" href="{{ url('build/statistics/'.$campagne->id) }}">Stats</a>
-                                                            <a href="javascript:;" class="btn btn-default btn-sm btn-block sendEmailNewsletter" data-campagne="{{ $campagne->id }}">Envoyer par email</a>
-                                                        @endif
-                                                    </td>
-                                                    <td>
-                                                        @if($campagne->status == 'brouillon')
-                                                            <form action="{{ url('build/campagne/send') }}" id="sendCampagneForm" method="POST">
-                                                                {!! csrf_field() !!}
-                                                                <input name="id" value="{{ $campagne->id }}" type="hidden">
-                                                                <a href="javascript:;" data-campagne="{{ $campagne->id }}" class="btn btn-sm btn-warning btn-block" id="bootbox">
-                                                                    <i class="fa fa-exclamation"></i> &nbsp;Envoyer la campagne
-                                                                </a>
-                                                            </form>
-                                                        @else
-                                                           Envoyé le {{ $campagne->updated_at->formatLocalized('%d %b %Y') }} à {{ $campagne->updated_at->toTimeString() }}
-                                                        @endif
-                                                    </td>
-                                                    <td>
-                                                        <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#sendToList">Envoyer à une liste</button>
-                                                        @include('newsletter::Backend.template.partials.send', ['campagne' => $campagne])
-                                                    </td>
-                                                    <td class="text-right">
-                                                        <form action="{{ url('build/campagne/'.$campagne->id) }}" method="POST">
-                                                            <input type="hidden" name="_method" value="DELETE">{!! csrf_field() !!}
-                                                            <button data-action="campagne {{ $campagne->sujet }}" data-what="Supprimer" class="btn btn-danger btn-xs deleteAction"><i class="fa fa-remove"></i></button>
-                                                        </form>
-                                                    </td>
-                                                </tr>
-                                            @endforeach
-                                       </tbody>
-                                    </table>
+
+                                    <?php
+                                        $campagnes = $newsletter->campagnes->whereLoose('status','brouillon');
+                                        $archives  = $newsletter->campagnes->whereLoose('status','envoyé');
+                                        $years     = $archives->groupBy(function ($archive, $key) {
+                                            return $archive->created_at->year;
+                                        })->keys();
+                                    ?>
+
+                                    @include('newsletter::Backend.campagne.list',['campagnes' => $campagnes])
+
+                                    <div class="newsletter-archives">
+                                        @foreach($years as $year)
+                                            <a class="btn btn-primary btn-sm" href="{{ url('build/newsletter/archive/'.$newsletter->id.'/'.$year) }}">Archives {{ $year }}</a>
+                                        @endforeach
+                                    </div>
+
                                 @endif
                             </div>
                         </div>
                         <div class="row">
-                            <div class="col-md-12">
+                            <div class="col-md-12 text-right">
                                 <form action="{{ url('build/newsletter/'.$newsletter->id) }}" method="POST">
                                     <input type="hidden" name="_method" value="DELETE">{!! csrf_field() !!}
                                     <button data-what="supprimer" data-action="newsletter {{ $newsletter->titre }}" class="btn btn-xs btn-danger btn-delete deleteAction">Supprimer la newsletter</button>

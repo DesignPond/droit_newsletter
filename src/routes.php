@@ -33,6 +33,7 @@ Route::group(['middleware' => ['web']], function () {
        |--------------------------------------------------------------------------
        */
 
+        Route::get('newsletter/archive/{newsletter}/{year}', 'designpond\newsletter\Http\Controllers\Backend\NewsletterController@archive');
         Route::resource('newsletter', 'designpond\newsletter\Http\Controllers\Backend\NewsletterController');
 
         Route::get('campagne/create/{newsletter}', 'designpond\newsletter\Http\Controllers\Backend\CampagneController@create');

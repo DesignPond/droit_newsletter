@@ -7,6 +7,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use designpond\newsletter\Newsletter\Repo\NewsletterInterface;
+use designpond\newsletter\Newsletter\Repo\NewsletterCampagneInterface;
 use designpond\newsletter\Newsletter\Service\UploadWorker;
 use designpond\newsletter\Newsletter\Worker\MailjetInterface;
 use designpond\newsletter\Newsletter\Repo\NewsletterListInterface;
@@ -14,12 +15,14 @@ use designpond\newsletter\Newsletter\Repo\NewsletterListInterface;
 class NewsletterController extends Controller
 {
     protected $newsletter;
+    protected $campagne;
     protected $upload;
     protected $mailjet;
     protected $list;
 
-    public function __construct(NewsletterInterface $newsletter, UploadWorker $upload, MailjetInterface $mailjet, NewsletterListInterface $list )
+    public function __construct(NewsletterInterface $newsletter, UploadWorker $upload, MailjetInterface $mailjet, NewsletterListInterface $list, NewsletterCampagneInterface  $campagne)
     {
+        $this->campagne   = $campagne;
         $this->newsletter = $newsletter;
         $this->upload     = $upload;
         $this->mailjet    = $mailjet;
@@ -41,6 +44,15 @@ class NewsletterController extends Controller
         $listes      = $this->list->getAll();
 
         return view('newsletter::Backend.template.index')->with(['newsletters' => $newsletters, 'listes' => $listes]);
+    }
+
+    public function archive($newsletter_id,$year)
+    {
+        $newsletter = $this->newsletter->find($newsletter_id);
+        $campagnes  = $this->campagne->getArchives($newsletter_id,$year);
+        $listes     = $this->list->getAll();
+
+        return view('newsletter::Backend.template.archive')->with(['newsletter' => $newsletter, 'campagnes' => $campagnes, 'year' => $year, 'listes' => $listes]);
     }
 
     /**
