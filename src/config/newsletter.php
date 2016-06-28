@@ -48,6 +48,7 @@ return [
         'arret'     => 'files/arrets/',
         'analyse'   => 'files/analyses/',
         'author'    => 'files/authors/',
+        'upload'    => 'files/',
     ],
 
     /*

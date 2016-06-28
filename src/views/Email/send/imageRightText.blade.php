@@ -17,7 +17,7 @@
                     <td width="25" class="resetMarge"></td><!-- space -->
                     <td valign="top" align="center" width="160" class="resetMarge">
                         <a target="_blank" href="{{ isset($bloc->lien) && !empty($bloc->lien) ? $bloc->lien : url('/') }}">
-                            <img width="130px" style="max-width: 130px; max-height: 220px;" alt="{{ $bloc->titre or '' }}" src="{{ asset('files/'.$bloc->image.'') }}" />
+                            <img width="130px" style="max-width: 130px; max-height: 220px;" alt="{{ $bloc->titre or '' }}" src="{{ asset(config('newsletter.path.upload').$bloc->image.'') }}" />
                         </a>
                     </td>
                 </tr>
