@@ -24,7 +24,7 @@ class NewsletterEloquent implements NewsletterInterface{
 
 	public function getSite($site_id)
 	{
-		return $this->newsletter->where('site_id', '=', $site_id)->get();
+		return $this->newsletter->with(['campagnes'])->where('site_id', '=', $site_id)->get();
 	}
 
 	public function create(array $data){
