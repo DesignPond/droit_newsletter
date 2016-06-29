@@ -20,7 +20,7 @@ class CampagneWorker implements CampagneInterface{
 
     public function arretsToHide($newsletter_id = null)
     {
-        $campagnes = $this->campagne->getAll()->where('status','brouillon');
+        $campagnes = $this->campagne->getAll($newsletter_id)->where('status','brouillon');
 
         return $campagnes->flatMap(function ($campagne) {
                 return $campagne->content;
