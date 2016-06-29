@@ -1,8 +1,11 @@
 var App = angular.module('selection', ["dndLists"] , function($interpolateProvider)
 {
     $interpolateProvider.startSymbol('{[{').endSymbol('}]}');
+});
 
-}).service('myService',  function ($rootScope,$filter) {
+App.constant('__env', window.__env);
+
+App.service('myService',  function ($rootScope,$filter) {
     return {
         convertDateArret: function(date){
             var jsonObject  = date.substr(0,10);
@@ -110,11 +113,11 @@ App.filter('getById', function() {
 /**
  * Retrive all arrets blocs for bloc arret
  */
-App.factory('Arrets', ['$http', '$q', function($http, $q) {
+App.factory('Arrets', ['$http', '$q','__env', function($http, $q,__env) {
     return {
         query: function() {
             var deferred = $q.defer();
-            $http.get(window.__env + 'arrets', { cache: true }).success(function(data) {
+            $http.get(__env.ajaxUrl + 'arrets', { cache: true }).success(function(data) {
                 deferred.resolve(data);
             }).error(function(data) {
                 deferred.reject(data);
@@ -123,7 +126,7 @@ App.factory('Arrets', ['$http', '$q', function($http, $q) {
         },
         simple: function(id) {
             var deferred = $q.defer();
-            $http.get(window.__env + 'arrets/'+ id).success(function(data) {
+            $http.get(__env.ajaxUrl + 'arrets/'+ id).success(function(data) {
                 deferred.resolve(data);
             }).error(function(data) {
                 deferred.reject(data);
@@ -141,7 +144,7 @@ App.factory('Analyses', ['$http', '$q', function($http, $q) {
     return {
         simple: function(id) {
             var deferred = $q.defer();
-            $http.get(window.__env + 'analyses/'+ id).success(function(data) {
+            $http.get(__env.ajaxUrl + 'analyses/'+ id).success(function(data) {
                 deferred.resolve(data);
             }).error(function(data) {
                 deferred.reject(data);
@@ -158,7 +161,7 @@ App.factory('Categories', ['$http', '$q', function($http, $q) {
     return {
         query: function() {
             var deferred = $q.defer();
-            $http.get( window.__env + 'categories').success(function(data) {
+            $http.get( __env.ajaxUrl + 'categories').success(function(data) {
                 deferred.resolve(data);
             }).error(function(data) {
                 deferred.reject(data);
