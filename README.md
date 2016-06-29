@@ -90,5 +90,5 @@ If you discover any security related issues, please email cindy.leschaud@gmail.c
 
 The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
 
-[link-downloads]: https://packagist.org/packages/:vendor/:package_name
+[link-downloads]: https://packagist.org/packages/designpond/newsletter
 [link-author]: https://github.com/DesignPond

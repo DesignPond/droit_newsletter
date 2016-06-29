@@ -204,7 +204,7 @@ App.controller("MultiSelectionController",['$scope',"$filter","Categories","Arre
                         {
                             Arrets.simple($scope.uidContent)
                                 .then(function (data) {
-                                    self.items_categories = data.arrets_categories;
+                                    self.items_categories = data.categories;
                                     self.models = myService.convertCategories(self.items, self.models, self.items_categories);
                                 });
                         }
@@ -213,7 +213,7 @@ App.controller("MultiSelectionController",['$scope',"$filter","Categories","Arre
                             /* Get the selected arret infos */
                             Analyses.simple($scope.uidContent)
                                 .then(function (data) {
-                                    self.items_categories = data.analyses_categories;
+                                    self.items_categories = data.categories;
                                     self.models = myService.convertCategories(self.items, self.models, self.items_categories);
                                 });
                         }
@@ -235,7 +235,7 @@ App.controller("MultiSelectionController",['$scope',"$filter","Categories","Arre
                         /* Get the selected analyse infos */
                         Analyses.simple($scope.uidContent)
                             .then(function (data) {
-                                self.items_arrets = data.analyses_arrets;
+                                self.items_arrets = data.arrets;
                                 self.models = myService.convertArret(self.items, self.models, self.items_arrets);
                             });
                     }
