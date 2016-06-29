@@ -11,7 +11,7 @@ class Newsletter_campagnes extends Model {
 
     protected $dates = ['deleted_at'];
 
-    public function scopeNewsletter($query,$newsletter_id)
+    public function scopeNews($query,$newsletter_id)
     {
         if ($newsletter_id) $query->whereIn('newsletter_id',$newsletter_id);
     }
