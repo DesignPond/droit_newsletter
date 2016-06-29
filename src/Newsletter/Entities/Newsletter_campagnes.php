@@ -13,7 +13,7 @@ class Newsletter_campagnes extends Model {
 
     public function scopeNewsletter($query,$newsletter_id)
     {
-        if ($newsletter_id) $query->where('newsletter_id','=',$newsletter_id);
+        if ($newsletter_id) $query->whereIn('newsletter_id',$newsletter_id);
     }
 
     public function newsletter(){
