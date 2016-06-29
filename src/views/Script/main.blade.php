@@ -1,4 +1,3 @@
-<script type="text/javascript" src="{{ asset('newsletter/js/env.js') }}"></script>
 <script type="text/javascript" src="{{ asset('newsletter/js/bootbox.min.js') }}"></script>
 <script type="text/javascript" src="{{ asset('newsletter/js/multiselection.js') }}"></script>
 <script type="text/javascript" src="{{ asset('newsletter/js/build.js') }}"></script>
