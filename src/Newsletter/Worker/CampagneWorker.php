@@ -30,8 +30,8 @@ class CampagneWorker implements CampagneInterface{
                     return $content->arret_id ;
 
                 if($content->groupe_id > 0)
-                    return $content->groupe->arrets_groupes->lists('id')->all();
-
+                    return $content->groupe->arrets->lists('id')->all();
+            
             })->filter(function ($value, $key) {
                 return !empty($value);
             })->flatten()->toArray();
@@ -40,6 +40,11 @@ class CampagneWorker implements CampagneInterface{
     public function infos($id)
     {
         return $this->campagne->find($id);
+    }
+
+    public function last($newsletter_id = null)
+    {
+        return $this->campagne->getLastCampagne($newsletter_id);
     }
 
     public function siteNewsletter($site_id)
