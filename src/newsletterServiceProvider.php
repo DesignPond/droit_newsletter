@@ -169,7 +169,8 @@ class newsletterServiceProvider extends ServiceProvider
             return new \designpond\newsletter\Newsletter\Worker\CampagneWorker(
                 \App::make('designpond\newsletter\Newsletter\Repo\NewsletterContentInterface'),
                 \App::make('designpond\newsletter\Newsletter\Repo\NewsletterCampagneInterface'),
-                \App::make('designpond\newsletter\Newsletter\Repo\NewsletterInterface')
+                \App::make('designpond\newsletter\Newsletter\Repo\NewsletterInterface'),
+                \App::make('designpond\newsletter\Newsletter\Repo\NewsletterUserInterface')
             );
         });
     }
