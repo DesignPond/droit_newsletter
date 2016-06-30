@@ -10,5 +10,6 @@
     </div>
     <input type="hidden" name="newsletter_id" value="{{ $newsletter->id }}">
     <input type="hidden" name="site_id" value="{{ $newsletter->site_id }}">
+    <input type="hidden" name="return_path" value="{{ $return_path or '' }}">
 </form>
 
