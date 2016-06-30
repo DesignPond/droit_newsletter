@@ -90,10 +90,10 @@ class InscriptionController extends Controller
     public function unsubscribe(SubscribeRequest $request)
     {
         // find the abo
-        $abonne = $this->subscription->findByEmail( $request->email );
+        $abonne = $this->subscription->findByEmail( $request->input('email') );
 
         // Sync the abos to newsletter we have
-        $abonne->subscriptions()->detach($request->newsletter_id);
+        $abonne->subscriptions()->detach($request->input('newsletter_id'));
 
         if(!$this->worker->removeContact($abonne->email))
         {
@@ -106,7 +106,9 @@ class InscriptionController extends Controller
             $this->subscription->delete($abonne->email);
         }
 
-        return redirect('/')->with(array('status' => 'success', 'message' => '<strong>Vous avez été désinscrit</strong>'));
+        $back = $request->input('return_path', '/');
+
+        return redirect($back)->with(['status' => 'success', 'message' => '<strong>Vous avez été désinscrit</strong>']);
     }
 
     /**

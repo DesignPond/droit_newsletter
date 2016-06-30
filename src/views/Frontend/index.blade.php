@@ -22,8 +22,10 @@
         <div class="col-md-12 col-xs-12">
             <h2>Subscribe</h2>
             @if(!$newsletters->isEmpty())
-                <h4>{{ $newsletter->titre }}</h4>
-                @include('newsletter::Frontend.partials.subscribe', ['newsletter' => $newsletter])
+                @foreach($newsletters as $newsletter)
+                    <h4>{{ $newsletter->titre }}</h4>
+                    @include('newsletter::Frontend.partials.subscribe', ['newsletter' => $newsletter])
+                @endforeach
             @endif
         </div>
     </div><!--END CONTENT-->
@@ -32,8 +34,10 @@
         <div class="col-md-12 col-xs-12">
             <h2>Unsubscribe</h2>
             @if(!$newsletters->isEmpty())
-                <h4>{{ $newsletter->titre }}</h4>
-                @include('newsletter::Frontend.partials.unsubscribe', ['newsletter' => $newsletter])
+                @foreach($newsletters as $newsletter)
+                    <h4>{{ $newsletter->titre }}</h4>
+                    @include('newsletter::Frontend.partials.unsubscribe', ['newsletter' => $newsletter])
+                @endforeach
             @endif
         </div>
     </div><!--END CONTENT-->
