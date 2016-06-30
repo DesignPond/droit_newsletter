@@ -45,6 +45,14 @@ class CampagneWorker implements CampagneInterface{
     }
 
     /**
+     * Get campagne for site
+     */
+    public function getCampagne($id)
+    {
+        return $this->campagne->find($id);
+    }
+
+    /**
      * Last sent campagne for site
      */
     public function last($newsletter_id = null)
