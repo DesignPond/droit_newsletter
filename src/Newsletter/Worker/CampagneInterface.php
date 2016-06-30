@@ -6,4 +6,5 @@ interface CampagneInterface {
     public function html($id);
     public function siteNewsletters($site_id);
     public function siteCampagnes($site_id);
+    public function hasSubscriptions($email);
 }
