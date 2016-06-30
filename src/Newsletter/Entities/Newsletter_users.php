@@ -10,7 +10,6 @@ class Newsletter_users extends Model {
     public function subscriptions()
     {
         return $this->belongsToMany('designpond\newsletter\Newsletter\Entities\Newsletter', 'newsletter_subscriptions', 'user_id', 'newsletter_id');
-
     }
 
 }

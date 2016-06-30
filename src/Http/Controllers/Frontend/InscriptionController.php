@@ -51,33 +51,36 @@ class InscriptionController extends Controller
      */
     public function subscribe(SubscribeRequest $request)
     {
-        $email = $this->subscription->findByEmail($request->input('email'));
+        $subscribe = $this->subscription->findByEmail($request->input('email'));
 
-        if($email)
+        if($subscribe)
         {
-            $messages = ['status' => 'warning', 'message' => 'Cet email existe déjà'];
-
-            if($email->activated_at == NULL)
+            if($subscribe->activated_at == NULL)
             {
-                $messages['resend'] = true;
+                return redirect('/')->withInput()->with(['status' => 'warning', 'message' => 'Cet email existe déjà', 'resend' => true]);
             }
 
-            return redirect('/')->withInput()->with($messages);
+            $subscriptions = $subscribe->subscriptions->lists('id')->all();
+
+            if(in_array($request->input('newsletter_id'),$subscriptions))
+            {
+                return redirect($request->input('return_path', '/'))->with(['status'  => 'warning', 'message' => 'Vous êtes déjà inscrit à la newsletter']);
+            }
+        }
+        else
+        {
+            // Subscribe user with activation token to website list and sync newsletter abos
+            $subscribe = $this->subscription->create(['email' => $request->input('email'), 'activation_token' => md5($request->email.\Carbon\Carbon::now()) ]);
         }
 
-        // Subscribe user with activation token to website list and sync newsletter abos
-        $suscribe = $this->subscription->create(['email' => $request->email, 'activation_token' => md5($request->email.\Carbon\Carbon::now()) ]);
+        $subscribe->subscriptions()->attach($request->input('newsletter_id'));
 
-        $suscribe->subscriptions()->attach($request->newsletter_id);
-
-        \Mail::send('newsletter::Email.confirmation', array('token' => $suscribe->activation_token), function($message) use ($suscribe)
+        \Mail::send('newsletter::Email.confirmation', array('token' => $subscribe->activation_token), function($message) use ($subscribe)
         {
-            $message->to($suscribe->email, $suscribe->email)->subject('Inscription!');
+            $message->to($subscribe->email, $subscribe->email)->subject('Inscription!');
         });
 
-        $back = $request->input('return_path', '/');
-
-        return redirect($back)
+        return redirect($request->input('return_path', '/'))
             ->with([
                 'status'  => 'success',
                 'message' => '<strong>Merci pour votre inscription!</strong><br/>Veuillez confirmer votre adresse email en cliquant le lien qui vous a été envoyé par email'
