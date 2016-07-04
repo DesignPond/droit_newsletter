@@ -481,6 +481,26 @@ div#fieldChooser,div#fieldChooser2 {
     cursor: move;
 }
 
-.handle i{
+.sortGroupe.ui-sortable .handleBlocs{
+    background: #ddd none repeat scroll 0 0;
+    display: block;
+    height: 20px;
+    width: 100%;
+    color: #2e3436;
+    text-align: center;
+    cursor: move;
+}
+
+.sortGroupe .handleBlocs i,
+.sortGroupe.ui-sortable-disabled .handleBlocs i,
+.sortGroupe.ui-sortable-disabled .handleBlocs{
+    display: none;
+}
+
+.sortGroupe.ui-sortable .handleBlocs i{
+    display: block;
+}
+
+.handle i, .handleBlocs i{
     cursor: move;
 }

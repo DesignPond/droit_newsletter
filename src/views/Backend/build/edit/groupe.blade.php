@@ -26,7 +26,12 @@
             @foreach($bloc->groupe->arrets as $arret)
                 <!-- Bloc content-->
                 <table id="groupe_rang_{{ $arret->id }}" border="0" width="560" align="center" cellpadding="0" cellspacing="0" class="resetTable groupe_rang">
-                    <tr bgcolor="ffffff"><td colspan="3" height="35"></td></tr><!-- space -->
+                    <tr bgcolor="ffffff">
+                        <td colspan="3"><span class="handleBlocs"><i class="fa fa-crosshairs"></i></span></td>
+                    </tr><!-- space -->
+                    <tr bgcolor="ffffff">
+                        <td colspan="3" height="35"></td>
+                    </tr><!-- space -->
                     <tr>
                         <td valign="top" width="375" class="resetMarge contentForm">
                             <div>

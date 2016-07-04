@@ -9,28 +9,28 @@ var App = angular.module('newsletter', ["angular-redactor","flow","ngSanitize","
 App.constant('__env', window.__env);
 
 App.config(function(redactorOptions,__env) {
-        /* Redactor wysiwyg editor configuration */
-        redactorOptions.minHeight        = 120;
-        redactorOptions.maxHeight        = 240;
-        redactorOptions.formattingTags   = ['p', 'h2', 'h3','h4'];
-        redactorOptions.fileUpload       = __env.adminUrl + 'uploadRedactor?_token=' + $('meta[name="_token"]').attr('content');
-        redactorOptions.imageUpload      = __env.adminUrl + 'uploadRedactor?_token=' + $('meta[name="_token"]').attr('content');
-        redactorOptions.imageManagerJson = __env.adminUrl + 'imageJson';
-        redactorOptions.fileManagerJson  = __env.adminUrl + 'fileJson';
-        redactorOptions.plugins          = ['imagemanager','filemanager','source','iconic','alignment'];
-        redactorOptions.lang             = 'fr';
-        redactorOptions.buttons          = ['format','bold','italic','|','lists','|','image','file','link','alignment'];
-    
+    /* Redactor wysiwyg editor configuration */
+    redactorOptions.minHeight        = 120;
+    redactorOptions.maxHeight        = 240;
+    redactorOptions.formattingTags   = ['p', 'h2', 'h3','h4'];
+    redactorOptions.fileUpload       = __env.adminUrl + 'uploadRedactor?_token=' + $('meta[name="_token"]').attr('content');
+    redactorOptions.imageUpload      = __env.adminUrl + 'uploadRedactor?_token=' + $('meta[name="_token"]').attr('content');
+    redactorOptions.imageManagerJson = __env.adminUrl + 'imageJson';
+    redactorOptions.fileManagerJson  = __env.adminUrl + 'fileJson';
+    redactorOptions.plugins          = ['imagemanager','filemanager','source','iconic','alignment'];
+    redactorOptions.lang             = 'fr';
+    redactorOptions.buttons          = ['format','bold','italic','|','lists','|','image','file','link','alignment'];
+
 }).config(['flowFactoryProvider','__env', function (flowFactoryProvider,__env) {
-        /* Flow image upload configuration */
-        flowFactoryProvider.defaults = {
-            target    :  __env.adminUrl + 'uploadJS',
-            testChunks: false,
-            singleFile: true,
-            query     : { _token : $("meta[name='_token']").attr('content') } ,
-            permanentErrors: [404, 500, 501],
-            simultaneousUploads: 4
-        };
+    /* Flow image upload configuration */
+    flowFactoryProvider.defaults = {
+        target    :  __env.adminUrl + 'uploadJS',
+        testChunks: false,
+        singleFile: true,
+        query     : { _token : $("meta[name='_token']").attr('content') } ,
+        permanentErrors: [404, 500, 501],
+        simultaneousUploads: 4
+    };
 }]).service('myService',  function ($rootScope) {
     var blocDrop = 0;
     return {
@@ -186,6 +186,7 @@ App.controller("EditController",['$scope','$http','myService','__env', function(
 
         $( "#sortGroupe_" + groupe_id ).sortable({
             axis: 'y',
+            handle: '.handleBlocs',
             update: function (event, ui) {
                 var data = $(this).sortable('serialize') +"&groupe_id="+ groupe_id + "&_token=" + $("meta[name='_token']").attr('content');
                 // POST to server using $.post or $.ajax
@@ -198,7 +199,7 @@ App.controller("EditController",['$scope','$http','myService','__env', function(
         });
 
         $( "#sortGroupe_" + groupe_id ).sortable( "enable" );
-        $( "#sortGroupe_" + groupe_id).find('.groupe_rang').css('border','1px solid #bfe4ad');
+        $( "#sortGroupe_" + groupe_id).find('.groupe_rang').css('border','1px solid #ddd');
 
     };
 
@@ -208,7 +209,7 @@ App.controller("EditController",['$scope','$http','myService','__env', function(
  * Select arret controller, select an arret and display's it
  */
 App.controller('SelectController', ['$scope','$http','Arrets','myService','__env',function($scope,$http,Arrets,myService,__env){
-    
+
     /* assign empty values for arrets */
     this.arrets = [];
     this.arret  = false;
