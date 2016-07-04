@@ -32,7 +32,7 @@ $(function() {
 
     });
 
-    $('body').on('click','.deleteContentBloc',function(event){
+    $('body').on('click','.deleteActionNewsletter',function(event){
 
         var $this  = $(this);
         var action = $this.data('action');

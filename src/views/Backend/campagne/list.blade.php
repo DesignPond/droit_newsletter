@@ -48,7 +48,7 @@
                     <td class="text-right">
                         <form action="{{ url('build/campagne/'.$campagne->id) }}" method="POST">
                             <input type="hidden" name="_method" value="DELETE">{!! csrf_field() !!}
-                            <button data-action="campagne {{ $campagne->sujet }}" data-what="Supprimer" class="btn btn-danger btn-xs deleteAction"><i class="fa fa-remove"></i></button>
+                            <button data-action="campagne {{ $campagne->sujet }}" data-what="Supprimer" class="btn btn-danger btn-xs deleteActionNewsletter"><i class="fa fa-remove"></i></button>
                         </form>
                     </td>
                 </tr>

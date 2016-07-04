@@ -4,13 +4,27 @@ $(function() {
 
     $( "#sortable" ).sortable({
         axis: 'y',
+        handle: '.handle',
         placeholder: "ui-state-highlight",
         start: function (event, ui) {
-            ui.item.css("height","100px");
+
+            ui.item.css("height","80px");
             ui.item.css("overflow","hidden");
+
+            var $title  = ui.item.find('h2.ng-binding').text();
+            var $group  = ui.item.find('h3.mainTitle').text();
+
+            var titre   = $title? $title : $group;
+            var $holder = '<span id="holder">' + titre + '</span>';
+
+            ui.item.prepend($holder);
+
+            console.log($group);
         },
         stop: function (event, ui) {
-            //ui.item.toggleClass("highlight");
+            $("span#holder").detach();
+            ui.item.css("height","auto");
+            ui.item.css("overflow","normal");
         },
         update: function (event, ui) {
             var data = $(this).sortable('serialize');

@@ -12,7 +12,7 @@
             <tr bgcolor="ffffff"><td colspan="3" height="35"></td></tr><!-- space -->
             <tr bgcolor="ffffff" class="blocBorder">
                 <td width="400" align="left" class="resetMarge contentForm" valign="top">
-                    <h3 style="text-align: left;font-family: sans-serif;">{{ $bloc->groupe->categorie->title }}</h3>
+                    <h3 class="mainTitle" style="text-align: left;font-family: sans-serif;">{{ $bloc->groupe->categorie->title }}</h3>
                 </td>
                 <td width="160" align="center" valign="top" class="resetMarge">
                     <img width="130" border="0" src="{{ asset(config('newsletter.path.categorie').$bloc->groupe->categorie->image) }}" alt="{{ $bloc->groupe->categorie->title }}" />

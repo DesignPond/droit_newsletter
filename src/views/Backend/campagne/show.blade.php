@@ -43,6 +43,7 @@
                                 @foreach($campagne->content as $bloc)
                                     @if(in_array($bloc->type->id ,array_keys(config('newsletter.components'))))
                                         <div class="bloc_rang" id="bloc_rang_{{ $bloc->id }}" data-rel="{{ $bloc->id }}">
+                                            <span class="handle"><i class="fa fa-crosshairs"></i></span>
                                             {!! view('newsletter::Backend.build.edit.'.$bloc->type->partial)->with(['bloc' => $bloc, 'campagne' => $campagne])->__toString() !!}
                                         </div>
                                     @endif

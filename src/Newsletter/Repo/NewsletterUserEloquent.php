@@ -107,7 +107,7 @@ class NewsletterUserEloquent implements NewsletterUserInterface{
 
             $row['delete']  = '<form action="'.url('build/subscriber/'.$abonne->id).'" method="POST">'.csrf_field().'<input type="hidden" name="_method" value="DELETE">';
             $row['delete'] .= '<input type="hidden" name="email" value="'.$abonne->email.'">';
-            $row['delete'] .= '<button data-what="supprimer" data-action="Abonné '.$abonne->email.'" class="btn btn-danger btn-xs deleteAction pull-right">Supprimer</button>';
+            $row['delete'] .= '<button data-what="supprimer" data-action="Abonné '.$abonne->email.'" class="btn btn-danger btn-xs deleteActionNewsletter pull-right">Supprimer</button>';
             $row['delete'] .= '</form>';
             $output['data'][] = $row;
         }

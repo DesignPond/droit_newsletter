@@ -62,7 +62,7 @@
                             <div class="col-md-12 text-right">
                                 <form action="{{ url('build/newsletter/'.$newsletter->id) }}" method="POST">
                                     <input type="hidden" name="_method" value="DELETE">{!! csrf_field() !!}
-                                    <button data-what="supprimer" data-action="newsletter {{ $newsletter->titre }}" class="btn btn-xs btn-danger btn-delete deleteAction">Supprimer la newsletter</button>
+                                    <button data-what="supprimer" data-action="newsletter {{ $newsletter->titre }}" class="btn btn-xs btn-danger btn-delete deleteActionNewsletter">Supprimer la newsletter</button>
                                 </form>
                             </div>
                         </div>
