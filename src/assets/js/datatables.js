@@ -2,10 +2,6 @@
 // Initialize Data Tables
 // -------------------------------
 
-if(window){
-    Object.assign(__env, window.__env);
-}
-
 $(document).ready(function() {
 
     var langues = {
@@ -36,7 +32,7 @@ $(document).ready(function() {
     var table = $('.abonnes_table').DataTable({
         "serverSide": true,
         "ajax": {
-            "url": __env.adminUrl + "build/subscribers"
+            "url": url + "build/subscribers"
         },
         "columns": [
             {

@@ -2,13 +2,19 @@
 
 All Notable changes to `newsletter` will be documented in this file.
 
-## 1.0.4 (released 2016-06-27)
+## 1.0.4 (released 2016-07-06)
+
+### Added
+- Copy/paste content from one campagne to another
+- Sort blocs page for campagne
+
+## 1.0.3 (released 2016-06-27)
 
 ### Added
 - Config for uploaded files
 - Archives for campagnes
 
-## 1.0.3 (released 2016-06-26)
+## 1.0.2 (released 2016-06-26)
 
 ### Added
 - Prefix for routes
