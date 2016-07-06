@@ -19,7 +19,7 @@ class NewsletterContentEloquent implements NewsletterContentInterface{
 	
 	public function getByCampagne($newsletter_campagne_id)
     {
-        $with = in_array(5,array_keys(config('newsletter.components'))) ? ['type','arrets'] : ['type'];
+        $with = in_array(5,array_keys(config('newsletter.components'))) ? ['type','arret'] : ['type'];
 
 		return $this->contents->where('newsletter_campagne_id','=',$newsletter_campagne_id)->with($with)->orderBy('newsletter_contents.rang','ASC')->get();
 	}

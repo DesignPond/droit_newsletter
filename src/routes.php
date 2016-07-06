@@ -48,6 +48,9 @@ Route::group(['middleware' => ['web']], function () {
         Route::post('send/campagne', 'designpond\newsletter\Http\Controllers\Backend\SendController@campagne');
         Route::post('send/test', 'designpond\newsletter\Http\Controllers\Backend\SendController@test');
 
+        Route::post('clipboard/copy', 'designpond\newsletter\Http\Controllers\Backend\ClipboardController@copy');
+        Route::post('clipboard/paste', 'designpond\newsletter\Http\Controllers\Backend\ClipboardController@paste');
+
         Route::resource('subscriber', 'designpond\newsletter\Http\Controllers\Backend\SubscriberController');
         Route::get('subscribers', ['uses' => 'designpond\newsletter\Http\Controllers\Backend\SubscriberController@subscribers']);
 

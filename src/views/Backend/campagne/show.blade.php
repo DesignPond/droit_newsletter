@@ -15,6 +15,7 @@
 
                     <a href="{{ url('build/campagne/'.$campagne->id.'/edit') }}" class="btn btn-primary btn-block"><i class="fa fa-pencil"></i>  &nbsp;&Eacute;diter la campagne</a>
                     <a target="_blank" href="{{ url('campagne/'.$campagne->id) }}" class="btn btn-info btn-block"><i class="fa fa-eye"></i>  &nbsp;Aperçu de la campagne</a>
+                    <a href="{{ url('build/content/'.$campagne->id) }}" class="btn btn-warning btn-block"><i class="fa fa-sort"></i>  &nbsp;Ordre</a>
                     <hr/>
 
                     <form action="{{ url('build/send/test') }}" enctype="multipart/form-data" method="POST" class="form">{!! csrf_field() !!}
@@ -22,9 +23,7 @@
                         <div class="input-group">
                             <input required name="email" value="" type="email" class="form-control">
                             <input name="id" value="{{ $campagne->id }}" type="hidden">
-                            <span class="input-group-btn">
-                                <button class="btn btn-brown" type="submit">Go!</button>
-                            </span>
+                            <span class="input-group-btn"><button class="btn btn-brown" type="submit">Go!</button></span>
                         </div><!-- /input-group -->
                     </form>
 

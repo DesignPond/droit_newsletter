@@ -8,6 +8,19 @@ class Newsletter_contents extends Model {
 
     public $timestamps = false;
 
+    public function getContentTitleAttribute()
+    {
+        if($this->titre){
+            return $this->titre;
+        }
+        elseif(isset($this->arret)){
+            return $this->arret->reference;
+        }
+        elseif(isset($this->groupe)){
+            return $this->groupe->categorie->title;
+        }
+    }
+
     public function campagne(){
 
         return $this->belongsTo('designpond\newsletter\Newsletter\Entities\Newsletter_campagnes');

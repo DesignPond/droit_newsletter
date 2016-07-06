@@ -28,6 +28,7 @@ class newsletterServiceProvider extends ServiceProvider
         $this->app->make('designpond\newsletter\Http\Controllers\Backend\ImportController');
         $this->app->make('designpond\newsletter\Http\Controllers\Backend\ListController');
         $this->app->make('designpond\newsletter\Http\Controllers\Backend\EmailController');
+        $this->app->make('designpond\newsletter\Http\Controllers\Backend\ClipboardController');
 
         $this->publishes([
             __DIR__.'/database/migrations/' => database_path('migrations')
@@ -97,6 +98,7 @@ class newsletterServiceProvider extends ServiceProvider
         $this->registerUploadService();
         $this->registerListService();
         $this->registerEmailService();
+        $this->registerClipboardService();
     }
 
     /**
@@ -249,6 +251,17 @@ class newsletterServiceProvider extends ServiceProvider
         $this->app->singleton('designpond\newsletter\Newsletter\Repo\NewsletterEmailInterface', function()
         {
             return new \designpond\newsletter\Newsletter\Repo\NewsletterEmailEloquent( new \designpond\newsletter\Newsletter\Entities\Newsletter_emails() );
+        });
+    }
+
+    /**
+     * Newsletter clipboard
+     */
+    protected function registerClipboardService(){
+
+        $this->app->singleton('designpond\newsletter\Newsletter\Repo\NewsletterClipboardInterface', function()
+        {
+            return new \designpond\newsletter\Newsletter\Repo\NewsletterClipboardEloquent( new \designpond\newsletter\Newsletter\Entities\Newsletter_clipboards() );
         });
     }
 }

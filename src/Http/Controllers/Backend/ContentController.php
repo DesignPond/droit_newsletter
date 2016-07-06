@@ -7,15 +7,30 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use designpond\newsletter\Newsletter\Repo\NewsletterContentInterface;
+use designpond\newsletter\Newsletter\Repo\NewsletterClipboardInterface;
+use designpond\newsletter\Newsletter\Repo\NewsletterCampagneInterface;
 use designpond\newsletter\Newsletter\Helper\Helper;
 
 class ContentController extends Controller
 {
+    protected $clipboard;
     protected $content;
+    protected $campagne;
 
-    public function __construct(NewsletterContentInterface $content)
+    public function __construct(NewsletterContentInterface $content, NewsletterClipboardInterface $clipboard, NewsletterCampagneInterface $campagne)
     {
-        $this->content = $content;
+        $this->content   = $content;
+        $this->campagne  = $campagne;
+        $this->clipboard = $clipboard;
+    }
+
+    public function show($id)
+    {
+        $contents   = $this->content->getByCampagne($id);
+        $campagne   = $this->campagne->find($id);
+        $clipboards = $this->clipboard->getAll();
+
+        return view('newsletter::Backend.build.sorting')->with(['contents' => $contents, 'campagne' => $campagne, 'clipboards' => $clipboards]);
     }
 
     /**
