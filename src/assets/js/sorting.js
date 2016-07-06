@@ -2,7 +2,7 @@ var url  = location.protocol + "//" + location.host+"/";
 
 $(function() {
 
-    $( "#sortable" ).sortable({
+ /*   $( "#sortable" ).sortable({
         axis: 'y',
         handle: '.handle',
         placeholder: "ui-state-highlight",
@@ -36,7 +36,7 @@ $(function() {
                 url: url + 'build/sorting'
             });
         }
-    });
+    });*/
 
 
     $( "#sortable_list" ).sortable({
