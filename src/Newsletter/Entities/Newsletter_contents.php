@@ -21,6 +21,17 @@ class Newsletter_contents extends Model {
         }
     }
 
+    public function getLinkOrUrlAttribute()
+    {
+        $file = config('newsletter.path.upload').$this->lien;
+
+        if(\File::exists($file)){
+            return config('newsletter.path.upload').$this->lien;
+        }
+
+        return $this->lien;
+    }
+
     public function campagne(){
 
         return $this->belongsTo('designpond\newsletter\Newsletter\Entities\Newsletter_campagnes');

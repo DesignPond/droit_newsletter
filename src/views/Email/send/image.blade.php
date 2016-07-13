@@ -8,7 +8,7 @@
                 <tr>
                     <td align="center" valign="top" width="560" class="resetMarge">
                         <p class="centerText">
-                            <a target="_blank" href="{{ isset($bloc->lien) && !empty($bloc->lien) ? $bloc->lien : url('/') }}">
+                            <a target="_blank" href="{{ isset($bloc->lien) && !empty($bloc->lien) ? $bloc->link_or_url : url('/') }}">
                                 <img style="max-width: 560px;" alt="{{ $bloc->titre or '' }}" src="{{ asset(config('newsletter.path.upload').$bloc->image) }}" />
                             </a>
                         </p>

@@ -165,7 +165,7 @@ App.controller("EditController",['$scope','$http','myService','__env', function(
 
         $('.finishEdit').hide();
         $('.editContent').show();
-        $( "#sortable" ).sortable( "enable" );
+        //$( "#sortable" ).sortable( "enable" );
     }
 
     this.editContent = function(idItem){
@@ -198,7 +198,7 @@ App.controller("EditController",['$scope','$http','myService','__env', function(
             }
         });
 
-        //$( "#sortGroupe_" + groupe_id ).sortable( "enable" );
+        $( "#sortGroupe_" + groupe_id ).sortable( "enable" );
         $( "#sortGroupe_" + groupe_id).find('.groupe_rang').css('border','1px solid #ddd');
 
     };

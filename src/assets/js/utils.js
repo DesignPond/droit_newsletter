@@ -82,11 +82,9 @@ $(function() {
 
         $('.create_bloc').hide();
         $('.edit_content_form').hide();
-        //$this.hide();
 
         $('#edit_'+id).show();
 
-        $( "#sortable" ).sortable( "disable" );
         $( "#sortGroupe" ).sortable( "enable" );
         $( "#sortGroupe .groupe_rang").css({ "border":"1px solid #bfe4ad"});
 
@@ -95,14 +93,12 @@ $(function() {
     $('body').on('click','.cancelEdit',function(event){
 
         $('.edit_content_form').hide();
-        $( "#sortable" ).sortable( "enable" );
         $( "#sortGroupe" ).sortable( "disable" );
         $('.bloc_rang').height('auto');
     });
 
     $('body').on('click','.cancelCreate',function(event){
         $('.create_bloc').hide();
-        $( "#sortable" ).sortable( "enable" );
     });
 
     $('body').on('click','.blocEdit',function(event){
@@ -126,7 +122,6 @@ $(function() {
         }, 100);
 
         $('#create_'+id).show();
-        $( "#sortable" ).sortable( "disable" );
     });
 
 });

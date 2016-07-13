@@ -345,7 +345,7 @@ div#fieldChooser,div#fieldChooser2 {
  */
 .listArrets ul[dnd-list] {
     min-height: 42px;
-    width: 45%;
+    width: 44%;
     height: 300px;
     float: left;
     margin: 0px;
