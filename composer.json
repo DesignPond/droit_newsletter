@@ -21,7 +21,8 @@
         "php" : "~5.5|~7.0",
         "intervention/image": "dev-master",
         "inlinestyle/inlinestyle": "1.*",
-        "maatwebsite/excel": "~2.0.0"
+        "maatwebsite/excel": "~2.0.0",
+        "mailjet/mailjet-apiv3-php": "^1.1"
     },
     "require-dev": {
     },
