@@ -10,7 +10,7 @@ class MailjetService {
     protected $ressource;
 
     protected $sender = '';
-    protected $list   = '';
+    protected $list   = null;
 
     public function __construct(Client $mailjet,Resources $ressource)
     {
@@ -45,6 +45,8 @@ class MailjetService {
 
     public function getSubscribers()
     {
+        $this->hasList();
+
         $response = $this->mailjet->get(Resources::$Contactslist, ["ID" => $this->list]);
 
         if($response->success())
@@ -87,6 +89,8 @@ class MailjetService {
 
     public function addContactToList($contactID)
     {
+        $this->hasList();
+
         $response = $this->mailjet->post(Resources::$Listrecipient, ['body' => ["ContactID" => $contactID, "ListID" => $this->list , "IsActive" => "True"]]);
 
         if($response->success())
@@ -133,6 +137,8 @@ class MailjetService {
      */
     public function getListRecipient($email)
     {
+        $this->hasList();
+
         $ContactID = $this->getContactByEmail($email);
 
         $response = $this->mailjet->get(Resources::$Listrecipient, ['filters' => ['Contact' => $ContactID, "ContactsList"  => $this->list]]);
@@ -150,7 +156,17 @@ class MailjetService {
      */
     public function getCampagne($CampaignID)
     {
-        $response = $this->mailjet->get(Resources::$Campaign, ['unique' => 'mj.nl='.$CampaignID]);
+        $response = $this->mailjet->get(Resources::$Newsletter, ['ID' => $CampaignID]);
+
+        if($response->success())
+            return $response->getData();
+        else
+            return false;
+    }
+
+    public function updateCampagne($CampaignID, $status)
+    {
+        $response = $this->mailjet->put(Resources::$Newsletter, ['ID' => $CampaignID, 'body' => ['Status' => $status]]);
 
         if($response->success())
             return $response->getData();
@@ -160,6 +176,8 @@ class MailjetService {
 
     public function createCampagne($campagne){
 
+        $this->hasList();
+        
         # Parameters
         $params = [
             'Title'          => $campagne->newsletter->titre,
@@ -201,11 +219,27 @@ class MailjetService {
             return $response->getData();
         else
             return false;
+    }
 
+    public function getHtml($id)
+    {
+        $response = $this->mailjet->get(Resources::$NewsletterDetailcontent, ['id' => $id]);
+
+        if($response->success())
+        {
+            $html = $response->getData();
+            return !empty($html[0]['Html-part']) ? $html[0]['Html-part'] : null;
+        }
+        else
+        {
+            return false;
+        }
     }
     
     public function sendTest($id,$email,$sujet)
     {
+        $this->hasList();
+
         $body = [
             'Recipients' => [
                 ['Email' => $email, 'Name'  => $sujet]
@@ -217,22 +251,99 @@ class MailjetService {
         if($response->success())
             return $response->getData();
         else
-            return $response->getData();
+            return false;
 
     }
     
-    public function sendCampagne($id,$CampaignID){}
+    public function sendCampagne($id, $date = null)
+    {
+        $this->hasList();
+
+        $date = $date ? $date : 'NOW';
+
+        $response = $this->mailjet->post(Resources::$NewsletterSchedule, ['id' => $id, 'body' => ['date' => $date]]);
+        
+        if($response->success())
+        {
+            return $response->getData();
+        }
+        else
+        {
+            \Log::info('Problem with sending the campagne.', ['result' => $response->getData()]);
+
+            return $response->getData();
+        }
+    }
 
     /**
      * Statistiques
      */
-    public function statsCampagne($id){}
-    public function statsListe(){}
-    public function campagneAggregate($id){}
+    public function statsCampagne($id)
+    {
+        $response = $this->mailjet->get(Resources::$Campaignstatistics, ['ID' => 'mj.nl='.$id]);
+
+        if($response->success()){
+            $stats = $response->getData();
+            return $stats[0]; // returns ID directly
+        }
+
+        return false;
+    }
+    
+    public function clickStatistics($id, $offset = 0)
+    {
+        $response = $this->mailjet->get(Resources::$Toplinkclicked, ['filters' => ['CampaignID' => ' mj.nl='.$id, 'Limit' => 500, 'Offset' => $offset]]);
+
+        if($response->success()){
+            return $response->getData();
+        }
+
+        return null;
+    }
 
     /**
      * import listes
      */
-    public function uploadCSVContactslistData($data){}
-    public function importCSVContactslistData($data){}
+    public function uploadCSVContactslistData($CSVContent)
+    {
+        $this->hasList();
+
+        $response = $this->mailjet->post(Resources::$ContactslistCsvdata, ['body' => $CSVContent, 'id' => $this->list]);
+
+        if($response->success()){
+            $import = $response->getData();
+            return $import['ID']; // returns ID directly
+        }
+
+        return false;
+    }
+    
+    public function importCSVContactslistData($dataID)
+    {
+        $this->hasList();
+
+        $body = [
+            'ContactsListID' => $this->list,
+            'DataID'         => $dataID,
+            'Method'         => "addnoforce"
+        ];
+
+        $response = $this->mailjet->post(Resources::$Csvimport, ['body' => $body]);
+
+        if($response->success()){
+            return $response->getData();
+        }
+
+        return $response->getData();
+    }
+
+    /*
+     * Misc test
+     * */
+    public function hasList()
+    {
+        if(!$this->list){
+            throw new \designpond\newsletter\Exceptions\ListNotSetException('Attention aucune liste indiqueé');
+        }
+    }
 }

@@ -90,7 +90,7 @@ class CampagneController extends Controller
      */
     public function store(Request $request)
     {
-        $campagne = $this->campagne->create( ['sujet' => $request->input('sujet'), 'auteurs' => $request->input('auteurs'), 'newsletter_id' => $request->input('newsletter_id') ] );
+        $campagne = $this->campagne->create(['sujet' => $request->input('sujet'), 'auteurs' => $request->input('auteurs'), 'newsletter_id' => $request->input('newsletter_id')]);
 
         $this->mailjet->setList($campagne->newsletter->list_id);
 
@@ -128,6 +128,7 @@ class CampagneController extends Controller
     {
         $campagne = $this->campagne->find($id);
         $campagne->content()->delete();
+
         $this->campagne->delete($id);
 
         return redirect()->back()->with(['status' => 'success', 'message' => 'Campagne supprimée']);

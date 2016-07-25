@@ -188,7 +188,7 @@ class MailjetWorker implements MailjetInterface{
 
         if(!$this->mailjet->getResponseCode() == 201 )
         {
-            throw new \designpond\newsletter\Exceptions\SubscribeUserException('Erreur synchronisation email vers mailjet');
+            throw new \App\Exceptions\SubscribeUserException('Erreur synchronisation email vers mailjet');
         }
 
         return $result;

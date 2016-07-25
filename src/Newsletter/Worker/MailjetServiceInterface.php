@@ -25,18 +25,18 @@ interface MailjetServiceInterface {
     /**
      * Campagnes
      */
-    public function getCampagne($CampaignID);
     public function createCampagne($campagne);
+    public function getCampagne($CampaignID);
+    public function updateCampagne($CampaignID, $status);
     public function setHtml($html,$id);
-    public function sendTest($email,$html,$sujet);
-    public function sendCampagne($id,$CampaignID);
+    public function sendTest($id,$email,$sujet);
+    public function sendCampagne($id, $date = null);
 
     /**
      * Statistiques
      */
     public function statsCampagne($id);
-    public function statsListe();
-    public function campagneAggregate($id);
+    public function clickStatistics($id, $offset = 0);
 
     /**
      * import listes
