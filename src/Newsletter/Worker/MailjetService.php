@@ -1,10 +1,12 @@
 <?php 
 namespace designpond\newsletter\Newsletter\Worker;
 
+use designpond\newsletter\Newsletter\Worker\MailjetServiceInterface;
+
 use \Mailjet\Resources as Resources;
 use \Mailjet\Client as Client;
 
-class MailjetService {
+class MailjetService implements MailjetServiceInterface{
 
     protected $mailjet;
     protected $ressource;

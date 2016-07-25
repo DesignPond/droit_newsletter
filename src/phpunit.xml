@@ -14,6 +14,9 @@
         <testsuite name="newsletter">
             <directory>./tests/newsletter/</directory>
         </testsuite>
+        <testsuite name="service">
+            <directory>./tests/service/</directory>
+        </testsuite>
     </testsuites>
     <php>
 		<env name="APP_KEY" value="base64:/0jUuH1cM8ZotNIa76x/Rf8RepgFH2W0e/LofCwh8iw="/>

@@ -94,7 +94,7 @@ class CampagneTest extends Orchestra\Testbench\TestCase
      */
     public function testSendCampagne()
     {
-    
+
         $campagne = factory(designpond\newsletter\Newsletter\Entities\Newsletter_campagnes::class)->make();
 
         $this->campagne->shouldReceive('find')->once()->andReturn($campagne);
