@@ -8,14 +8,14 @@ use App\Http\Controllers\Controller;
 use designpond\newsletter\Http\Requests\SubscribeRequest;
 
 use designpond\newsletter\Newsletter\Repo\NewsletterUserInterface;
-use designpond\newsletter\Newsletter\Worker\MailjetInterface;
+use designpond\newsletter\Newsletter\Worker\MailjetServiceInterface;
 
 class InscriptionController extends Controller
 {
     protected $subscription;
     protected $worker;
 
-    public function __construct(MailjetInterface $worker, NewsletterUserInterface $subscription)
+    public function __construct(MailjetServiceInterface $worker, NewsletterUserInterface $subscription)
     {
         $this->worker        = $worker;
         $this->subscription  = $subscription;

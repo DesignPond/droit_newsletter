@@ -9,7 +9,7 @@ use App\Http\Controllers\Controller;
 use designpond\newsletter\Newsletter\Repo\NewsletterInterface;
 use designpond\newsletter\Newsletter\Repo\NewsletterCampagneInterface;
 use designpond\newsletter\Newsletter\Service\UploadWorker;
-use designpond\newsletter\Newsletter\Worker\MailjetInterface;
+use designpond\newsletter\Newsletter\Worker\MailjetServiceInterface;
 use designpond\newsletter\Newsletter\Repo\NewsletterListInterface;
 
 class NewsletterController extends Controller
@@ -20,7 +20,7 @@ class NewsletterController extends Controller
     protected $mailjet;
     protected $list;
 
-    public function __construct(NewsletterInterface $newsletter, UploadWorker $upload, MailjetInterface $mailjet, NewsletterListInterface $list, NewsletterCampagneInterface  $campagne)
+    public function __construct(NewsletterInterface $newsletter, UploadWorker $upload, MailjetServiceInterface $mailjet, NewsletterListInterface $list, NewsletterCampagneInterface  $campagne)
     {
         $this->campagne   = $campagne;
         $this->newsletter = $newsletter;
@@ -62,9 +62,8 @@ class NewsletterController extends Controller
      */
     public function create()
     {
-        $lists      = $this->mailjet->getAllLists();
-        $lists      = (isset($lists->Data) ? $lists->Data : []);
-        
+        $lists = $this->mailjet->getAllLists();
+
         return view('newsletter::Backend.template.create')->with(['lists' => $lists]);
     }
 
@@ -107,7 +106,6 @@ class NewsletterController extends Controller
     public function show($id)
     {
         $lists      = $this->mailjet->getAllLists();
-        $lists      = (isset($lists->Data) ? $lists->Data : []);
         $newsletter = $this->newsletter->find($id);
 
         return view('newsletter::Backend.template.show')->with(['newsletter' => $newsletter, 'lists' => $lists]);

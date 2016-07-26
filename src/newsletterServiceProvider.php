@@ -225,7 +225,7 @@ class newsletterServiceProvider extends ServiceProvider
         $this->app->singleton('designpond\newsletter\Newsletter\Worker\ImportWorkerInterface', function()
         {
             return new \designpond\newsletter\Newsletter\Worker\ImportWorker(
-                \App::make('designpond\newsletter\Newsletter\Worker\MailjetInterface'),
+                \App::make('designpond\newsletter\Newsletter\Worker\MailjetServiceInterface'),
                 \App::make('designpond\newsletter\Newsletter\Repo\NewsletterUserInterface'),
                 \App::make('designpond\newsletter\Newsletter\Repo\NewsletterInterface'),
                 \App::make('Maatwebsite\Excel\Excel'),

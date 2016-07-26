@@ -9,7 +9,7 @@ use App\Http\Controllers\Controller;
 use designpond\newsletter\Newsletter\Repo\NewsletterCampagneInterface;
 use designpond\newsletter\Newsletter\Repo\NewsletterTypesInterface;
 use designpond\newsletter\Newsletter\Repo\NewsletterContentInterface;
-use designpond\newsletter\Newsletter\Worker\MailjetInterface;
+use designpond\newsletter\Newsletter\Worker\MailjetServiceInterface;
 
 use designpond\newsletter\Newsletter\Helper\Helper;
 
@@ -20,7 +20,7 @@ class CampagneController extends Controller
     protected $content;
     protected $mailjet;
 
-    public function __construct(NewsletterCampagneInterface $campagne, NewsletterTypesInterface $type, NewsletterContentInterface $content, MailjetInterface $mailjet)
+    public function __construct(NewsletterCampagneInterface $campagne, NewsletterTypesInterface $type, NewsletterContentInterface $content, MailjetServiceInterface $mailjet)
     {
         $this->campagne = $campagne;
         $this->type     = $type;
@@ -94,12 +94,14 @@ class CampagneController extends Controller
 
         $this->mailjet->setList($campagne->newsletter->list_id);
 
-        $created = $this->mailjet->createCampagne($campagne);
+        $created = $this->mailjet->createCampagne($campagne); // return Mailjet ID
 
         if(!$created)
         {
             throw new \designpond\newsletter\Exceptions\CampagneCreationException('Problème avec la création de campagne sur mailjet');
         }
+
+        $this->campagne->update(['id' => $campagne->id, 'api_campagne_id' => $created]);
 
         return redirect('build/campagne/'.$campagne->id)->with(['status' => 'success' , 'message' => 'Campagne crée']);
     }

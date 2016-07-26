@@ -5,7 +5,7 @@
             <td colspan="3" height="35">
                 <div class="pull-right btn-group btn-group-xs">
                     <button class="btn btn-warning editContent" ng-click="edit.editContent({{ $bloc->id }}) && !$flow.files.length" data-id="{{ $bloc->id }}"type="button">éditer</button>
-                    <button class="btn btn-danger deleteContent deleteContentBloc" data-id="{{ $bloc->id }}" data-action="{{ $bloc->titre }}" type="button">&nbsp;×&nbsp;</button>
+                    <button class="btn btn-danger deleteActionNewsletter deleteContentBloc" data-id="{{ $bloc->id }}" data-action="{{ $bloc->titre }}" type="button">&nbsp;×&nbsp;</button>
                 </div>
             </td>
         </tr><!-- space -->

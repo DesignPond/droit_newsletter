@@ -3,7 +3,7 @@
 namespace designpond\newsletter\Newsletter\Worker;
 
 use designpond\newsletter\Newsletter\Repo\NewsletterInterface;
-use designpond\newsletter\Newsletter\Worker\MailjetInterface;
+use designpond\newsletter\Newsletter\Worker\MailjetServiceInterface;
 use designpond\newsletter\Newsletter\Repo\NewsletterUserInterface;
 use designpond\newsletter\Newsletter\Repo\NewsletterCampagneInterface;
 use designpond\newsletter\Newsletter\Worker\CampagneInterface;
@@ -21,7 +21,7 @@ class ImportWorker implements ImportWorkerInterface
     protected $upload;
 
     public function __construct(
-        MailjetInterface $mailjet ,
+        MailjetServiceInterface $mailjet ,
         NewsletterUserInterface $subscriber,
         NewsletterInterface $newsletter,
         Excel $excel,

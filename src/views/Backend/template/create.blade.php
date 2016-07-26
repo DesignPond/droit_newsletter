@@ -22,7 +22,7 @@
                                 <option value="">Choix de la liste</option>
                                 @if(!empty($lists))
                                     @foreach($lists as $list)
-                                        <option value="{{ $list->ID }}">{{ $list->Name }}</option>
+                                        <option value="{{ $list['ID'] }}">{{ $list['Name'] }}</option>
                                     @endforeach
                                 @endif
                             </select>

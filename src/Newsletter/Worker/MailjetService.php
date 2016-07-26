@@ -42,7 +42,7 @@ class MailjetService implements MailjetServiceInterface{
         if($response->success())
             return $response->getData();
         else
-            return false;
+            return [];
     }
 
     public function getSubscribers()
@@ -103,20 +103,20 @@ class MailjetService implements MailjetServiceInterface{
 
     public function subscribeEmailToList($email)
     {
-        // Add contact to our list and get id back
-        $contactID = $this->addContact($email);
+        $response = $this->mailjet->post(Resources::$ContactslistManagecontact, [
+            "ID"   => $this->list,
+            'body' => [
+                "Email"   => $email,
+                "Action"  => "addnoforce"
+            ]
+        ]);
 
-        // Attempt tu subscribe if fails we try to re subscribe
-        $response = $this->addContactToList($contactID);
-
-        if(!$response)
-        {
-            throw new \designpond\newsletter\Exceptions\SubscribeUserException('Erreur synchronisation email vers mailjet');
-        }
-
-        return $response;
-
+        if($response->success())
+            return $response->getData();
+        else
+            return false;
     }
+
     public function removeContact($email)
     {
         $listRecipientID = $this->getListRecipient($email);
@@ -198,10 +198,6 @@ class MailjetService implements MailjetServiceInterface{
         if($response->success())
         {
             $newsletter = $response->getData();
-
-            $campagne->api_campagne_id = $newsletter[0]['ID'];
-            $campagne->save();
-
             return $newsletter[0]['ID']; // returns ID directly
         }
 
@@ -240,8 +236,6 @@ class MailjetService implements MailjetServiceInterface{
     
     public function sendTest($id,$email,$sujet)
     {
-        $this->hasList();
-
         $body = [
             'Recipients' => [
                 ['Email' => $email, 'Name'  => $sujet]
@@ -250,11 +244,9 @@ class MailjetService implements MailjetServiceInterface{
 
         $response = $this->mailjet->post(Resources::$NewsletterTest, ['id' => $id, 'body' => $body]);
 
-        if($response->success())
-            return $response->getData();
-        else
-            return false;
+        $success = $response->success() ? true : false;
 
+        return ['success' => $success, 'info' => $response->getData()];
     }
     
     public function sendCampagne($id, $date = null)
@@ -264,17 +256,10 @@ class MailjetService implements MailjetServiceInterface{
         $date = $date ? $date : 'NOW';
 
         $response = $this->mailjet->post(Resources::$NewsletterSchedule, ['id' => $id, 'body' => ['date' => $date]]);
-        
-        if($response->success())
-        {
-            return $response->getData();
-        }
-        else
-        {
-            \Log::info('Problem with sending the campagne.', ['result' => $response->getData()]);
 
-            return $response->getData();
-        }
+        $success = $response->success() ? true : false;
+
+        return ['success' => $success, 'info' => $response->getData()];
     }
 
     /**
@@ -336,7 +321,7 @@ class MailjetService implements MailjetServiceInterface{
             return $response->getData();
         }
 
-        return $response->getData();
+        return false;
     }
 
     /*

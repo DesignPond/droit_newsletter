@@ -8,7 +8,7 @@ use App\Http\Controllers\Controller;
 
 use designpond\newsletter\Newsletter\Repo\NewsletterInterface;
 use designpond\newsletter\Newsletter\Repo\NewsletterUserInterface;
-use designpond\newsletter\Newsletter\Worker\MailjetInterface;
+use designpond\newsletter\Newsletter\Worker\MailjetServiceInterface;
 
 use designpond\newsletter\Http\Requests\RemoveNewsletterUserRequest;
 
@@ -18,7 +18,7 @@ class SubscriberController extends Controller
     protected $newsletter;
     protected $worker;
 
-    public function __construct(NewsletterUserInterface $subscriber, NewsletterInterface $newsletter, MailjetInterface $worker)
+    public function __construct(NewsletterUserInterface $subscriber, NewsletterInterface $newsletter, MailjetServiceInterface $worker)
     {
         $this->subscriber = $subscriber;
         $this->newsletter = $newsletter;
