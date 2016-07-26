@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="<?php echo asset('css/jquery-ui.min.css');?>">
 
+
     @if(isset($isNewsletter))
         @include('newsletter::Style.main', ['campagne' => isset($campagne) ? : null])
         @include('newsletter::Style.redactor')
@@ -90,6 +91,7 @@
 @include('newsletter::Script.config')
 
 @if(isset($isNewsletter))
+    @include('newsletter::Script.date')
     @include('newsletter::Script.redactor')
     @include('newsletter::Script.angular')
     @include('newsletter::Script.datatables')

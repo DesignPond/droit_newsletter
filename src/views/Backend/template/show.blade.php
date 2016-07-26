@@ -35,7 +35,7 @@
                                     <option value="">Choix de la liste</option>
                                     @if(!empty($lists))
                                         @foreach($lists as $list)
-                                            <option {{ $newsletter->list_id == $list->ID ? 'selected' :'' }} value="{{ $list->ID }}">{{ $list->Name }}</option>
+                                            <option {{ $newsletter->list_id == $list['ID'] ? 'selected' :'' }} value="{{ $list['ID'] }}">{{ $list['Name'] }}</option>
                                         @endforeach
                                     @endif
                                 </select>

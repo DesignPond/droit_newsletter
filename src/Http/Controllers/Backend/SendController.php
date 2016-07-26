@@ -24,7 +24,6 @@ class SendController extends Controller
         $this->mailjet  = $mailjet;
 
         setlocale(LC_ALL, 'fr_FR.UTF-8');
-
         view()->share('isNewsletter',true);
     }
     
@@ -55,13 +54,10 @@ class SendController extends Controller
         /*
          *  Send at specified date or delay for 15 minutes before sending just in case
          */
-        if(!$date)
-        {
-            $dt   = \Carbon\Carbon::now()->addMinutes(15);
-            $date = $dt->toW3cString();
-        }
-
-        $result = $this->mailjet->sendCampagne($campagne->api_campagne_id,$campagne->id, $date);
+        $toSend  = $date ? \Carbon\Carbon::parse($date) : \Carbon\Carbon::now()->addMinutes(15);
+        $send_at = $toSend->timezone('UTC')->format('Y-m-d\TH:i:s\Z');
+        
+        $result = $this->mailjet->sendCampagne($campagne->api_campagne_id,$campagne->id, $send_at);
 
         if(!$result['success'])
         {
@@ -72,7 +68,6 @@ class SendController extends Controller
         $this->campagne->update(['id' => $request->input('id'), 'status' => 'envoyé', 'updated_at' => date('Y-m-d G:i:s')]);
 
         return redirect('build/newsletter')->with(['status' => 'success' , 'message' => 'Campagne envoyé!']);
-
     }
     
     /**

@@ -1,5 +1,6 @@
 <link rel="stylesheet" href="{{ asset('newsletter/css/backend/newsletter.css') }}">
 <link rel="stylesheet" href="{{ asset('newsletter/css/frontend/newsletter.css') }}">
+<link rel="stylesheet" href="{{ asset('newsletter/css/frontend/bootstrap-datetimepicker.css') }}">
 @if(isset($campagne) && isset($campagne->newsletter))
     <style type="text/css">
         #StyleNewsletter h2, #StyleNewsletterCreate h2{
