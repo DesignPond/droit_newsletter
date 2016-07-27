@@ -99,6 +99,16 @@ Route::get('arrets/{id?}',     'ArretController@arrets'); // build.js
 Route::get('categories/{id?}', 'CategorieController@categories'); // utils.js
 ```
 
+And configure the path to you routes for angular`in newsletter/js/env.js
+
+```javascript
+// Admin url
+window.__env.adminUrl = 'http://dev.local/admin/';
+// Base url
+window.__env.ajaxUrl = 'http://dev.local/admin/ajax/';
+```
+
+
 ### Navigation menu items
 
 + Newsletters list: build/newsletter
