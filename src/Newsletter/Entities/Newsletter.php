@@ -60,6 +60,18 @@ class Newsletter extends Model {
             ->orderBy('updated_at','DESC');
     }
 
+    public function year($year)
+    {
+        return $this->hasMany('\designpond\newsletter\Newsletter\Entities\Newsletter_campagnes')
+            ->where('status','=','envoyé')
+            ->where(function ($query) {
+                $query->whereDate('send_at', '<', \Carbon\Carbon::now())->orWhereNull('send_at');
+            })
+            ->whereRaw('YEAR(`created_at`) = ?', [$year])
+            ->orderBy('updated_at','DESC');
+    }
+
+
     public function site()
     {
         if(config('newsletter.multi'))
