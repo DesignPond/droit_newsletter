@@ -32,6 +32,14 @@ $(function() {
 
     });
 
+    //datePickerNewsletter
+
+    $('#datePickerNewsletter').datetimepicker({
+        locale: 'fr-ch',
+        format:  'YYYY-MM-DD HH:mm',
+        minDate : moment().format()
+    });
+
     $('body').on('click','.deleteActionNewsletter',function(event){
 
         var $this  = $(this);

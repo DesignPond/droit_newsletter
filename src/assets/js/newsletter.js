@@ -43,35 +43,6 @@ jQuery(function($){
             }
         });
     });
-
-    $('#bootbox').click(function(){
-        var campagneId = $(this).data('campagne');
-        var sujet      = '';
-
-        /*  Get campagne infos */
-        $.get( url + 'build/campagne/simple/' + campagneId , function( campagne ) {
-            sujet = campagne.sujet;
-            console.log(sujet);
-        }) .always(function() {
-
-            /*  Modal */
-            bootbox.dialog({
-                message: "Etes-vous sûr de vouloir envoyer la campagne : <strong>" + sujet + "</strong>?",
-                title: "Envoyer la campagne",
-                buttons: {
-                    success: {
-                        label: "Oui!",
-                        className: "btn-success",
-                        callback: function() {
-                            $("#sendCampagneForm").submit();
-                        }
-                    },
-                    main: {
-                        label: "Annuler", className: "btn-default"
-                    }
-                }
-            });
-        });
-    });
+    
 
 });

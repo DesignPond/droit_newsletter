@@ -60,24 +60,43 @@ Javascript and css
 
 **Elements to add**
 
+In the head
+```php
+@if(isset($isNewsletter))
+    @include('newsletter::Style.main', ['campagne' => isset($campagne) ? : null])
+    @include('newsletter::Style.redactor')
+@endif
+```
 
+Before end of the body
+```php
+@include('newsletter::Script.config')
+     
+@if(isset($isNewsletter))
+    @include('newsletter::Script.date')
+    @include('newsletter::Script.redactor')
+    @include('newsletter::Script.angular')
+    @include('newsletter::Script.datatables')
+    @include('newsletter::Script.main')
+@endif
+```
 
 You have to implement upload routes for wysiwyg redactor.js
 
 ```php
-   Route::post('uploadRedactor', 'UploadController@uploadRedactor');
-   Route::post('uploadJS', 'UploadController@uploadJS');
-   Route::get('imageJson/{id?}', ['uses' => 'UploadController@imageJson']);
-   Route::get('fileJson/{id?}', ['uses' => 'UploadController@fileJson']);
+Route::post('uploadRedactor', 'UploadController@uploadRedactor');
+Route::post('uploadJS', 'UploadController@uploadJS');
+Route::get('imageJson/{id?}', ['uses' => 'UploadController@imageJson']);
+Route::get('fileJson/{id?}', ['uses' => 'UploadController@fileJson']);
 ```
 
 ### Usage with Arrets and Categories
 
 You have to Implement ajax routes:
 ``` php
-   Route::get('arret/{id}', 'ArretController@simple'); // build.js
-   Route::get('arrets/{id?}',     'ArretController@arrets'); // build.js
-   Route::get('categories/{id?}', 'CategorieController@categories'); // utils.js
+Route::get('arret/{id}', 'ArretController@simple'); // build.js
+Route::get('arrets/{id?}',     'ArretController@arrets'); // build.js
+Route::get('categories/{id?}', 'CategorieController@categories'); // utils.js
 ```
 
 ### Navigation menu items
