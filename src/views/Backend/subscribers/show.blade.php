@@ -33,16 +33,16 @@
                         <label for="message" class="col-sm-3 control-label">Abonnements</label>
                         <div class="col-sm-6">
 
-                            <?php $abos = (!$subscriber->subscriptions->isEmpty() ? $subscriber->subscriptions->lists('id')->all() : []); ?>
+                            <?php $abos = (!$subscriber->subscriptions->isEmpty() ? $subscriber->subscriptions->lists('id')->all() : []);?>
 
                             @if(!$newsletter->isEmpty())
                                 @foreach($newsletter as $abonnement)
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" name="newsletter_id[]" <?php if(in_array($abonnement->id,$abos)){ echo 'checked'; } ?> value="{{ $abonnement->id }}">
-                                        {{ $abonnement->titre }}
-                                    </label>
-                                </div>
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" name="newsletter_id[]" <?php if(in_array($abonnement->id,$abos)){ echo 'checked'; } ?> value="{{ $abonnement->id }}">
+                                            {{ $abonnement->titre }}
+                                        </label>
+                                    </div>
                                 @endforeach
                             @endif
 

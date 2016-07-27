@@ -211,17 +211,17 @@ class MailjetService implements MailjetServiceInterface{
             'Text-part' => strip_tags($html)
         ];
 
-        $response = $this->mailjet->put(Resources::$NewsletterDetailcontent, ['id' => $id, 'body' => $body]);
+        $response = $this->mailjet->put(Resources::$NewsletterDetailcontent, ['ID' => $id, 'body' => $body]);
 
         if($response->success())
             return $response->getData();
         else
-            return false;
+            return $response->getData();
     }
 
     public function getHtml($id)
     {
-        $response = $this->mailjet->get(Resources::$NewsletterDetailcontent, ['id' => $id]);
+        $response = $this->mailjet->get(Resources::$NewsletterDetailcontent, ['ID' => $id]);
 
         if($response->success())
         {

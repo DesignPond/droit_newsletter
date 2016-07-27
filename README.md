@@ -18,11 +18,12 @@ $ composer require designpond/newsletter
 "intervention/image": "dev-master",
 "inlinestyle/inlinestyle": "1.*",
 "maatwebsite/excel": "~2.0.0",
+"mailjet/mailjet-apiv3-php": "^1.1"
 ```
 
 ## Usage
 
-This package is used with Laravel 5.2.
+This package is used with Laravel 5.2 adn Mailjet API v3
 Created for multiple websites of La Faculté de droit de l'Université de Neuchâtel.
 The content is meant to be used with arrets, analyse, categories and multi sites
 
@@ -48,6 +49,18 @@ The content is meant to be used with arrets, analyse, categories and multi sites
 ### Usage simple
 
 If you want routes with prefix set it in **env.js** in **newsletter/js**
+
+### Master layout dependencies
+
+Javascript and css
++ jquery.js v2.2
++ jquery-ui.js v1.11
++ bootstrap.css v3
++ bootstrap.js v3
+
+**Elements to add**
+
+
 
 You have to implement upload routes for wysiwyg redactor.js
 

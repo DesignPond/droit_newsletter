@@ -3,7 +3,7 @@
     <div class="pull-right btn-group btn-group-xs">
         <button class="btn btn-success finishEdit" ng-click="edit.finishEdit({{ $bloc->groupe_id }})" data-id="{{ $bloc->id }}" type="button">Terminer</button>
         <button class="btn btn-warning editContent" ng-click="edit.editContent({{ $bloc->id }})" data-id="{{ $bloc->id }}" type="button">éditer</button>
-        <button class="btn btn-danger btn-xs deleteActionNewsletter deleteContentBloc deleteContentBlocArret" data-id="{{ $bloc->id }}" data-action="groupe" type="button">&nbsp;×&nbsp;</button>
+        <button class="btn btn-danger btn-xs deleteActionNewsletter deleteContentBloc" data-id="{{ $bloc->id }}" data-action="groupe" type="button">&nbsp;×&nbsp;</button>
     </div>
 
     @if(!$bloc->groupe->arrets->isEmpty())

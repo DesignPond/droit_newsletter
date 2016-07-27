@@ -120,7 +120,7 @@ class ImportWorker implements ImportWorkerInterface
         $filename = preg_replace('/\\.[^.\\s]{3,4}$/', '', $file);
 
         $dataID   = $this->mailjet->uploadCSVContactslistData(file_get_contents(public_path('files/import/'.$filename.'.csv')));
-        $response = $this->mailjet->importCSVContactslistData($dataID->ID);
+        $response = $this->mailjet->importCSVContactslistData($dataID);
     }
 
     public function send($campagne_id,$list)

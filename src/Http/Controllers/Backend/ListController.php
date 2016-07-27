@@ -68,7 +68,7 @@ class ListController extends Controller
 
         $this->import->send($request->input('campagne_id'),$list);
 
-        return redirect('build/campagne/'.$request->input('campagne_id'))->with( ['status' => 'success' , 'message' => 'Campagne envoyé à la liste!'] );
+        return redirect('build/newsletter')->with( ['status' => 'success' , 'message' => 'Campagne envoyé à la liste!'] );
     }
 
     public function store(ListRequest $request)

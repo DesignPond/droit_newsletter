@@ -14,7 +14,7 @@ class NewsletterEloquent implements NewsletterInterface{
 	
 	public function getAll(){
 		
-		return $this->newsletter->with(['campagnes','sent'])->get();
+		return $this->newsletter->with(['campagnes','sent','draft','pending'])->get();
 	}
 
 	public function find($id){

@@ -2,6 +2,11 @@
 
 All Notable changes to `newsletter` will be documented in this file.
 
+## 1.1.0 (released 2016-07-27)
+
+### Changed
+- New implementation of worker for Mailjet API v3
+
 ## 1.0.4 (released 2016-07-06)
 
 ### Added

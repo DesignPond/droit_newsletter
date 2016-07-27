@@ -5,11 +5,11 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Newsletter_campagnes extends Model {
 
-	protected $fillable = ['sujet','auteurs','newsletter_id'];
+	protected $fillable = ['sujet','auteurs','newsletter_id','status','send_at','api_campagne_id'];
 
     use SoftDeletes;
 
-    protected $dates = ['deleted_at'];
+    protected $dates = ['deleted_at','send_at'];
 
     public function scopeNews($query,$newsletter_id)
     {

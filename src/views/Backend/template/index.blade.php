@@ -40,15 +40,18 @@
                                 @if(!$newsletter->campagnes->isEmpty())
 
                                     <?php
-                                        $campagnes = $newsletter->campagnes->whereLoose('status','brouillon');
-                                        $archives  = $newsletter->campagnes->whereLoose('status','envoyé');
-                                        $years     = $archives->groupBy(function ($archive, $key) {
+                                        $years     = $newsletter->sent->groupBy(function ($archive, $key) {
                                             return $archive->created_at->year;
                                         })->keys();
                                     ?>
 
-                                    @include('newsletter::Backend.campagne.list',['campagnes' => $campagnes])
+                                    <h4>Brouillons</h4>
+                                    @include('newsletter::Backend.campagne.list',['campagnes' => $newsletter->draft])
 
+                                    <h4>En attente d'envoi</h4>
+                                    @include('newsletter::Backend.campagne.list',['campagnes' => $newsletter->pending])
+
+                                    <hr/>
                                     <div class="newsletter-archives">
                                         @foreach($years as $year)
                                             <a class="btn btn-primary btn-sm" href="{{ url('build/newsletter/archive/'.$newsletter->id.'/'.$year) }}">Archives {{ $year }}</a>

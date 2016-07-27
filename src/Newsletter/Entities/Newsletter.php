@@ -37,9 +37,27 @@ class Newsletter extends Model {
         return $this->hasMany('\designpond\newsletter\Newsletter\Entities\Newsletter_campagnes')->orderBy('updated_at','DESC');
     }
 
+    public function draft()
+    {
+        return $this->hasMany('\designpond\newsletter\Newsletter\Entities\Newsletter_campagnes')->where('status','=','brouillon')->orderBy('updated_at','DESC');
+    }
+
+    public function pending()
+    {
+        return $this->hasMany('\designpond\newsletter\Newsletter\Entities\Newsletter_campagnes')
+            ->where('status','=','envoyé')
+            ->where('send_at', '>', \Carbon\Carbon::now())
+            ->orderBy('updated_at','DESC');
+    }
+
     public function sent()
     {
-        return $this->hasMany('\designpond\newsletter\Newsletter\Entities\Newsletter_campagnes')->where('status','=','envoyé')->orderBy('updated_at','DESC');
+        return $this->hasMany('\designpond\newsletter\Newsletter\Entities\Newsletter_campagnes')
+            ->where('status','=','envoyé')
+            ->where(function ($query) {
+                $query->whereDate('send_at', '<', \Carbon\Carbon::now())->orWhereNull('send_at');
+            })
+            ->orderBy('updated_at','DESC');
     }
 
     public function site()

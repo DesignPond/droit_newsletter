@@ -36,9 +36,6 @@
                     <td>
                         @if($campagne->status == 'brouillon')
 
-                           {{-- <a href="javascript:;" data-campagne="{{ $campagne->id }}" class="btn btn-warning btn-sm" id="bootbox">
-                                <i class="fa fa-exclamation"></i> &nbsp;Envoyer la campagne
-                            </a>--}}
                             <a href="javascript:;" data-toggle="modal" data-target="#sendModal_{{ $campagne->id }}" class="btn btn-warning btn-sm">
                                 <i class="fa fa-exclamation"></i> &nbsp;Envoyer la campagne
                             </a>
@@ -46,7 +43,14 @@
                             @include('newsletter::Backend.campagne.partials.send',['campagne' => $campagne])
 
                         @else
-                            Envoyé le {{ $campagne->updated_at->formatLocalized('%d %b %Y') }} à {{ $campagne->updated_at->toTimeString() }}
+                            <p><strong>Envoyé le:</strong> <br/>{{ $campagne->updated_at->formatLocalized('%d %b %Y') }} à {{ $campagne->updated_at->toTimeString() }}</p>
+                            <p><strong>Envoi prévu à:</strong> <br/>{{ $campagne->send_at->formatLocalized('%d %b %Y') }} à {{ $campagne->send_at->toTimeString() }}</p>
+
+                            <div class="btn-group btn-group-sm">
+                                <a class="btn btn-info" target="_blank" href="{{ url('build/campagne/preview/'.$campagne->id) }}">Voir le preview</a>
+                                <a class="btn btn-warning" href="{{ url('build/campagne/cancel/'.$campagne->id) }}">Annuler l'envoi</a>
+                            </div>
+
                         @endif
                     </td>
                     <td class="text-right">

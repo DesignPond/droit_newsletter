@@ -58,6 +58,37 @@ class CampagneController extends Controller
     }
 
     /**
+     * Preview
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function preview($id)
+    {
+        $campagne = $this->campagne->find($id);
+        $data     = $this->mailjet->getHtml($campagne->api_campagne_id);
+
+        return response($data);
+    }
+
+    /**
+     * Preview
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function cancel($id)
+    {
+        $campagne = $this->campagne->find($id);
+        $this->mailjet->updateCampagne($campagne->api_campagne_id,0);
+
+        // Update campagne status
+        $this->campagne->update(['id' => $campagne->id, 'status' => 'brouillon', 'updated_at' => date('Y-m-d G:i:s'), 'send_at' => null]);
+
+        return redirect('build/newsletter')->with(['status' => 'success' , 'message' => 'Envoi de la campagne annulé']);
+    }
+
+    /**
      * Campagne
      * AJAX
      * @param  int  $id

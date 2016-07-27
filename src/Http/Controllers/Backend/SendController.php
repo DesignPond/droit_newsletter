@@ -54,10 +54,9 @@ class SendController extends Controller
         /*
          *  Send at specified date or delay for 15 minutes before sending just in case
          */
-        $toSend  = $date ? \Carbon\Carbon::parse($date) : \Carbon\Carbon::now()->addMinutes(15);
-        $send_at = $toSend->toIso8601String();
+        $toSend = $date ? \Carbon\Carbon::parse($date) : \Carbon\Carbon::now()->addMinutes(15);
         
-        $result = $this->mailjet->sendCampagne($campagne->api_campagne_id, $send_at);
+        $result = $this->mailjet->sendCampagne($campagne->api_campagne_id, $toSend->toIso8601String());
 
         if(!$result['success'])
         {
@@ -65,7 +64,7 @@ class SendController extends Controller
         }
 
         // Update campagne status
-        $this->campagne->update(['id' => $request->input('id'), 'status' => 'envoyé', 'updated_at' => date('Y-m-d G:i:s')]);
+        $this->campagne->update(['id' => $campagne->id, 'status' => 'envoyé', 'updated_at' => date('Y-m-d G:i:s'), 'send_at' => $toSend]);
 
         return redirect('build/newsletter')->with(['status' => 'success' , 'message' => 'Campagne envoyé!']);
     }

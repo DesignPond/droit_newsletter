@@ -57,7 +57,7 @@ $(function() {
         return false;
     });
 
-    $('body').on('click','.deleteAction',function(event){
+    $('body').on('click','.deleteNewsAction',function(event){
 
         var $this  = $(this);
         var action = $this.data('action');
