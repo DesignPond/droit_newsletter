@@ -60,6 +60,15 @@ class CampagneWorker implements CampagneInterface{
         return $this->campagne->getLastCampagne($newsletter_id);
     }
 
+
+    /**
+     * Archives by year
+     */
+    public function getArchives($newsletter_id,$year)
+    {
+        return $this->campagne->getArchives($newsletter_id,$year);
+    }
+
     /**
      * All newsletter for site
      */
