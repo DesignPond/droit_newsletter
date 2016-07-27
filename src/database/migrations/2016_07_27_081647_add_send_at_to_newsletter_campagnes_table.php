@@ -13,7 +13,7 @@ class AddSendAtToNewsletterCampagnesTable extends Migration
     public function up()
     {
         Schema::table('newsletter_campagnes', function (Blueprint $table) {
-            $table->string('send_at')->after('status');
+            $table->dateTime('send_at')->after('status')->nullable();
         });
     }
 
