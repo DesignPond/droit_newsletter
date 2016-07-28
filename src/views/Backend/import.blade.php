@@ -8,11 +8,10 @@
                 <form action="{{ url('build/import') }}" method="POST" enctype="multipart/form-data" class="form-horizontal">{!! csrf_field() !!}
                     <div class="panel-heading">
                         <h4>Importer une liste</h4>
-                        <p>Les emails seront importé dans la liste d'envoi de la newsletter choisie et synchronisés sur le service externe.</p>
-                        <hr/>
                     </div>
                     <div class="panel-body">
-
+                        <p>Les emails seront importé dans la liste d'envoi de la newsletter choisie et synchronisés sur le service externe.</p>
+                        <hr/>
                         <div class="form-group">
                             <label for="message" class="col-sm-3 control-label">Nom de la liste</label>
                             <div class="col-sm-8">
