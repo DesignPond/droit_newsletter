@@ -216,7 +216,7 @@ class MailjetService implements MailjetServiceInterface{
         if($response->success())
             return $response->getData();
         else
-            return $response->getData();
+            return false;
     }
 
     public function getHtml($id)

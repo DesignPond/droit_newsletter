@@ -98,13 +98,10 @@ class SubscriptionTest extends Orchestra\Testbench\TestCase
         /******************************/
         $user = factory(designpond\newsletter\Newsletter\Entities\Newsletter_users::class)->make(['id' => 1, 'email' => 'cindy.leschaud@gmail.com']);
 
-        $subscription1 = factory(designpond\newsletter\Newsletter\Entities\Newsletter_subscriptions::class)->make(['newsletter_id' => 1]);
-        $subscription3 = factory(designpond\newsletter\Newsletter\Entities\Newsletter_subscriptions::class)->make(['newsletter_id' => 2]);
+        $newsletter1 = factory(designpond\newsletter\Newsletter\Entities\Newsletter::class)->make(['id' => 1, 'list_id' => 1]);
+        $newsletter2 = factory(designpond\newsletter\Newsletter\Entities\Newsletter::class)->make(['id' => 2,'list_id' => 2]);
 
-        $user->subscriptions = new \Illuminate\Support\Collection([$subscription1,$subscription3]);
-
-        $newsletter1 = factory(designpond\newsletter\Newsletter\Entities\Newsletter::class)->make(['list_id' => 1]);
-        $newsletter2 = factory(designpond\newsletter\Newsletter\Entities\Newsletter::class)->make(['list_id' => 2]);
+        $user->subscriptions = new \Illuminate\Support\Collection([$newsletter1,$newsletter2]);
 
         $newsletters = new \Illuminate\Support\Collection([$newsletter1,$newsletter2]);
         /******************************/
@@ -128,18 +125,19 @@ class SubscriptionTest extends Orchestra\Testbench\TestCase
     public function testUpdateSubscriptions()
     {
         /******************************/
-        $newsletter1 = factory(designpond\newsletter\Newsletter\Entities\Newsletter::class)->make(['list_id' => 1]);
-        $newsletter2 = factory(designpond\newsletter\Newsletter\Entities\Newsletter::class)->make(['list_id' => 2]);
+        $newsletter1 = factory(designpond\newsletter\Newsletter\Entities\Newsletter::class)->make(['id' => 1, 'list_id' => 1]);
+        $newsletter2 = factory(designpond\newsletter\Newsletter\Entities\Newsletter::class)->make(['id' => 2,'list_id' => 2]);
+        $newsletter3 = factory(designpond\newsletter\Newsletter\Entities\Newsletter::class)->make(['id' => 3,'list_id' => 3]);
 
-        $user = factory(designpond\newsletter\Newsletter\Entities\Newsletter_users::class)->make(['id' => 1]);
+        $user  = factory(designpond\newsletter\Newsletter\Entities\Newsletter_users::class)->make(['id' => 1]);
+        $user2 = factory(designpond\newsletter\Newsletter\Entities\Newsletter_users::class)->make(['id' => 1]);
 
-        $subscription1 = factory(designpond\newsletter\Newsletter\Entities\Newsletter_subscriptions::class)->make(['newsletter_id' => 1]);
-        $subscription3 = factory(designpond\newsletter\Newsletter\Entities\Newsletter_subscriptions::class)->make(['newsletter_id' => 2]);
-
-        $user->subscriptions = new \Illuminate\Support\Collection([$subscription1,$subscription3]);
+        $user->subscriptions  = new \Illuminate\Support\Collection([$newsletter1,$newsletter2]);
+        $user2->subscriptions = new \Illuminate\Support\Collection([$newsletter1,$newsletter3]);
         /******************************/
 
-        $this->subscription->shouldReceive('update')->once()->andReturn($user);
+        $this->subscription->shouldReceive('find')->once()->andReturn($user);
+        $this->subscription->shouldReceive('update')->once()->andReturn($user2);
 
         $this->newsletter->shouldReceive('find')->once()->andReturn($newsletter1);
         $this->newsletter->shouldReceive('find')->once()->andReturn($newsletter2);

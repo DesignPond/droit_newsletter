@@ -7,6 +7,11 @@ class Newsletter_users extends Model {
     protected $dates    = ['activated_at'];
 	protected $fillable = ['email','activation_token','activated_at'];
 
+    public function getActivatedAttribute()
+    {
+        return $this->activated_at->timestamp < 0 ? null : $this->activated_at;
+    }
+
     public function subscriptions()
     {
         return $this->belongsToMany('designpond\newsletter\Newsletter\Entities\Newsletter', 'newsletter_subscriptions', 'user_id', 'newsletter_id');
