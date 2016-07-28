@@ -1,6 +1,7 @@
 <!-- Bloc -->
-<table border="0" width="560" align="center" cellpadding="0" cellspacing="0" class="tableReset">
-    <tr bgcolor="ffffff"><td colspan="3" height="35"></td></tr><!-- space -->
+<?php $width = isset($isEdit) ? 560 : 600; ?>
+<table border="0" width="{{ $width }}" align="center" cellpadding="0" cellspacing="0" class="tableReset">
+    <tr bgcolor="ffffff"><td height="35"></td></tr><!-- space -->
     <tr align="center" class="resetMarge">
         <td class="resetMarge">
             <!-- Bloc content-->
@@ -23,14 +24,19 @@
             <!-- Bloc content-->
         </td>
     </tr>
-    <tr bgcolor="ffffff"><td colspan="3" height="35" class="blocBorder"></td></tr><!-- space -->
+    @if($bloc->arret->analyses->isEmpty())
+        <tr bgcolor="ffffff"><td height="35" class="blocBorder"></td></tr><!-- space -->
+    @endif
     <tr>
-        <td>
+        <td align="center">
             <!-- Analyses -->
-            @include('newsletter::Email.send.partials.analyses', ['arret' => $bloc->arret])
+            @include('newsletter::Email.send.partials.analyses', ['arret' => $bloc->arret, 'isEdit' => isset($isEdit) ? true : false])
             <!-- End Analyses -->
         </td>
     </tr>
+    @if(!$bloc->arret->analyses->isEmpty())
+        <tr bgcolor="ffffff"><td height="35" class="blocBorder"></td></tr><!-- space -->
+    @endif
 </table>
 <!-- End bloc -->
 
