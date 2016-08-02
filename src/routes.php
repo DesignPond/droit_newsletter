@@ -50,6 +50,7 @@ Route::group(['middleware' => ['web']], function () {
 
         Route::post('send/campagne', 'designpond\newsletter\Http\Controllers\Backend\SendController@campagne');
         Route::post('send/test', 'designpond\newsletter\Http\Controllers\Backend\SendController@test');
+        Route::post('send/forward', 'designpond\newsletter\Http\Controllers\Backend\SendController@forward');
 
         Route::post('clipboard/copy', 'designpond\newsletter\Http\Controllers\Backend\ClipboardController@copy');
         Route::post('clipboard/paste', 'designpond\newsletter\Http\Controllers\Backend\ClipboardController@paste');

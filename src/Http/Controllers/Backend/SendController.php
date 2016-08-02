@@ -107,4 +107,32 @@ class SendController extends Controller
 
         return redirect('build/campagne/'.$campagne->id)->with( ['status' => 'success' , 'message' => 'Email de test envoyé!'] );
     }
+
+    /**
+     * Send test campagne
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function forward(SendTestRequest $request)
+    {
+        $campagne = $this->campagne->find($request->input('id'));
+        $sujet    = ($campagne->status == 'brouillon' ? 'TEST | '.$campagne->sujet : $campagne->sujet );
+
+        // GET html
+        $html  = $this->worker->html($campagne->id);
+        $email = $request->input('email');
+        
+        \Mail::send([], [], function ($message) use ($html,$email,$sujet) {
+            $message->to($email)->subject($sujet)->setBody($html, 'text/html');
+        });
+
+        // If we want to send via ajax just add a send_type "ajax
+        $ajax = $request->input('send_type', 'normal');
+
+        if($ajax == 'ajax') {
+            echo 'ok'; exit;
+        }
+
+        return redirect('build/campagne/'.$campagne->id)->with( ['status' => 'success' , 'message' => 'Email de test envoyé!'] );
+    }
 }
