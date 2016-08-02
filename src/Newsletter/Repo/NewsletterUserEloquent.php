@@ -134,7 +134,6 @@ class NewsletterUserEloquent implements NewsletterUserInterface{
 
     }
 
-
     public function subscribe($id,$newsletter_id)
     {
         $user = $this->user->find($id);

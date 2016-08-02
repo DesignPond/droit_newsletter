@@ -55,7 +55,7 @@ class InscriptionController extends Controller
 
         if($subscribe)
         {
-            if($subscribe->activated_at == NULL)
+            if(!$subscribe->activated_at)
             {
                 return redirect('/')->withInput()->with(['status' => 'warning', 'message' => 'Cet email existe déjà', 'resend' => true]);
             }
