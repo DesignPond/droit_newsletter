@@ -147,7 +147,7 @@ class MailjetService implements MailjetServiceInterface{
 
         if($response->success()){
             $contact = $response->getData();
-            return $contact[0]['ID']; // returns ID directly
+            return isset($contact[0]) ? $contact[0]['ID'] : false; // returns ID directly
         }
 
         return false;
