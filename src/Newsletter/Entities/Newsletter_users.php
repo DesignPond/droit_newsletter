@@ -9,7 +9,7 @@ class Newsletter_users extends Model {
 
     public function getActivatedAttribute()
     {
-        return $this->activated_at->timestamp < 0 ? null : $this->activated_at;
+        return $this->activated_at && $this->activated_at->timestamp < 0 ? null : $this->activated_at;
     }
 
     public function subscriptions()
