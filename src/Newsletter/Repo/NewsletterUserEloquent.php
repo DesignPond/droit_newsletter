@@ -52,9 +52,11 @@ class NewsletterUserEloquent implements NewsletterUserInterface{
 
         if($search)
         {
+            $order = isset($columns[$sortCol]) ? $columns[$sortCol] : 'last_name';
+
             $data = $this->user->where('email','LIKE','%'.$search.'%')
                                 ->with(['subscriptions'])
-                                ->orderBy($columns[$sortCol], $sortDir)
+                                ->orderBy($order, $sortDir)
                                 ->take($length)
                                 ->skip($start)
                                 ->get();
