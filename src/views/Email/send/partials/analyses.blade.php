@@ -33,12 +33,10 @@
                         </td>
                         <td width="25" class="resetMarge"></td><!-- space -->
                         <td align="center" valign="top" width="160" class="resetMarge">
-                            <div class="resetMarge">
-                                <a target="_blank" href="{{ config('newsletter.link.analyse') }}">
-                                    <?php $slug = $campagne->newsletter->site_id ? '/'.$campagne->newsletter->site->slug.'/' : ''; ?>
-                                    <img border="0" style="max-width: 130px;" alt="Analyses" src="{{ asset(config('newsletter.path.categorie').$slug.'analyse.jpg') }}">
-                                </a>
-                            </div>
+                            <a target="_blank" href="{{ config('newsletter.link.analyse') }}">
+                                <?php $slug = $campagne->newsletter->site_id ? '/'.$campagne->newsletter->site->slug.'/' : ''; ?>
+                                <img border="0" style="max-width: 130px;" alt="Analyses" src="{{ asset(config('newsletter.path.categorie').$slug.'analyse.jpg') }}">
+                            </a>
                         </td>
                     </tr>
                 </table>
