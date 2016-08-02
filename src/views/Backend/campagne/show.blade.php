@@ -1,6 +1,17 @@
 @extends('newsletter::Backend.layouts.master')
 @section('content')
 
+<style type="text/css">
+    #StyleNewsletter h2, #StyleNewsletterCreate h2{
+        color: {{ $campagne->newsletter->color }};
+    }
+    #StyleNewsletter .contentForm h3, #StyleNewsletter .contentForm h4,
+    #StyleNewsletterCreate .contentForm h3, #StyleNewsletterCreate .contentForm h4
+    {
+        color: {{ $campagne->newsletter->color }};
+    }
+</style>
+
 <div id="main" ng-app="newsletter" data-site="{{ $campagne->newsletter->site_id }}"><!-- main div for app-->
 
     <div class="row">
