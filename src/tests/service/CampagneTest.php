@@ -103,7 +103,7 @@ class CampagneTest extends Orchestra\Testbench\TestCase
 
         $this->mailjet->shouldReceive('setHtml')->once()->andReturn(true);
         $this->mailjet->shouldReceive('setList')->once()->andReturn(true);
-        $this->mailjet->shouldReceive('sendCampagne')->once()->andReturn(true);
+        $this->mailjet->shouldReceive('sendCampagne')->once()->andReturn(['success' => true]);
 
         $response = $this->call('POST', 'build/send/campagne', ['id' => '1']);
 
@@ -136,12 +136,17 @@ class CampagneTest extends Orchestra\Testbench\TestCase
     {
         $campagne = factory(designpond\newsletter\Newsletter\Entities\Newsletter_campagnes::class)->make();
 
+        $result = [
+            'success' => false,
+            'info'    => ['ErrorMessage' => '','StatusCode' => '']
+        ];
+
         $this->campagne->shouldReceive('find')->once()->andReturn($campagne);
         $this->worker->shouldReceive('html')->once()->andReturn('<html><header></header><body></body></html>');
 
         $this->mailjet->shouldReceive('setList')->once()->andReturn(true);
         $this->mailjet->shouldReceive('setHtml')->once()->andReturn(true);
-        $this->mailjet->shouldReceive('sendCampagne')->once()->andReturn(false);
+        $this->mailjet->shouldReceive('sendCampagne')->once()->andReturn($result);
 
         $response = $this->call('POST', 'build/send/campagne', ['id' => '1']);
 
@@ -157,7 +162,8 @@ class CampagneTest extends Orchestra\Testbench\TestCase
 
         $this->campagne->shouldReceive('find')->once()->andReturn($campagne);
         $this->worker->shouldReceive('html')->once()->andReturn('<html><header></header><body></body></html>');
-        $this->mailjet->shouldReceive('sendTest')->once()->andReturn(true);
+        $this->mailjet->shouldReceive('setHtml')->once()->andReturn(true);
+        $this->mailjet->shouldReceive('sendTest')->once()->andReturn(['success' => true]);
 
         $response = $this->call('POST', 'build/send/test', ['id' => '1', 'email' => 'cindy.leschaud@gmail.com']);
 
@@ -172,9 +178,15 @@ class CampagneTest extends Orchestra\Testbench\TestCase
     {
         $campagne = factory(designpond\newsletter\Newsletter\Entities\Newsletter_campagnes::class)->make();
 
+        $result = [
+            'success' => false,
+            'info'    => ['ErrorMessage' => '','StatusCode' => '']
+        ];
+
         $this->campagne->shouldReceive('find')->once()->andReturn($campagne);
         $this->worker->shouldReceive('html')->once()->andReturn('<html><header></header><body></body></html>');
-        $this->mailjet->shouldReceive('sendTest')->once()->andReturn(false);
+        $this->mailjet->shouldReceive('setHtml')->once()->andReturn(true);
+        $this->mailjet->shouldReceive('sendTest')->once()->andReturn($result);
 
         $this->call('POST', 'build/send/test', ['id' => '1', 'email' => 'cindy.leschaud@gmail.com']);
 

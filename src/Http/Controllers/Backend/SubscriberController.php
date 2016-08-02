@@ -128,7 +128,7 @@ class SubscriberController extends Controller
         $activated_at = ($request->input('activation') ? date('Y-m-d G:i:s') : null);
         $subscriber   = $this->subscriber->find($id);
 
-        $hadAbos = $subscriber->subscriptions->lists('id')->all();
+        $hadAbos = $subscriber->subscriptions->pluck('id')->all();
 
         $subscriber = $this->subscriber->update([
             'id'            => $id,
@@ -137,7 +137,7 @@ class SubscriberController extends Controller
             'activated_at'  => $activated_at
         ]);
 
-        $hasAbos = $subscriber->subscriptions->lists('id')->all();
+        $hasAbos = $subscriber->subscriptions->pluck('id')->all();
 
         $added   = array_filter(array_diff($hasAbos,$hadAbos));
         $removed = array_filter(array_diff($hadAbos,$hasAbos));

@@ -221,6 +221,7 @@ class MailjetWorkerTest extends Orchestra\Testbench\TestCase
     public function testSendTest()
     {
         $worker = new \designpond\newsletter\Newsletter\Worker\MailjetService($this->mailjet,$this->resources);
+
         $worker->setList(1);
 
         $this->responseOk([], 'post');
@@ -232,7 +233,6 @@ class MailjetWorkerTest extends Orchestra\Testbench\TestCase
     {
         $worker = new \designpond\newsletter\Newsletter\Worker\MailjetService($this->mailjet,$this->resources);
         $worker->setList(1);
-
         $this->responseOk([], 'post');
 
         $worker->sendCampagne(1);
@@ -251,7 +251,7 @@ class MailjetWorkerTest extends Orchestra\Testbench\TestCase
 
         $result = $worker->sendCampagne(1);
 
-        $this->assertEquals($result,false);
+        $this->assertFalse($result['success']);
     }
 
     public function testStatsCampagne()
@@ -303,7 +303,7 @@ class MailjetWorkerTest extends Orchestra\Testbench\TestCase
         $response = Mockery::mock('\Mailjet\Response');
 
         $this->mailjet->shouldReceive($type)->once()->andReturn($response);
-        $response->shouldReceive('success')->once()->andReturn(true);
+        $response->shouldReceive('success')->once()->andReturn(['success' => true]);
         $response->shouldReceive('getData')->once()->andReturn($return);
     }
 }

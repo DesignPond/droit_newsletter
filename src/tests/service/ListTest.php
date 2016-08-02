@@ -96,7 +96,7 @@ class ListTest extends Orchestra\Testbench\TestCase
 
         $response = $this->call('POST', 'build/liste/send', ['list_id' => 1, 'campagne_id' => 1]);
 
-        $this->assertRedirectedTo('build/campagne/1');
+        $this->assertRedirectedTo('build/newsletter');
     }
 
     public function testStoreListe()

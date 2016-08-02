@@ -94,8 +94,8 @@ class NewsletterUserEloquent implements NewsletterUserInterface{
             $row = [];
 
             $row['id']            = '<a class="btn btn-info btn-sm" href="'.url('build/subscriber/'.$abonne->id).'">&Eacute;diter</a>';
-            $row['status']        = ($abonne->activated_at ? '<span class="label label-success">Confirmé</span>' : '<span class="label label-default">Email non confirmé</span>');
-            $row['activated_at']  = ($abonne->activated_at ? $abonne->activated_at->formatLocalized('%d %B %Y') : '');
+            $row['status']        = ($abonne->activated ? '<span class="label label-success">Confirmé</span>' : '<span class="label label-default">Email non confirmé</span>');
+            $row['activated_at']  = ($abonne->activated ? $abonne->activated->formatLocalized('%d %B %Y') : '');
             $row['email']         = $abonne->email;
             $row['abo']           = '';
 
