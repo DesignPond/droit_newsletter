@@ -10,7 +10,7 @@ Route::group(['middleware' => ['web']], function () {
 
     Route::post('unsubscribe', 'designpond\newsletter\Http\Controllers\Frontend\InscriptionController@unsubscribe');
     Route::post('subscribe', 'designpond\newsletter\Http\Controllers\Frontend\InscriptionController@subscribe');
-    Route::get('activation/{token}', 'designpond\newsletter\Http\Controllers\Frontend\InscriptionController@activation');
+    Route::get('activation/{token}/{newsletter_id}', 'designpond\newsletter\Http\Controllers\Frontend\InscriptionController@activation');
     Route::post('resend', 'designpond\newsletter\Http\Controllers\Frontend\InscriptionController@resend');
 
     Route::get('campagne/{id}', 'designpond\newsletter\Http\Controllers\Frontend\CampagneController@show');

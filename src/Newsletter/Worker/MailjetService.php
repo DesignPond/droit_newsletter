@@ -106,7 +106,7 @@ class MailjetService implements MailjetServiceInterface{
         $response = $this->mailjet->post(Resources::$ContactslistManagecontact, [
             "ID"   => $this->list,
             'body' => [
-                "Email"   => $email,
+                "Email"   => trim($email),
                 "Action"  => "addnoforce"
             ]
         ]);

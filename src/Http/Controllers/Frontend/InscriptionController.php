@@ -9,16 +9,19 @@ use designpond\newsletter\Http\Requests\SubscribeRequest;
 
 use designpond\newsletter\Newsletter\Repo\NewsletterUserInterface;
 use designpond\newsletter\Newsletter\Worker\MailjetServiceInterface;
+use designpond\newsletter\Newsletter\Repo\NewsletterInterface;
 
 class InscriptionController extends Controller
 {
     protected $subscription;
     protected $worker;
+    protected $newsletter;
 
-    public function __construct(MailjetServiceInterface $worker, NewsletterUserInterface $subscription)
+    public function __construct(MailjetServiceInterface $worker, NewsletterUserInterface $subscription, NewsletterInterface $newsletter)
     {
         $this->worker        = $worker;
         $this->subscription  = $subscription;
+        $this->newsletter    = $newsletter;
     }
 
     /**
@@ -27,7 +30,7 @@ class InscriptionController extends Controller
      *
      * @return Response
      */
-    public function activation($token)
+    public function activation($token,$newsletter_id)
     {
         // Activate the email on the website
         $user = $this->subscription->activate($token);
@@ -37,8 +40,20 @@ class InscriptionController extends Controller
             return redirect('/')->with(['status' => 'danger', 'jeton' => true ,'message' => 'Le jeton ne correspond pas ou à expiré']);
         }
 
+        $newsletter = $this->newsletter->find($newsletter_id);
+
+        if(!$newsletter)
+        {
+            return redirect('/')->with(['status' => 'danger', 'message' => 'Cette newsletter n\'existe pas']);
+        }
+
         //Subscribe to mailjet
-        $this->worker->subscribeEmailToList( $user->email );
+        $this->worker->setList($newsletter->list_id);
+        $result = $this->worker->subscribeEmailToList($user->email);
+
+        if(!$result){
+            return redirect('/')->with(['status' => 'danger', 'message' => 'Problème']);
+        }
 
         return redirect('/')->with(['status' => 'success', 'message' => 'Vous êtes maintenant abonné à la newsletter']);
     }
@@ -75,7 +90,7 @@ class InscriptionController extends Controller
 
         $subscribe->subscriptions()->attach($request->input('newsletter_id'));
 
-        \Mail::send('newsletter::Email.confirmation', array('token' => $subscribe->activation_token), function($message) use ($subscribe)
+        \Mail::send('newsletter::Email.confirmation', array('token' => $subscribe->activation_token, 'newsletter_id' => $request->input('newsletter_id')), function($message) use ($subscribe)
         {
             $message->to($subscribe->email, $subscribe->email)->subject('Inscription!');
         });
