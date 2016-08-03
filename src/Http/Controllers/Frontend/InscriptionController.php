@@ -115,6 +115,16 @@ class InscriptionController extends Controller
         // Sync the abos to newsletter we have
         $abonne->subscriptions()->detach($request->input('newsletter_id'));
 
+        $newsletter = $this->newsletter->find($request->input('newsletter_id'));
+
+        if(!$newsletter)
+        {
+            return redirect('/')->with(['status' => 'danger', 'message' => 'Cette newsletter n\'existe pas']);
+        }
+
+        //Subscribe to mailjet
+        $this->worker->setList($newsletter->list_id);
+        
         if(!$this->worker->removeContact($abonne->email))
         {
             throw new \designpond\newsletter\Exceptions\SubscribeUserException('Erreur synchronisation email vers mailjet');
