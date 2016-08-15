@@ -16,6 +16,7 @@
         <div id="sortGroupe_{{ $bloc->groupe_id }}" style="width: 560px;" class="sortGroupe" data-group="{{ $bloc->groupe_id }}">
 
             @foreach($bloc->groupe->arrets as $arret)
+                @if(isset($arret))
                 <!-- Bloc content-->
                 <table id="groupe_rang_{{ $arret->id }}" border="0" width="560" align="center" cellpadding="0" cellspacing="0" class="resetTable groupe_rang">
                     <tr bgcolor="ffffff">
@@ -65,8 +66,8 @@
                     @endif
                 </table>
                 <!-- Bloc content-->
+                @endif
             @endforeach
-
         </div>
     @endif
 </div>
