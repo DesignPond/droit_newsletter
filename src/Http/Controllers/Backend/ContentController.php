@@ -5,6 +5,7 @@ namespace designpond\newsletter\Http\Controllers\Backend;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use designpond\newsletter\Http\Requests\ContentRequest;
 
 use designpond\newsletter\Newsletter\Repo\NewsletterContentInterface;
 use designpond\newsletter\Newsletter\Repo\NewsletterClipboardInterface;
@@ -38,7 +39,7 @@ class ContentController extends Controller
      * POST data
      * @return Response
      */
-    public function store(Request $request){
+    public function store(ContentRequest $request){
 
         $data = $request->all();
 
