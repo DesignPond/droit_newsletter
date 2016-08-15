@@ -8,7 +8,7 @@
                 <td valign="top" width="10" class="resetMarge"></td>
                 <td valign="top" width="305" class="resetMarge">
                     <h3 style="text-align: left;font-family: sans-serif;">{{ $author->name }}</h3>
-                    <p style="text-align: left;font-family: sans-serif;">{{  $author->occupation }}</p>
+                    <p style="font-family: sans-serif;">{{  $author->occupation }}</p>
                 </td>
             </tr>
             <tr bgcolor="ffffff"><td colspan="3" height="15" class=""></td></tr><!-- space -->
