@@ -22,7 +22,7 @@ jQuery(function($){
                 message.find('.alert p').html('Email de test en cours d\'envoi &nbsp;<i class="fa fa-spinner fa-spin"></i>').show();
 
                 $.ajax({
-                    url     : url + 'build/send/test',
+                    url     : url + 'build/send/forward',
                     data    : { id: campagneId , email: result, send_type : 'ajax', _token : $("meta[name='_token']").attr('content')},
                     type    : "POST",
                     success : function(data) {

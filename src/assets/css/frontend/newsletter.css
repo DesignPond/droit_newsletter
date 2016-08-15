@@ -165,12 +165,12 @@
 
 #StyleNewsletter .blocBorder,
 #StyleNewsletterCreate .blocBorder{
-    border-bottom:1px solid #ededed;
+    border-bottom:1px solid #eaeaea;
 }
 
 #StyleNewsletter .newsletterborder,
 #StyleNewsletterCreate .newsletterborder{
-    border:1px solid #ededed;
+    border:1px solid #eaeaea;
 }
 
 #StyleNewsletter .contentForm .centerText,#StyleNewsletter p.centerText,#StyleNewsletter p.centerText a,

@@ -161,8 +161,9 @@ App.factory('Analyses', ['$http', '$q', function($http, $q) {
 App.factory('Categories', ['$http', '$q', function($http, $q) {
     return {
         query: function(site_id) {
+            var site_id  = site_id ? '/' + site_id : '';
             var deferred = $q.defer();
-            $http.get( __env.ajaxUrl + 'categories/' + site_id).success(function(data) {
+            $http.get( __env.ajaxUrl + 'categories' + site_id).success(function(data) {
                 deferred.resolve(data);
             }).error(function(data) {
                 deferred.reject(data);
