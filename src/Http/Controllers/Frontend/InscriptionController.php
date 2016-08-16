@@ -151,7 +151,7 @@ class InscriptionController extends Controller
     {
         $subscribe = $this->subscription->findByEmail($request->input('email'));
 
-        \Mail::send('newsletter::Email.confirmation', array('token' => $subscribe->activation_token), function($message) use ($subscribe)
+        \Mail::send('newsletter::Email.confirmation', ['token' => $subscribe->activation_token, 'newsletter_id' => $request->input('newsletter_id')], function($message) use ($subscribe)
         {
             $message->to($subscribe->email, $subscribe->email)->subject('Inscription!');
         });
