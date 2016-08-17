@@ -262,6 +262,15 @@ class MailjetService implements MailjetServiceInterface{
         return ['success' => $success, 'info' => $response->getData()];
     }
 
+    public function deleteCampagne($id)
+    {
+        $response = $this->mailjet->delete(Resources::$NewsletterSchedule, ['id' => $id]);
+
+        $success = $response->success() ? true : false;
+
+        return ['success' => $success, 'info' => $response->getData()];
+    }
+
     /**
      * Statistiques
      */

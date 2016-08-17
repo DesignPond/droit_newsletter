@@ -80,7 +80,7 @@ class CampagneController extends Controller
     public function cancel($id)
     {
         $campagne = $this->campagne->find($id);
-        $this->mailjet->updateCampagne($campagne->api_campagne_id,0);
+        $this->mailjet->deleteCampagne($campagne->api_campagne_id);
 
         // Update campagne status
         $this->campagne->update(['id' => $campagne->id, 'status' => 'brouillon', 'updated_at' => date('Y-m-d G:i:s'), 'send_at' => null]);

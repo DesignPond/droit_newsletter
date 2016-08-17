@@ -48,7 +48,7 @@
                                 <p><strong>Envoi prévu à:</strong> <br/>{{ $campagne->send_at->formatLocalized('%d %b %Y') }} à {{ $campagne->send_at->toTimeString() }}</p>
                                 <div class="btn-group btn-group-sm">
                                     <a class="btn btn-info" target="_blank" href="{{ url('build/campagne/preview/'.$campagne->id) }}">Voir le preview</a>
-                                   {{-- <a class="btn btn-warning" href="{{ url('build/campagne/cancel/'.$campagne->id) }}">Annuler l'envoi</a>--}}
+                                    <a class="btn btn-warning" href="{{ url('build/campagne/cancel/'.$campagne->id) }}">Annuler l'envoi</a>
                                 </div>
                             @endif
                         @endif

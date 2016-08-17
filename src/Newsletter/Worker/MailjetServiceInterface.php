@@ -31,6 +31,7 @@ interface MailjetServiceInterface {
     public function setHtml($html,$id);
     public function sendTest($id,$email,$sujet);
     public function sendCampagne($id, $date = null);
+    public function deleteCampagne($id);
 
     /**
      * Statistiques
