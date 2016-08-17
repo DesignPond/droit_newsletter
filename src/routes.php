@@ -1,6 +1,8 @@
 <?php
 
-Route::group(['middleware' => ['web']], function () {
+$middleware = !empty(config('newsletter.middlewares')) ? config('newsletter.middlewares') : [];
+
+Route::group(['middleware' => $middleware], function () {
 
     /*
     |--------------------------------------------------------------------------
