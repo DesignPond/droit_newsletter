@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-use designpond\newsletter\Newsletter\Worker\MailjetInterface;
+use designpond\newsletter\Newsletter\Worker\MailjetServiceInterface;
 use designpond\newsletter\Newsletter\Repo\NewsletterCampagneInterface;
 use designpond\newsletter\Newsletter\Worker\StatsWorker;
 
@@ -17,7 +17,7 @@ class StatsController extends Controller
     protected $statsworker;
     protected $charts;
 
-    public function __construct( MailjetInterface $worker, NewsletterCampagneInterface $campagne, StatsWorker $statsworker)
+    public function __construct( MailjetServiceInterface $worker, NewsletterCampagneInterface $campagne, StatsWorker $statsworker)
     {
         $this->worker       = $worker;
         $this->campagne     = $campagne;
@@ -39,7 +39,7 @@ class StatsController extends Controller
     public function show($id)
     {
         $statistiques = [];
-        $allclicks    = [];
+        $clickStats   = [];
 
         // Stats open, bounce etc.
         $campagne      = $this->campagne->find($id);
@@ -47,14 +47,10 @@ class StatsController extends Controller
 
         if($campagneStats)
         {
-            $campagneStats = $this->statsworker->filterResponseStatistics($campagneStats);
             $statistiques  = $this->charts->compileStats($campagneStats);
 
             // Clicks
-            //$clickStats = $this->worker->clickStatistics($campagneStats->CampaignID);
-
-            $allclicks[] = $this->sumStatsClicksLinks($campagneStats->CampaignID);
-            $allclicks   = $this->statsworker->statsClicksLinks($allclicks);
+            $clickStats = $this->worker->clickStatistics($campagneStats['CampaignID'], 0);
         }
 
         return view('newsletter::Backend.stats.show')->with(
@@ -62,7 +58,7 @@ class StatsController extends Controller
                 'isChart'      => true,
                 'campagne'     => $campagne ,
                 'statistiques' => $statistiques,
-                'clickStats'   => $allclicks
+                'clickStats'   => $clickStats
             ]
         );
     }

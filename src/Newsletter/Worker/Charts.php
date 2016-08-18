@@ -30,10 +30,10 @@ class Charts{
         if(!empty($stats))
         {
             // Datas
-            $sent    =  $stats->DeliveredCount;
-            $clic    =  $stats->ClickedCount;
-            $open    =  $stats->OpenedCount;
-            $bounce  =  $stats->BouncedCount;
+            $sent    =  $stats['DeliveredCount'];
+            $clic    =  $stats['ClickedCount'];
+            $open    =  $stats['OpenedCount'];
+            $bounce  =  $stats['BouncedCount'];
 
             $openclic = 0;
             $onlyopen = 0;
