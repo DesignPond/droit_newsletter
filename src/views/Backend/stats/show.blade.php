@@ -63,9 +63,9 @@
                         <div class="col-md-8">
                             <ul class="list-group">
                                 @if(!empty($clickStats))
-                                    @foreach($clickStats as $url => $click)
+                                    @foreach($clickStats as $click)
                                         <li class="list-group-item">
-                                            <span class="badge badge-primary">{{ count($click) }}</span>{{ $url }}
+                                            <span class="badge badge-primary">{{ $click['ClickedCount'] }}</span>{{ $click['Url'] }}
                                         </li>
                                     @endforeach
                                 @endif

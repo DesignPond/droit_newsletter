@@ -285,16 +285,17 @@ class MailjetService implements MailjetServiceInterface{
 
         return false;
     }
-    
+
     public function clickStatistics($id, $offset = 0)
     {
-        $response = $this->mailjet->get(Resources::$Toplinkclicked, ['filters' => ['CampaignID' => ' mj.nl='.$id, 'Limit' => 500, 'Offset' => $offset]]);
+        $response = $this->mailjet->get(Resources::$Toplinkclicked, ['filters' => ['CampaignID' => $id, 'Limit' => 500, 'Offset' => $offset]]);
 
-        if($response->success()){
+        if($response->success())
+        {
             return $response->getData();
         }
 
-        return null;
+        return [];
     }
 
     /**
