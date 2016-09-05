@@ -33,7 +33,7 @@
                         <label for="message" class="col-sm-3 control-label">Abonnements</label>
                         <div class="col-sm-6">
 
-                            <?php $abos = (!$subscriber->subscriptions->isEmpty() ? $subscriber->subscriptions->lists('id')->all() : []);?>
+                            <?php $abos = (!$subscriber->subscriptions->isEmpty() ? $subscriber->subscriptions->pluck('id')->all() : []);?>
 
                             @if(!$newsletter->isEmpty())
                                 @foreach($newsletter as $abonnement)

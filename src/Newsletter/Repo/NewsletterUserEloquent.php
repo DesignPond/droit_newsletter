@@ -103,7 +103,7 @@ class NewsletterUserEloquent implements NewsletterUserInterface{
 
             if( !$abonne->subscriptions->isEmpty())
             {
-                $abos       = $abonne->subscriptions->lists('titre')->all();
+                $abos       = $abonne->subscriptions->pluck('titre')->all();
                 $row['abo'] = implode(',',$abos);
             }
 
@@ -143,7 +143,7 @@ class NewsletterUserEloquent implements NewsletterUserInterface{
             return false;
         }
 
-        $relation = $user->subscriptions()->lists('newsletter_id');
+        $relation = $user->subscriptions()->pluck('newsletter_id');
         $contains = $relation->contains($newsletter_id);
 
         if(!$contains)

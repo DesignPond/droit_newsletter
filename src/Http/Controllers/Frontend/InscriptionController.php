@@ -75,7 +75,7 @@ class InscriptionController extends Controller
                 return redirect('/')->withInput()->with(['status' => 'warning', 'message' => 'Cet email existe déjà', 'resend' => true]);
             }
 
-            $subscriptions = $subscribe->subscriptions->lists('id')->all();
+            $subscriptions = $subscribe->subscriptions->pluck('id')->all();
 
             if(in_array($request->input('newsletter_id'),$subscriptions))
             {
