@@ -91,7 +91,7 @@ class ListController extends Controller
             return redirect()->back()->with(['status' => 'danger', 'message' => 'Le fichier est vide ou mal formaté']);
         }
 
-        $emails  = $results->lists('email')->all();
+        $emails  = $results->pluck('email')->all();
         $list    = $this->list->create(['title' => $request->input('title'), 'emails' => $emails]);
 
         return redirect('build/liste')->with(['status' => 'success', 'message' => 'Fichier importé!']);

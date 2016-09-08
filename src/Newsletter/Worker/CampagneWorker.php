@@ -37,7 +37,7 @@ class CampagneWorker implements CampagneInterface{
                     return $content->arret_id ;
 
                 if($content->groupe_id > 0)
-                    return $content->groupe->arrets->lists('id')->all();
+                    return $content->groupe->arrets->pluck('id')->all();
             
             })->filter(function ($value, $key) {
                 return !empty($value);
