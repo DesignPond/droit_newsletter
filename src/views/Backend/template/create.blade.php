@@ -97,7 +97,7 @@
                         <label for="message" class="col-sm-3 control-label">Logo soutien</label>
                         <div class="col-sm-6">
                             <div class="well">
-                                <input type="file" required name="soutien">
+                                <input type="file" name="soutien">
                                 <p class="help-block">Taille max 105x50px</p>
                             </div>
                         </div>
