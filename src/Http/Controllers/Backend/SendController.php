@@ -105,7 +105,10 @@ class SendController extends Controller
             echo 'ok'; exit;
         }
 
-        return redirect('build/campagne/'.$campagne->id)->with( ['status' => 'success' , 'message' => 'Email de test envoyé!'] );
+        session()->flash('message','Email de test envoyé!');
+        session()->flash('status','success');
+
+        return redirect('build/campagne/'.$campagne->id);
     }
 
     /**
