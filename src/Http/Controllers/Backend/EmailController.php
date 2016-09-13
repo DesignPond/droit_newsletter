@@ -28,7 +28,9 @@ class EmailController extends Controller
     {
         $email = $this->emails->create( $request->all() );
 
-        return redirect('build/liste/'.$email->list_id)->with(['status' => 'success', 'message' => 'Email ajouté']);
+        alert()->success('Email ajouté');
+
+        return redirect('build/liste/'.$email->list_id);
     }
 
     /**
@@ -42,7 +44,9 @@ class EmailController extends Controller
     {
         $email = $this->emails->update( $request->all() );
 
-        return redirect('build/liste/'.$email->list_id)->with(['status' => 'success' , 'message' => 'Email mis à jour']);
+        alert()->success('Email mis à jour');
+
+        return redirect('build/liste/'.$email->list_id);
     }
 
     /**
@@ -55,6 +59,8 @@ class EmailController extends Controller
     {
         $this->emails->delete($id);
 
-        return redirect()->back()->with(['status' => 'success', 'message' => 'Email supprimée de la liste']);
+        alert()->success('Email supprimée de la liste');
+
+        return redirect()->back();
     }
 }

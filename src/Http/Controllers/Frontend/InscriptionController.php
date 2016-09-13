@@ -37,14 +37,18 @@ class InscriptionController extends Controller
 
         if(!$user)
         {
-            return redirect('/')->with(['status' => 'danger', 'jeton' => true ,'message' => 'Le jeton ne correspond pas ou à expiré']);
+            alert()->danger('Le jeton ne correspond pas ou à expiré');
+
+            return redirect('/');
         }
 
         $newsletter = $this->newsletter->find($newsletter_id);
 
         if(!$newsletter)
         {
-            return redirect('/')->with(['status' => 'danger', 'message' => 'Cette newsletter n\'existe pas']);
+            alert()->danger('Cette newsletter n\'existe pas');
+
+            return redirect('/');
         }
 
         //Subscribe to mailjet
@@ -52,10 +56,15 @@ class InscriptionController extends Controller
         $result = $this->worker->subscribeEmailToList($user->email);
 
         if(!$result){
-            return redirect('/')->with(['status' => 'danger', 'message' => 'Problème']);
+
+            alert()->danger('Problème');
+
+            return redirect('/');
         }
 
-        return redirect('/')->with(['status' => 'success', 'message' => 'Vous êtes maintenant abonné à la newsletter']);
+        alert()->success('Vous êtes maintenant abonné à la newsletter');
+
+        return redirect('/');
     }
 
     /**
@@ -72,14 +81,18 @@ class InscriptionController extends Controller
         {
             if(!$subscribe->activated_at)
             {
-                return redirect('/')->withInput()->with(['status' => 'warning', 'message' => 'Cet email existe déjà', 'resend' => true]);
+                alert()->warning('Cet email existe déjà');
+
+                return redirect('/')->withInput()->with('resend', true);
             }
 
             $subscriptions = $subscribe->subscriptions->pluck('id')->all();
 
             if(in_array($request->input('newsletter_id'),$subscriptions))
             {
-                return redirect($request->input('return_path', '/'))->with(['status'  => 'warning', 'message' => 'Vous êtes déjà inscrit à la newsletter']);
+                alert()->warning('Vous êtes déjà inscrit à la newsletter');
+
+                return redirect($request->input('return_path', '/'));
             }
         }
         else
@@ -95,11 +108,9 @@ class InscriptionController extends Controller
             $message->to($subscribe->email, $subscribe->email)->subject('Inscription!');
         });
 
-        return redirect($request->input('return_path', '/'))
-            ->with([
-                'status'  => 'success',
-                'message' => '<strong>Merci pour votre inscription!</strong><br/>Veuillez confirmer votre adresse email en cliquant le lien qui vous a été envoyé par email'
-            ]);
+        alert()->success('<strong>Merci pour votre inscription!</strong><br/>Veuillez confirmer votre adresse email en cliquant le lien qui vous a été envoyé par email');
+
+        return redirect($request->input('return_path', '/'));
     }
 
     /**
@@ -119,7 +130,9 @@ class InscriptionController extends Controller
 
         if(!$newsletter)
         {
-            return redirect('/')->with(['status' => 'danger', 'message' => 'Cette newsletter n\'existe pas']);
+            alert()->danger('Cette newsletter n\'existe pas');
+
+            return redirect('/');
         }
 
         //Subscribe to mailjet
@@ -138,7 +151,9 @@ class InscriptionController extends Controller
 
         $back = $request->input('return_path', '/');
 
-        return redirect($back)->with(['status' => 'success', 'message' => '<strong>Vous avez été désinscrit</strong>']);
+        alert()->success('<strong>Vous avez été désinscrit</strong>');
+
+        return redirect($back);
     }
 
     /**
@@ -156,6 +171,8 @@ class InscriptionController extends Controller
             $message->to($subscribe->email, $subscribe->email)->subject('Inscription!');
         });
 
-        return redirect('/')->with(['status'  => 'success', 'message' => '<strong>Lien d\'activation envoyé</strong>']);
+        alert()->success('<strong>Lien d\'activation envoyé</strong>');
+
+        return redirect('/');
     }
 }

@@ -26,7 +26,9 @@ class ClipboardController extends Controller
     {
         $this->clipboard->create($request->all());
 
-        return redirect()->back()->with(['status' => 'success', 'message' => 'Contenu copié dans le presse papier']);
+        alert()->success('Contenu copié dans le presse papier');
+
+        return redirect()->back();
     }
 
     public function paste(PasteRequest $request)
@@ -41,6 +43,8 @@ class ClipboardController extends Controller
 
         $copy->delete();
 
-        return redirect()->back()->with(['status' => 'success', 'message' => 'Contenu collé dans la campagne']);
+        alert()->success('Contenu collé dans la campagne');
+
+        return redirect()->back();
     }
 }

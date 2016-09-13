@@ -53,7 +53,9 @@ class ContentController extends Controller
 
         $this->content->create($data);
 
-        return redirect('build/campagne/'.$data['campagne'].'#componant')->with(['status' => 'success', 'message' => 'Bloc ajouté' ]);
+        alert()->success('Bloc ajouté');
+
+        return redirect('build/campagne/'.$data['campagne'].'#componant');
 
     }
 
@@ -66,7 +68,9 @@ class ContentController extends Controller
 
         $contents = $this->content->update($request->all());
 
-        return redirect('build/campagne/'.$contents->newsletter_campagne_id.'#componant')->with(['status' => 'success', 'message' => 'Bloc édité']);
+        alert()->success('Bloc édité');
+
+        return redirect('build/campagne/'.$contents->newsletter_campagne_id.'#componant');
     }
 
     /**

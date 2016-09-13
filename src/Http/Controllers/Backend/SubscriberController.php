@@ -98,7 +98,9 @@ class SubscriberController extends Controller
             }
         }
 
-        return redirect('build/subscriber')->with(['status' => 'success' , 'message' => 'Abonné ajouté']);
+        alert()->success('Abonné ajouté');
+
+        return redirect('build/subscriber');
     }
 
     /**
@@ -164,7 +166,9 @@ class SubscriberController extends Controller
             }
         }
 
-        return redirect('build/subscriber/'.$id)->with(['status' => 'success' , 'message' => 'Abonné édité']);
+        alert()->success('Abonné édité');
+
+        return redirect('build/subscriber/'.$id);
 
     }
 
@@ -202,6 +206,8 @@ class SubscriberController extends Controller
             }
         }
 
-        return redirect('build/subscriber')->with(['status' => 'success', 'message' => 'Abonné supprimé']);
+        alert()->success('Abonné supprimé');
+
+        return redirect('build/subscriber');
     }
 }

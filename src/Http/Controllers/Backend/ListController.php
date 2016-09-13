@@ -68,7 +68,9 @@ class ListController extends Controller
 
         $this->import->send($request->input('campagne_id'),$list);
 
-        return redirect('build/newsletter')->with( ['status' => 'success' , 'message' => 'Campagne envoyé à la liste!'] );
+        alert()->success('Campagne envoyé à la liste!');
+
+        return redirect('build/newsletter');
     }
 
     public function store(ListRequest $request)
@@ -88,13 +90,17 @@ class ListController extends Controller
 
         if(isset($results) && $results->isEmpty() || !array_has($results->toArray(), '0.email') )
         {
-            return redirect()->back()->with(['status' => 'danger', 'message' => 'Le fichier est vide ou mal formaté']);
+            alert()->danger('Le fichier est vide ou mal formaté');
+
+            return redirect()->back();
         }
 
         $emails  = $results->pluck('email')->all();
         $list    = $this->list->create(['title' => $request->input('title'), 'emails' => $emails]);
 
-        return redirect('build/liste')->with(['status' => 'success', 'message' => 'Fichier importé!']);
+        alert()->success('Fichier importé!');
+
+        return redirect('build/liste');
     }
 
     /**
@@ -107,6 +113,8 @@ class ListController extends Controller
     {
         $this->list->delete($id);
 
-        return redirect()->back()->with(['status' => 'success', 'message' => 'Liste supprimée']);
+        alert()->success('Liste supprimée');
+
+        return redirect()->back();
     }
 }
