@@ -16,6 +16,11 @@
                 <h2>{{ $arret->reference }} du {{ $arret->pub_date->formatLocalized('%d %B %Y') }}</h2>
                 <p>{!! $arret->abstract !!}</p>
                 {!! $arret->pub_text !!}
+
+                @if(isset($arret->file))
+                    <p><a target="_blank" href="{{ asset(config('newsletter.path.arret').$arret->file) }}">Télécharger en pdf</a></p>
+                @endif
+
             </div>
             <div class="col-md-3">
 
