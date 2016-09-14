@@ -24,7 +24,7 @@ class SubscriptionTest extends Orchestra\Testbench\TestCase
         $this->app->instance('designpond\newsletter\Newsletter\Repo\NewsletterInterface', $this->newsletter);
 
         $this->withFactories(dirname(__DIR__).'/newsletter/factories');
-
+        
     }
 
     public function tearDown()
@@ -34,7 +34,10 @@ class SubscriptionTest extends Orchestra\Testbench\TestCase
 
     protected function getPackageProviders($app)
     {
-        return ['designpond\newsletter\newsletterServiceProvider'];
+        return [
+            designpond\newsletter\newsletterServiceProvider::class,
+            Vinkla\Alert\AlertServiceProvider::class,
+        ];
     }
 
     /**

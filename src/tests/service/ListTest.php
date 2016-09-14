@@ -1,8 +1,5 @@
 <?php
-
 use Illuminate\Foundation\Testing\WithoutMiddleware;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class ListTest extends Orchestra\Testbench\TestCase
 {
@@ -11,8 +8,8 @@ class ListTest extends Orchestra\Testbench\TestCase
     protected $upload;
     protected $list;
 
-    //use WithoutMiddleware;
-
+   // use WithoutMiddleware;
+    
     public function setUp()
     {
         parent::setUp();
@@ -31,6 +28,10 @@ class ListTest extends Orchestra\Testbench\TestCase
 
         $this->withFactories(dirname(__DIR__).'/newsletter/factories');
 
+        $users = \App\Droit\User\Entities\User::all();
+        $user  = $users->first();
+
+        $this->actingAs($user);
     }
 
     public function tearDown()
@@ -41,7 +42,10 @@ class ListTest extends Orchestra\Testbench\TestCase
 
     protected function getPackageProviders($app)
     {
-        return ['designpond\newsletter\newsletterServiceProvider'];
+        return [
+            designpond\newsletter\newsletterServiceProvider::class,
+            Vinkla\Alert\AlertServiceProvider::class,
+        ];
     }
 
     /**
@@ -52,7 +56,6 @@ class ListTest extends Orchestra\Testbench\TestCase
      */
     protected function getEnvironmentSetUp($app)
     {
-        // Setup default database to use sqlite :memory:
         $app['config']->set('database.default', 'test');
         $app['config']->set('database.connections.test', [
             'driver' => 'mysql',
@@ -148,7 +151,7 @@ class ListTest extends Orchestra\Testbench\TestCase
 
         $response = $this->call('POST', 'build/liste', ['title' => 'Un titre' ,'list_id' => 1, 'campagne_id' => 1], [], ['file' => $upload]);
 
-        $this->assertSessionHas('status', 'danger');
+        $this->assertSessionHas('alert.style', 'danger');
     }
     
     function prepareFileUpload($path)

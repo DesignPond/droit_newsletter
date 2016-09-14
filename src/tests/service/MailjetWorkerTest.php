@@ -39,7 +39,10 @@ class MailjetWorkerTest extends Orchestra\Testbench\TestCase
 
     protected function getPackageProviders($app)
     {
-        return ['designpond\newsletter\newsletterServiceProvider'];
+        return [
+            designpond\newsletter\newsletterServiceProvider::class,
+            Vinkla\Alert\AlertServiceProvider::class,
+        ];
     }
 
     /**

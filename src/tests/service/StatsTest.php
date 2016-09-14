@@ -24,12 +24,10 @@ class StatsTest extends TestCase
      */
     public function testCompileStat()
     {
-        $stats = new stdClass();
-
-        $stats->DeliveredCount = 5;
-        $stats->ClickedCount   = 2;
-        $stats->OpenedCount    = 3;
-        $stats->BouncedCount   = 1;
+        $stats['DeliveredCount'] = 5;
+        $stats['ClickedCount']   = 2;
+        $stats['OpenedCount']    = 3;
+        $stats['BouncedCount']   = 1;
 
         $data['total']     = 5;
         $data['clicked']   = 40.0;

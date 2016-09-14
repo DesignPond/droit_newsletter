@@ -42,3 +42,11 @@ $factory->define(designpond\newsletter\Newsletter\Entities\Newsletter_campagnes:
         'newsletter_id' => 1
     ];
 });
+
+$factory->defineAs(App\Droit\User\Entities\User::class, 'admin' ,function ($factory){
+    return [
+        'name'       => 'Cindy Leschaud',
+        'email'      => 'cindy.leschaud@unine.ch',
+        'password'   => bcrypt('cindy2')
+    ];
+});

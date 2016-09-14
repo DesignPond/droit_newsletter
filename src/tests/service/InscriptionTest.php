@@ -37,7 +37,10 @@ class InscriptionTest extends Orchestra\Testbench\TestCase
 
     protected function getPackageProviders($app)
     {
-        return ['designpond\newsletter\newsletterServiceProvider'];
+        return [
+            designpond\newsletter\newsletterServiceProvider::class,
+            Vinkla\Alert\AlertServiceProvider::class,
+        ];
     }
 
     /**
@@ -97,6 +100,7 @@ class InscriptionTest extends Orchestra\Testbench\TestCase
 
         $this->subscription->shouldReceive('findByEmail')->once()->andReturn($user);
         //$this->subscription->shouldReceive('delete')->once();
+        $this->worker->shouldReceive('setList')->once();
         $this->worker->shouldReceive('removeContact')->once()->andReturn(true);
 
         $response = $this->call('POST', 'unsubscribe', ['newsletter_id' => 1, 'email' => 'info@leschaud.ch']);
@@ -110,6 +114,7 @@ class InscriptionTest extends Orchestra\Testbench\TestCase
 
         $user->subscriptions = collect([]);
         $this->subscription->shouldReceive('findByEmail')->once()->andReturn($user);
+        $this->worker->shouldReceive('setList')->once();
         $this->worker->shouldReceive('removeContact')->once()->andReturn(true);
         $this->subscription->shouldReceive('delete')->once();
         
@@ -129,9 +134,10 @@ class InscriptionTest extends Orchestra\Testbench\TestCase
         $user->subscriptions = factory(designpond\newsletter\Newsletter\Entities\Newsletter_subscriptions::class)->make();
 
         $this->subscription->shouldReceive('activate')->once()->andReturn($user);
+        $this->worker->shouldReceive('setList')->once();
         $this->worker->shouldReceive('subscribeEmailToList')->once()->andReturn(true);
 
-        $response = $this->call('GET', 'activation/1234');
+        $response = $this->call('GET', 'activation/1234/1');
 
         $this->assertRedirectedTo('/');
 

@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Foundation\Testing\WithoutMiddleware;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class ImportTest extends Orchestra\Testbench\TestCase
 {
@@ -61,7 +62,10 @@ class ImportTest extends Orchestra\Testbench\TestCase
 
     protected function getPackageProviders($app)
     {
-        return ['designpond\newsletter\newsletterServiceProvider'];
+        return [
+            designpond\newsletter\newsletterServiceProvider::class,
+            Vinkla\Alert\AlertServiceProvider::class,
+        ];
     }
 
     /**

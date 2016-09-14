@@ -1,8 +1,6 @@
 <?php
 
 use Illuminate\Foundation\Testing\WithoutMiddleware;
-use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class CampagneTest extends Orchestra\Testbench\TestCase
 {
@@ -34,6 +32,9 @@ class CampagneTest extends Orchestra\Testbench\TestCase
 
         $this->withFactories(dirname(__DIR__).'/newsletter/factories');
 
+        //$user = factory(App\Droit\User\Entities\User::class,'admin')->create();
+        //$this->actingAs($user);
+
         /**
          * Register views
          *
@@ -44,7 +45,10 @@ class CampagneTest extends Orchestra\Testbench\TestCase
 
     protected function getPackageProviders($app)
     {
-        return ['designpond\newsletter\newsletterServiceProvider'];
+        return [
+            designpond\newsletter\newsletterServiceProvider::class,
+            Vinkla\Alert\AlertServiceProvider::class,
+        ];
     }
 
     /**
