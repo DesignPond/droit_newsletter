@@ -6,7 +6,8 @@
         <button class="btn btn-danger btn-xs deleteActionNewsletter deleteContentBloc" data-id="{{ $bloc->id }}" data-action="groupe" type="button">&nbsp;×&nbsp;</button>
     </div>
 
-    @if(!$bloc->groupe->arrets->isEmpty())
+
+@if(isset($bloc->groupe) && !$bloc->groupe->arrets->isEmpty())
 
         <!-- Categorie title -->
         @include('newsletter::Email.send.partials.categorie', ['bloc' => $bloc, 'isEdit' => true])
