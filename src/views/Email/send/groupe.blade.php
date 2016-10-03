@@ -1,4 +1,4 @@
-@if(!$bloc->groupe->arrets->isEmpty())
+@if(isset($bloc->groupe) && !$bloc->groupe->arrets->isEmpty())
 
     <!-- Categorie title -->
     @include('newsletter::Email.send.partials.categorie', ['bloc' => $bloc])
