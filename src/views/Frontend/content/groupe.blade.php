@@ -1,4 +1,4 @@
-@if(!$bloc->groupe->arrets->isEmpty())
+@if(isset($bloc->groupe) && !$bloc->groupe->arrets->isEmpty())
 
     <div class="row">
         <div class="col-md-9">
