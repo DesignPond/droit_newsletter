@@ -36,13 +36,22 @@
                         <!-- Bloc content-->
                     </td>
                 </tr>
-                <tr bgcolor="ffffff"><td height="35" class="blocBorder"></td></tr><!-- space -->
+                @if($arret->analyses->isEmpty())
+                    <tr bgcolor="ffffff"><td height="35" class="blocBorder"></td></tr><!-- space -->
+                @endif
+                <tr>
+                    <td class="resetMarge" align="center">
+                        <!-- Analyses -->
+                    @include('newsletter::Email.send.partials.analyses', ['arret' => $arret])
+                    <!-- End Analyses -->
+                    </td>
+                </tr>
+                @if(!$arret->analyses->isEmpty())
+                    <tr bgcolor="ffffff"><td height="35" class="blocBorder"></td></tr><!-- space -->
+                @endif
             </table>
             <!-- Bloc content-->
 
-            <!-- Analyses -->
-            @include('newsletter::Email.send.partials.analyses', ['arret' => $arret])
-            <!-- End Analyses -->
         @endif
     @endforeach
 @endif
