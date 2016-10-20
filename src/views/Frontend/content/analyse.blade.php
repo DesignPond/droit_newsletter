@@ -11,7 +11,7 @@
                         <div class="post">
                             <div class="post-title">
                                 <a class="anchor_top" name="analyse_{{ $analyse->id }}"></a>
-                                <h3 class="title">Analyse de {{ $analyse->authors }}</h3>
+                                <h3 class="title">Commentaire de {{ $analyse->authors }}</h3>
                                 @if(!$analyse->analyses_arrets->isEmpty())
                                     <ul>
                                         @foreach($analyse->analyses_arrets as $arret)
@@ -27,7 +27,7 @@
                                 @if(!empty($analyse->file ))
                                     <p>
                                         <a target="_blank" href="{{ asset('files/analyses/'.$analyse->file) }}">
-                                            Télécharger cette analyse en PDF &nbsp;&nbsp;<i class="fa fa-file-pdf-o"></i>
+                                            Télécharger ce commentaire en PDF &nbsp;&nbsp;<i class="fa fa-file-pdf-o"></i>
                                         </a>
                                     </p>
                                 @endif

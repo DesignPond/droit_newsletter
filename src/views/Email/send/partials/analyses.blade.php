@@ -16,7 +16,7 @@
                                 <table border="0" width="375" align="left" cellpadding="0" cellspacing="0" class="resetTable">
                                     <tr>
                                         <td valign="top" width="375" class="resetMarge contentForm">
-                                            <h3 style="text-align: left;font-family: sans-serif;">Analyse de l'arrêt {{ $arret->reference }}</h3>
+                                            <h3 style="text-align: left;font-family: sans-serif;">Commentaire de l'arrêt {{ $arret->reference }}</h3>
                                             <!-- Authors -->
                                             @include('newsletter::Email.send.partials.authors')
                                             <!-- End Authors -->
