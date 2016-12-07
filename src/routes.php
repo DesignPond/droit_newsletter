@@ -15,6 +15,7 @@ Route::group(['middleware' => 'web'], function () {
     Route::post('resend', 'designpond\newsletter\Http\Controllers\Frontend\InscriptionController@resend');
 
     Route::get('campagne/{id}', 'designpond\newsletter\Http\Controllers\Frontend\CampagneController@show');
+    Route::get('pdf/{id}', 'designpond\newsletter\Http\Controllers\Frontend\CampagneController@pdf');
 
     Route::group(['prefix' => 'display'], function () {
         Route::resource('newsletter', 'designpond\newsletter\Http\Controllers\Frontend\NewsletterController');

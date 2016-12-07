@@ -23,7 +23,8 @@
         "inlinestyle/inlinestyle": "1.*",
         "maatwebsite/excel": "~2.0.0",
         "mailjet/mailjet-apiv3-php": "^1.1",
-        "vinkla/alert": "^1.2"
+        "vinkla/alert": "^1.2",
+        "barryvdh/laravel-dompdf": "0.7.x@dev"
     },
     "require-dev": {
     },

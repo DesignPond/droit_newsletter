@@ -29,4 +29,13 @@ class CampagneController extends Controller
         return view('newsletter::Email.view')->with(['campagne' => $campagne]);
     }
 
+    public function pdf($id)
+    {
+        $campagne = $this->campagne->find($id);
+
+        $pdf = \PDF::loadView('newsletter::Frontend.pdf', ['campagne' => $campagne])->setPaper('a4');
+
+        return $pdf->stream();
+    }
+
 }
