@@ -13,34 +13,24 @@
                 font-family: Arial, Helvetica, sans-serif;
                 text-align: justify;
             }
-            @page { margin: 30px 50px; background: #fff; font-family: Arial, Helvetica, sans-serif;}
+            @page { margin: 30px; background: #fff; font-family: Arial, Helvetica, sans-serif;}
 
-            .bloc{
-                border-bottom:1px solid #ddd;
-                padding: 10px 0 20px 0;
-                margin-bottom: 10px;
+            table{
+                margin-bottom: 5px;
                 page-break-inside:avoid;
             }
+            table tr td{
+                vertical-align: top;
+                padding: 10px 0;
+            }
 
-            .col-md-9{
-                width: 65%;
-                display: inline-block;
+            td a.thumb{
+                display: block;
+                width: 100%;
+                margin-bottom: 20px;
+                text-align: center;
             }
-            .col-md-3{
-                display: inline-block;
-                width: 25%;
-            }
-            .clear{
-                content: '.';
-                clear: both;
-                height:1px;
-                visibility: hidden;
-            }
-            div p a{
-                display: none;
-                margin: 0;
-                padding: 0;
-            }
+
         </style>
     </head>
 

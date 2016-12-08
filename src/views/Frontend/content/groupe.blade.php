@@ -33,6 +33,7 @@
                 @endif
 
             </div>
+            <div class="clear"></div>
         </div>
     @endforeach
 @endif

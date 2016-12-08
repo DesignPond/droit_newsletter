@@ -8,17 +8,12 @@
          processIsolation="false"
          stopOnFailure="false">
     <testsuites>
-        <testsuite name="Package Test Suite">
-            <directory suffix=".php">./tests/</directory>
-        </testsuite>
-        <testsuite name="newsletter">
-            <directory>./tests/newsletter/</directory>
-        </testsuite>
         <testsuite name="service">
             <directory>./tests/service/</directory>
         </testsuite>
     </testsuites>
     <php>
 		<env name="APP_KEY" value="base64:/0jUuH1cM8ZotNIa76x/Rf8RepgFH2W0e/LofCwh8iw="/>
+        <env name="DB_SOCKET" value="/Applications/MAMP/tmp/mysql/mysql.sock"/>
     </php>
 </phpunit>

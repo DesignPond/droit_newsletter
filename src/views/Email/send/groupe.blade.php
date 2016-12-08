@@ -12,7 +12,7 @@
                 <tr>
                     <td class="resetMarge">
                         <!-- Bloc content-->
-                        <table border="0" width="560" align="center" cellpadding="0" cellspacing="0" class="tableReset contentForm">
+                        <table border="0" width="560" align="center" cellpadding="0" cellspacing="0" class="tableReset contentForm {{ $arret->dumois ? 'alert-dumois' : '' }}">
                             <tr>
                                 <td valign="top" width="375" class="resetMarge contentForm">
                                     <div>

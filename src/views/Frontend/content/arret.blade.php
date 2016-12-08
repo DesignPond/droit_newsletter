@@ -17,4 +17,5 @@
             @endforeach
         @endif
     </div>
+    <div class="clear"></div>
 </div>

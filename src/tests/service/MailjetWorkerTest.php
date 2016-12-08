@@ -61,6 +61,7 @@ class MailjetWorkerTest extends Orchestra\Testbench\TestCase
             'database' => 'dev',
             'username' => 'root',
             'password' => 'root',
+            'unix_socket' => '/Applications/MAMP/tmp/mysql/mysql.sock',
             'charset' => 'utf8',
             'collation' => 'utf8_unicode_ci',
             'prefix' => '',

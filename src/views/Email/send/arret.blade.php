@@ -6,10 +6,10 @@
         <tr align="center" class="resetMarge">
             <td class="resetMarge">
                 <!-- Bloc content-->
-                <table border="0" width="560" align="center" cellpadding="0" cellspacing="0" class="tableReset contentForm">
+                <table border="0" width="560" align="center" cellpadding="0" cellspacing="0" class="tableReset contentForm {{ $bloc->arret->dumois ? 'alert-dumois' : '' }}">
                     <tr>
                         <td valign="top" width="375" class="resetMarge">
-                            <h3 class="mainTitle" style="text-align: left;font-family: sans-serif;">{{ $bloc->arret->reference }} du {{ $bloc->arret->pub_date->formatLocalized('%d %B %Y') }}</h3>
+                            <h3 class="mainTitle" style="text-align: left;font-family: sans-serif;">{{ $bloc->arret->dumois ? 'Arrêt du mois : ' : '' }}{{ $bloc->arret->reference }} du {{ $bloc->arret->pub_date->formatLocalized('%d %B %Y') }}</h3>
                             <p class="abstract">{!! $bloc->arret->abstract !!}</p>
                             <div>{!! $bloc->arret->pub_text !!}</div>
                             <p><a href="{{ asset(config('newsletter.path.arret').$bloc->arret->file) }}">Télécharger en pdf</a></p>
