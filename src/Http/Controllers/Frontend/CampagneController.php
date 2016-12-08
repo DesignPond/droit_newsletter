@@ -33,7 +33,7 @@ class CampagneController extends Controller
     {
         $campagne = $this->campagne->find($id);
 
-        $pdf = \PDF::loadView('newsletter::Frontend.pdf', ['campagne' => $campagne])->setPaper('a4');
+        $pdf = \PDF::loadView('newsletter::Frontend.pdf', ['campagne' => $campagne])->setOption('dpi', 72)->setPaper('a4');
 
         return $pdf->stream('news.pdf');
     }

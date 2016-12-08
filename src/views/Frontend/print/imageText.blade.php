@@ -2,7 +2,7 @@
     <tr>
         <td align="left">
             <a class="thumb" target="_blank" href="{{ isset($bloc->lien) && !empty($bloc->lien) ? $bloc->lien : url('/') }}">
-                <img alt="{{ $bloc->titre or '' }}" src="{{ asset(config('newsletter.path.upload').$bloc->image) }}" />
+                <img style="max-width: 560px;" alt="{{ $bloc->titre or '' }}" src="{{ asset(config('newsletter.path.upload').$bloc->image) }}" />
             </a>
             @if(!empty($bloc->titre))
                 <h2>{{ $bloc->titre }}</h2>
