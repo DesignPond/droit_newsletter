@@ -17,13 +17,29 @@
 
             table{
                 margin-bottom: 5px;
-                page-break-inside:avoid;
             }
             table tr td{
                 vertical-align: top;
                 padding: 10px 0;
             }
-
+            table,
+            table tr td,
+            table tr td p,
+            table tr td div{
+                page-break-inside:avoid;
+            }
+            table tr td h2,
+            table tr td div h2
+            {
+                font-size: 15px !important;
+            }
+            table tr td,
+            table tr td p,
+            table tr td div,
+            table tr td a
+            {
+                font-size: 12px !important;
+            }
             td a.thumb{
                 display: block;
                 width: 100%;

@@ -35,7 +35,7 @@ class CampagneController extends Controller
 
         $pdf = \PDF::loadView('newsletter::Frontend.pdf', ['campagne' => $campagne])->setPaper('a4');
 
-        return $pdf->stream();
+        return $pdf->stream('news.pdf');
     }
 
 }
