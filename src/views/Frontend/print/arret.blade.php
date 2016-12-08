@@ -10,7 +10,7 @@
             @if(!$bloc->arret->categories->isEmpty() )
                 @foreach($bloc->arret->categories as $categorie)
                     <a class="thumb" target="_blank" href="{{ url(config('newsletter.link.arret')) }}#{{ $bloc->reference }}">
-                        <img style="max-width: 130px;" border="0"  alt="{{ $categorie->title }}" src="{{ asset(config('newsletter.path.categorie').$categorie->image) }}">
+                        <img style="width: 130px;" border="0"  alt="{{ $categorie->title }}" src="{{ asset(config('newsletter.path.categorie').$categorie->image) }}">
                     </a>
                 @endforeach
             @endif

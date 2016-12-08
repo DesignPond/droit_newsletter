@@ -42,9 +42,15 @@
             }
             td a.thumb{
                 display: block;
-                width: 100%;
+                width: 100%;;
                 margin-bottom: 20px;
                 text-align: center;
+            }
+
+            td a.thumb img{
+                display: block;
+                width: 130px;
+                margin: 0 auto;
             }
 
         </style>
