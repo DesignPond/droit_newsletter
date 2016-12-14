@@ -5,54 +5,60 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <!-- Responsive Meta Tag -->
 
-        <link rel="stylesheet" href="{{ asset('newsletter/css/frontend/bootstrap.min.css') }}">
-        <link rel="stylesheet" href="{{ asset('newsletter/css/frontend/newsletter.css') }}">
-
         <style>
             * {
                 font-family: Arial, Helvetica, sans-serif;
                 text-align: justify;
+                box-sizing:border-box;
             }
-            @page { margin: 30px; background: #fff; font-family: Arial, Helvetica, sans-serif;}
-
-            table{
-                margin-bottom: 5px;
+            @page {
+                padding: 30px; margin: 30px 50px; background: #fff; font-family: Arial, Helvetica, sans-serif;
             }
-            table tr td{
-                vertical-align: top;
-                padding: 10px 0;
+            .bloc{
+                margin: 10px 0;
+                width: 100%;
             }
-            table,
-            table tr td,
-            table tr td p,
-            table tr td div{
-                page-break-inside:avoid;
-            }
-            table tr td h2,
-            table tr td div h2
+            .bloc,
+            .bloc div,
+            .bloc div p,
+            .bloc div p a,
+            .bloc p
+            .bloc a,
+            .bloc ul li
             {
-                font-size: 18px !important;
+                font-size: 14px !important;
+                line-height: 18px;
+                box-sizing:border-box;
             }
-            table tr td,
-            table tr td p,
-            table tr td div,
-            table tr td a
-            {
-                font-size: 15px !important;
-            }
-            td a.thumb{
+            .arret, .analyse{
+                width: 100%;
                 display: block;
-                width: 100%;;
-                margin-bottom: 20px;
+            }
+            .arret-content{
+                display: inline-block;
+                box-sizing:border-box;
+                width: 70%;
+            }
+            .arret-categories{
+                display: inline-block;
+                width:29%;
+                box-sizing:border-box;
                 text-align: center;
             }
-
-            td a.thumb img{
+            .arret-categories a{
                 display: block;
-                width: 130px;
-                margin: 0 auto;
+                width:100%;
+                text-align: center;
+                margin-bottom: 3px;
             }
 
+            hr{
+                display: block;
+                clear: both;
+                height: 1px;
+                margin: 5px 0;
+                visibility: hidden;
+            }
         </style>
     </head>
 

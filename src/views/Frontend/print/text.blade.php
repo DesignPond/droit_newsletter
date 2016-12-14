@@ -1,8 +1,4 @@
-<table>
-    <tr>
-        <td>
-            <h2 class="title">{{ $bloc->titre }}</h2>
-            {!! $bloc->contenu !!}
-        </td>
-    </tr>
-</table>
+<div class="arret">
+    <h2 class="title">{{ $bloc->titre }}</h2>
+    {!! $bloc->contenu !!}
+</div><hr>
