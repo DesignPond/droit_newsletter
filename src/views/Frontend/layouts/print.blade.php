@@ -12,7 +12,7 @@
                 box-sizing:border-box;
             }
             @page {
-                padding: 30px; margin: 30px 50px; background: #fff; font-family: Arial, Helvetica, sans-serif;
+                padding: 30px; margin:25px 50px; background: #fff; font-family: Arial, Helvetica, sans-serif;
             }
             .bloc{
                 margin: 10px 0;
