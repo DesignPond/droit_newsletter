@@ -35,6 +35,8 @@ class CampagneController extends Controller
 
         $pdf = \PDF::loadView('newsletter::Frontend.pdf', ['campagne' => $campagne])->setPaper('a4');
 
+       // $pdf->set_option('defaultFont', 'Arial');
+
         return $pdf->stream('newsletter_'.$id.'.pdf');
     }
 

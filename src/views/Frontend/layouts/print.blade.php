@@ -12,12 +12,12 @@
                 box-sizing:border-box;
             }
             @page {
-                padding: 30px; margin:25px 50px; background: #fff; font-family: Arial, Helvetica, sans-serif;
+                padding: 30px; margin:25px 50px; background: #fff; font-family: Arial, Helvetica, sans-serif; page-break-inside: avoid;
             }
             .bloc{
                 margin: 10px 0;
                 width: 100%;
-                page-break-inside: auto;
+                page-break-inside: avoid;
             }
             .bloc,
             .bloc div,
@@ -27,12 +27,12 @@
             .bloc a,
             .bloc ul li
             {
-                font-size: 13px !important;
-                line-height: 16px;
+                font-size: 18px !important;
+                line-height:20px;
                 box-sizing:border-box;
             }
             .arret h2{
-                font-size: 18px;
+                font-size: 24px;
             }
             .arret, .analyse{
                 width: 100%;
