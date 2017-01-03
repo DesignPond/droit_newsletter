@@ -1,12 +1,12 @@
 <!-- Bloc -->
 <?php $width = isset($isEdit) ? 560 : 600; ?>
 @if(isset($bloc->arret))
-    <table border="0" width="{{ $width }}" align="center" cellpadding="0" cellspacing="0" class="tableReset">
+    <table border="0" width="{{ $width }}" align="center" cellpadding="0" cellspacing="0" class="tableReset {{ $bloc->arret->dumois ? 'alert-dumois' : '' }}">
         <tr bgcolor="ffffff"><td height="35"></td></tr><!-- space -->
         <tr align="center" class="resetMarge">
             <td class="resetMarge">
                 <!-- Bloc content-->
-                <table border="0" width="560" align="center" cellpadding="0" cellspacing="0" class="tableReset contentForm {{ $bloc->arret->dumois ? 'alert-dumois' : '' }}">
+                <table border="0" width="560" align="center" cellpadding="0" cellspacing="0" class="tableReset contentForm">
                     <tr>
                         <td valign="top" width="375" class="resetMarge">
                             <h3 class="mainTitle" style="text-align: left;font-family: sans-serif;">{{ $bloc->arret->dumois ? 'Arrêt du mois : ' : '' }}{{ $bloc->arret->reference }} du {{ $bloc->arret->pub_date->formatLocalized('%d %B %Y') }}</h3>
