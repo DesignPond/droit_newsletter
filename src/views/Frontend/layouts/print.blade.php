@@ -26,9 +26,12 @@
             .bloc a,
             .bloc ul li
             {
-                font-size: 14px !important;
-                line-height: 18px;
+                font-size: 13px !important;
+                line-height: 16px;
                 box-sizing:border-box;
+            }
+            .arret h2{
+                font-size: 18px;
             }
             .arret, .analyse{
                 width: 100%;
@@ -37,11 +40,11 @@
             .arret-content{
                 display: inline-block;
                 box-sizing:border-box;
-                width: 70%;
+                width: 80%;
             }
             .arret-categories{
                 display: inline-block;
-                width:29%;
+                width:19%;
                 box-sizing:border-box;
                 text-align: center;
             }

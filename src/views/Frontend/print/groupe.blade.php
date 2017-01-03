@@ -1,7 +1,6 @@
 @if(isset($bloc->groupe) && !$bloc->groupe->arrets->isEmpty())
 
     <h1>{{ $bloc->groupe->categorie->title }}</h1>
-    <img style="max-width: 130px;" border="0" src="{{ asset(config('newsletter.path.categorie').$bloc->groupe->categorie->image) }}" alt="{{ $bloc->groupe->categorie->title }}" />
     <hr>
 
     @foreach($bloc->groupe->arrets as $arret)
@@ -16,12 +15,15 @@
                 @if(!$arret->categories->isEmpty())
                     @foreach($arret->categories as $categorie)
                         <a class="thumb" target="_blank" href="{{ config('newsletter.link.arret') }}#{{ $bloc->reference }}">
-                            <img style="max-width: 120px;" border="0" alt="{{ $categorie->title }}" src="{{ asset(config('newsletter.path.categorie').$categorie->image) }}">
+                            <img style="max-width: 100px;" border="0" alt="{{ $categorie->title }}" src="{{ asset(config('newsletter.path.categorie').$categorie->image) }}">
                         </a>
                     @endforeach
                 @endif
             </div>
         </div>
+
+        @include('newsletter::Frontend.print.partials.analyses', ['arret' => $arret])
+
         <hr/>
     @endforeach
 
