@@ -17,6 +17,7 @@
             .bloc{
                 margin: 10px 0;
                 width: 100%;
+                page-break-inside: auto;
             }
             .bloc,
             .bloc div,
