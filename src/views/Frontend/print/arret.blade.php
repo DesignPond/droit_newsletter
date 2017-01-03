@@ -4,15 +4,6 @@
         <p>{!! $bloc->arret->abstract !!}</p>
         {!! $bloc->arret->pub_text !!}
     </div>
-    <div class="arret-categories">
-        @if(!$bloc->arret->categories->isEmpty() )
-            @foreach($bloc->arret->categories as $categorie)
-                <a class="thumb" target="_blank" href="{{ url(config('newsletter.link.arret')) }}#{{ $bloc->reference }}">
-                    <img style="width: 100px;" border="0"  alt="{{ $categorie->title }}" src="{{ asset(config('newsletter.path.categorie').$categorie->image) }}">
-                </a>
-            @endforeach
-        @endif
-    </div>
 </div>
 
 @include('newsletter::Frontend.print.partials.analyses', ['arret' => $bloc->arret])

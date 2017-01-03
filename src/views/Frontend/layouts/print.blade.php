@@ -12,12 +12,12 @@
                 box-sizing:border-box;
             }
             @page {
-                padding: 30px; margin:25px 50px; background: #fff; font-family: Arial, Helvetica, sans-serif; page-break-inside: avoid;
+                padding: 20px; margin:20px 50px; background: #fff; font-family: Arial, Helvetica, sans-serif; page-break-inside: avoid;
             }
             .bloc{
                 margin: 10px 0;
                 width: 100%;
-                page-break-inside: avoid;
+                page-break-inside: auto !important;
             }
             .bloc,
             .bloc div,
@@ -27,7 +27,7 @@
             .bloc a,
             .bloc ul li
             {
-                font-size: 18px !important;
+                font-size: 17px !important;
                 line-height:20px;
                 box-sizing:border-box;
             }
@@ -39,9 +39,9 @@
                 display: block;
             }
             .arret-content{
-                display: inline-block;
+                display: block;
                 box-sizing:border-box;
-                width: 80%;
+                width: 100%;
             }
             .arret-categories{
                 display: inline-block;

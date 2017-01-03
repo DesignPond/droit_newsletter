@@ -16,6 +16,5 @@
             @endforeach
 
         </div>
-        <div class="arret-categories"></div>
     </div>
 @endif
