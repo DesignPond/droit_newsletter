@@ -1,7 +1,7 @@
 @extends('newsletter::Frontend.layouts.print')
 @section('content')
 
-    <div style="background: #f5f5f5; margin-bottom: 30px; padding: 5px 10px;">
+    <div class="header">
         <h1 style="font-size: 21px; margin: 5px 0 5px 0; line-height: 20px;">Newsletter {{ config('app.name') }}</h1>
         <h2 style="font-size: 18px; margin: 0 0 5px 0; line-height: 20px;">{{ $campagne->sujet }}</h2>
         <h3 style="font-size: 15px; margin: 0; line-height: 20px;">{{ $campagne->auteurs }}</h3>
