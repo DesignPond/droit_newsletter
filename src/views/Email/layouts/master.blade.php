@@ -36,7 +36,7 @@
                     </td>
                 </tr>
                 <!-- End see in browser -->
-                
+
                 <!-- Logos -->
                 @include('newsletter::Email.send.logos')
                 <!-- Header -->

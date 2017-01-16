@@ -6,7 +6,7 @@
             <tr class="link_pdf" bgcolor="f5f5f5" align="center" class="resetMarge" style="height: 30px;line-height: 30px;display: block;">
                 <td class="resetMarge">
                     <a style="text-decoration: none; font-weight: bold; color: #000; height: 30px;line-height: 30px; display: block;" href="{{ url('/pdf/'.$campagne->id) }}" target="_blank">
-                        Télécharger en pdf
+                        Téléchargement de la newsletter en format PDF
                     </a>
                 </td>
             </tr>
