@@ -37,14 +37,14 @@
                 </tr>
                 <!-- End see in browser -->
 
+                @if(config('newsletter.pdf'))
+                    @include('newsletter::Email.send.link')
+                @endif
+
                 <!-- Logos -->
                 @include('newsletter::Email.send.logos')
                 <!-- Header -->
                 @include('newsletter::Email.send.header')
-
-                @if(config('newsletter.pdf'))
-                    @include('newsletter::Email.send.link')
-                @endif
 
                 <tr>
                     <td id="sortable" class="newsletterborder" width="600" align="center" valign="top">

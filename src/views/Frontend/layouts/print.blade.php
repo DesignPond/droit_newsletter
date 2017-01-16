@@ -27,7 +27,7 @@
             .bloc a,
             .bloc ul li
             {
-                font-size: 17px !important;
+                font-size: 16px !important;
                 line-height:20px;
                 box-sizing:border-box;
             }
