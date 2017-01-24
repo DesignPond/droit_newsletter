@@ -1,10 +1,11 @@
 <?php
 
 use Illuminate\Foundation\Testing\WithoutMiddleware;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class CampagneTest extends Orchestra\Testbench\TestCase
 {
-    use WithoutMiddleware;
+    use WithoutMiddleware, DatabaseTransactions;
 
     protected $mock;
     protected $worker;
@@ -30,10 +31,11 @@ class CampagneTest extends Orchestra\Testbench\TestCase
 
         $this->helper = Mockery::mock('designpond\newsletter\Newsletter\Helper\Helper');
 
+        DB::beginTransaction();
         $this->withFactories(dirname(__DIR__).'/newsletter/factories');
 
-        //$user = factory(App\Droit\User\Entities\User::class,'admin')->create();
-        //$this->actingAs($user);
+        $user = factory(App\Droit\User\Entities\User::class,'admin')->create();
+        $this->actingAs($user);
 
         /**
          * Register views
@@ -64,7 +66,7 @@ class CampagneTest extends Orchestra\Testbench\TestCase
         $app['config']->set('database.connections.test', [
             'driver' => 'mysql',
             'host' => 'localhost',
-            'database' => 'dev',
+            'database' => 'newdev',
             'username' => 'root',
             'password' => 'root',
             'charset' => 'utf8',
@@ -79,6 +81,8 @@ class CampagneTest extends Orchestra\Testbench\TestCase
     public function tearDown()
     {
         Mockery::close();
+        DB::rollBack();
+        parent::tearDown();
     }
 
     /**
@@ -90,7 +94,6 @@ class CampagneTest extends Orchestra\Testbench\TestCase
         $this->mailjet->shouldReceive('getAllLists')->once()->andReturn([]);
 
         $this->visit('build/newsletter')->click('addNewsletter')->seePageIs('build/newsletter/create');
-
     }
 
     /**
@@ -116,45 +119,47 @@ class CampagneTest extends Orchestra\Testbench\TestCase
 
     }
 
-    /**
-     * @expectedException designpond\newsletter\Exceptions\CampagneUpdateException
-     */
     public function testSendCampagneFailedHtml()
     {
+        try {
+            $campagne = factory(designpond\newsletter\Newsletter\Entities\Newsletter_campagnes::class)->make();
+            // some code that is supposed to throw ExceptionOne
+            $this->campagne->shouldReceive('find')->once()->andReturn($campagne);
+            $this->worker->shouldReceive('html')->once()->andReturn('<html><header></header><body></body></html>');
 
-        $campagne = factory(designpond\newsletter\Newsletter\Entities\Newsletter_campagnes::class)->make();
+            $this->mailjet->shouldReceive('setList')->once()->andReturn(true);
+            $this->mailjet->shouldReceive('setHtml')->once()->andReturn(false);
 
-        $this->campagne->shouldReceive('find')->once()->andReturn($campagne);
-        $this->worker->shouldReceive('html')->once()->andReturn('<html><header></header><body></body></html>');
+            $this->visit('build/newsletter');
+            $response = $this->call('POST', 'build/send/campagne', ['id' => '1']);
 
-        $this->mailjet->shouldReceive('setList')->once()->andReturn(true);
-        $this->mailjet->shouldReceive('setHtml')->once()->andReturn(false);
-
-        $response = $this->call('POST', 'build/send/campagne', ['id' => '1']);
-
+        } catch (Exception $e) {
+            $this->assertType('\designpond\newsletter\Exceptions\CampagneUpdateException', $e);
+        }
     }
 
-    /**
-     * @expectedException designpond\newsletter\Exceptions\CampagneSendException
-     */
     public function testSendCampagneFailed()
     {
-        $campagne = factory(designpond\newsletter\Newsletter\Entities\Newsletter_campagnes::class)->make();
+        try{
+            $campagne = factory(designpond\newsletter\Newsletter\Entities\Newsletter_campagnes::class)->make();
 
-        $result = [
-            'success' => false,
-            'info'    => ['ErrorMessage' => '','StatusCode' => '']
-        ];
+            $result = [
+                'success' => false,
+                'info'    => ['ErrorMessage' => '','StatusCode' => '']
+            ];
 
-        $this->campagne->shouldReceive('find')->once()->andReturn($campagne);
-        $this->worker->shouldReceive('html')->once()->andReturn('<html><header></header><body></body></html>');
+            $this->campagne->shouldReceive('find')->once()->andReturn($campagne);
+            $this->worker->shouldReceive('html')->once()->andReturn('<html><header></header><body></body></html>');
 
-        $this->mailjet->shouldReceive('setList')->once()->andReturn(true);
-        $this->mailjet->shouldReceive('setHtml')->once()->andReturn(true);
-        $this->mailjet->shouldReceive('sendCampagne')->once()->andReturn($result);
+            $this->mailjet->shouldReceive('setList')->once()->andReturn(true);
+            $this->mailjet->shouldReceive('setHtml')->once()->andReturn(true);
+            $this->mailjet->shouldReceive('sendCampagne')->once()->andReturn($result);
 
-        $response = $this->call('POST', 'build/send/campagne', ['id' => '1']);
+            $response = $this->call('POST', 'build/send/campagne', ['id' => '1']);
 
+        } catch (Exception $e) {
+            $this->assertType('designpond\newsletter\Exceptions\CampagneSendException', $e);
+        }
     }
 
     /**
@@ -176,25 +181,26 @@ class CampagneTest extends Orchestra\Testbench\TestCase
 
     }
 
-    /**
-     * @expectedException designpond\newsletter\Exceptions\TestSendException
-     */
     public function testSendTestFailed()
     {
-        $campagne = factory(designpond\newsletter\Newsletter\Entities\Newsletter_campagnes::class)->make();
+        try{
+            $campagne = factory(designpond\newsletter\Newsletter\Entities\Newsletter_campagnes::class)->make();
 
-        $result = [
-            'success' => false,
-            'info'    => ['ErrorMessage' => '','StatusCode' => '']
-        ];
+            $result = [
+                'success' => false,
+                'info'    => ['ErrorMessage' => '','StatusCode' => '']
+            ];
 
-        $this->campagne->shouldReceive('find')->once()->andReturn($campagne);
-        $this->worker->shouldReceive('html')->once()->andReturn('<html><header></header><body></body></html>');
-        $this->mailjet->shouldReceive('setHtml')->once()->andReturn(true);
-        $this->mailjet->shouldReceive('sendTest')->once()->andReturn($result);
+            $this->campagne->shouldReceive('find')->once()->andReturn($campagne);
+            $this->worker->shouldReceive('html')->once()->andReturn('<html><header></header><body></body></html>');
+            $this->mailjet->shouldReceive('setHtml')->once()->andReturn(true);
+            $this->mailjet->shouldReceive('sendTest')->once()->andReturn($result);
 
-        $this->call('POST', 'build/send/test', ['id' => '1', 'email' => 'cindy.leschaud@gmail.com']);
+            $this->call('POST', 'build/send/test', ['id' => '1', 'email' => 'cindy.leschaud@gmail.com']);
 
+        } catch (Exception $e) {
+            $this->assertType('designpond\newsletter\Exceptions\TestSendException', $e);
+        }
     }
 
     /**
@@ -216,7 +222,5 @@ class CampagneTest extends Orchestra\Testbench\TestCase
         $response = $this->call('POST', 'build/campagne', ['sujet' => 'Sujet', 'auteurs' => 'Cindy Leschaud', 'newsletter_id' => '3']);
 
         $this->assertRedirectedTo('build/campagne/'.$campagne->id);
-
     }
-
 }

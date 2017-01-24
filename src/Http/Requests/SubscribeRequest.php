@@ -2,10 +2,10 @@
 
 namespace designpond\newsletter\Http\Requests;
 
-use App\Http\Requests\Request;
+use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Validator;
 
-class SubscribeRequest extends Request
+class SubscribeRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

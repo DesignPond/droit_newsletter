@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Foundation\Testing\WithoutMiddleware;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class SubscriptionTest extends Orchestra\Testbench\TestCase
 {
@@ -8,7 +9,7 @@ class SubscriptionTest extends Orchestra\Testbench\TestCase
     protected $worker;
     protected $newsletter;
 
-    use WithoutMiddleware;
+    use WithoutMiddleware, DatabaseTransactions;
 
     public function setUp()
     {
@@ -24,12 +25,21 @@ class SubscriptionTest extends Orchestra\Testbench\TestCase
         $this->app->instance('designpond\newsletter\Newsletter\Repo\NewsletterInterface', $this->newsletter);
 
         $this->withFactories(dirname(__DIR__).'/newsletter/factories');
+
+        DB::beginTransaction();
+
+        $this->withFactories(dirname(__DIR__).'/newsletter/factories');
+
+        $user = factory(App\Droit\User\Entities\User::class,'admin')->create();
+        $this->actingAs($user);
         
     }
 
     public function tearDown()
     {
         Mockery::close();
+        DB::rollBack();
+        parent::tearDown();
     }
 
     protected function getPackageProviders($app)
@@ -53,7 +63,7 @@ class SubscriptionTest extends Orchestra\Testbench\TestCase
         $app['config']->set('database.connections.test', [
             'driver' => 'mysql',
             'host' => 'localhost',
-            'database' => 'dev',
+            'database' => 'newdev',
             'username' => 'root',
             'password' => 'root',
             'unix_socket' => '/Applications/MAMP/tmp/mysql/mysql.sock',

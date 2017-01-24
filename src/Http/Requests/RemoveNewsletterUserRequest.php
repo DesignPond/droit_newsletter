@@ -2,10 +2,10 @@
 
 namespace designpond\newsletter\Http\Requests;
 
-use App\Http\Requests\Request;
+use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Validator;
 
-class RemoveNewsletterUserRequest extends Request
+class RemoveNewsletterUserRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

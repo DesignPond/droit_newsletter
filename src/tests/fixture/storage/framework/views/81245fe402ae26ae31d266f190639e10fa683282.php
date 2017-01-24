@@ -1,11 +1,11 @@
-@extends('newsletter::Backend.layouts.master')
-@section('content')
+<?php $__env->startSection('content'); ?>
 
     <div class="row">
         <div class="col-md-9">
             <div class="panel panel-primary">
 
-                <form action="{{ url('build/import') }}" method="POST" enctype="multipart/form-data" class="form-horizontal">{!! csrf_field() !!}
+                <form action="<?php echo e(url('build/import')); ?>" method="POST" enctype="multipart/form-data" class="form-horizontal"><?php echo csrf_field(); ?>
+
                     <div class="panel-heading">
                         <h4>Importer une liste</h4>
                     </div>
@@ -17,11 +17,11 @@
                             <div class="col-sm-8">
                                 <select class="form-control" required name="newsletter_id">
                                     <option value="">Choix de la newsletter</option>
-                                    @if(!$newsletters->isEmpty())
-                                        @foreach($newsletters as $list)
-                                            <option value="{{ $list->id }}">{{ $list->titre }}</option>
-                                        @endforeach
-                                    @endif
+                                    <?php if(!$newsletters->isEmpty()): ?>
+                                        <?php $__currentLoopData = $newsletters; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $list): $__env->incrementLoopIndices(); $loop = $__env->getFirstLoop(); ?>
+                                            <option value="<?php echo e($list->id); ?>"><?php echo e($list->titre); ?></option>
+                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getFirstLoop(); ?>
+                                    <?php endif; ?>
                                 </select>
                             </div>
                         </div>
@@ -58,4 +58,6 @@
         </div>
     </div>
 
-@stop
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make('newsletter::Backend.layouts.master', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

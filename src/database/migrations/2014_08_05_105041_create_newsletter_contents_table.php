@@ -23,7 +23,9 @@ class CreateNewsletterContentsTable extends Migration {
             $table->string('lien')->nullable();
             $table->integer('arret_id')->nullable();
             $table->integer('groupe_id')->nullable();
-            $table->integer('categorie_id')->nullable();
+			$table->integer('categorie_id')->nullable();
+			$table->integer('product_id')->nullable();
+			$table->integer('colloque_id')->nullable();
             $table->integer('newsletter_campagne_id');
             $table->integer('rang');
             $table->timestamps();

@@ -1,0 +1,2 @@
+<link rel="stylesheet" type="text/css" href="<?php echo asset('newsletter/redactor/redactor.css'); ?>">
+<link rel="stylesheet" type="text/css" href="<?php echo asset('newsletter/redactor/alignment.css'); ?>">

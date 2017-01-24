@@ -10,7 +10,7 @@ class InscriptionTest extends Orchestra\Testbench\TestCase
     protected $subscription;
     protected $worker;
 
-    use WithoutMiddleware;
+    use WithoutMiddleware, DatabaseTransactions;
 
     public function setUp()
     {
@@ -27,13 +27,20 @@ class InscriptionTest extends Orchestra\Testbench\TestCase
 
         $this->withFactories(dirname(__DIR__).'/newsletter/factories');
 
+        DB::beginTransaction();
+        $this->withFactories(dirname(__DIR__).'/newsletter/factories');
+
+        $user = factory(App\Droit\User\Entities\User::class,'admin')->create();
+        $this->actingAs($user);
+
     }
 
     public function tearDown()
     {
         Mockery::close();
+        DB::rollBack();
+        parent::tearDown();
     }
-
 
     protected function getPackageProviders($app)
     {
@@ -56,7 +63,7 @@ class InscriptionTest extends Orchestra\Testbench\TestCase
         $app['config']->set('database.connections.test', [
             'driver' => 'mysql',
             'host' => 'localhost',
-            'database' => 'dev',
+            'database' => 'newdev',
             'username' => 'root',
             'password' => 'root',
             'charset' => 'utf8',

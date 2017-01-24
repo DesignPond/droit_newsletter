@@ -14,16 +14,14 @@ class CreateNewsletterTypesTable extends Migration {
 	{
 		Schema::create('newsletter_types', function(Blueprint $table)
 		{
-
 			$table->increments('id');
-            $table->string('titre');
-            $table->string('image');
-            $table->string('partial');
-            $table->string('template');
-            $table->enum('elements', array('titre','titre,texte','titre,texte,image','texte','image','titre,image','arret','categorie'));
+			$table->string('titre');
+			$table->string('image');
+			$table->string('partial');
+			$table->string('template');
+			$table->string('elements');
 		});
 	}
-
 
 	/**
 	 * Reverse the migrations.
@@ -34,5 +32,4 @@ class CreateNewsletterTypesTable extends Migration {
 	{
 		Schema::drop('newsletter_types');
 	}
-
 }

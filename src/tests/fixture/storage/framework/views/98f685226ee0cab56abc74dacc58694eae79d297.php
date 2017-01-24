@@ -1,0 +1,1 @@
+<script type="text/javascript" src="<?php echo e(asset('newsletter/js/env.js')); ?>"></script>

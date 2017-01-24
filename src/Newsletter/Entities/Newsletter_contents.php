@@ -4,7 +4,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Newsletter_contents extends Model {
 
-	protected $fillable = ['type_id','titre','contenu','image','lien','arret_id','categorie_id','newsletter_campagne_id','rang','groupe_id'];
+	protected $fillable = ['type_id','titre','contenu','image','lien','arret_id','categorie_id','product_id','colloque_id','newsletter_campagne_id','rang','groupe_id'];
 
     public $timestamps = false;
 
@@ -64,4 +64,19 @@ class Newsletter_contents extends Model {
         }
     }
 
+    public function product()
+    {
+        if(in_array(8,array_keys(config('newsletter.components'))))
+        {
+            return $this->hasOne(config('newsletter.models.product'), 'id', 'product_id');
+        }
+    }
+
+    public function colloque()
+    {
+        if(in_array(9,array_keys(config('newsletter.components'))))
+        {
+            return $this->hasOne(config('newsletter.models.colloque'), 'id', 'colloque_id');
+        }
+    }
 }

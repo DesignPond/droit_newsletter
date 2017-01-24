@@ -14,7 +14,7 @@ class ImportTest extends Orchestra\Testbench\TestCase
     protected $upload;
     protected $excel;
 
-    use WithoutMiddleware;
+    use WithoutMiddleware, DatabaseTransactions;
 
     public function setUp()
     {
@@ -50,14 +50,19 @@ class ImportTest extends Orchestra\Testbench\TestCase
             $this->camp,
             $this->upload
         );
-
+        
+        DB::beginTransaction();
         $this->withFactories(dirname(__DIR__).'/newsletter/factories');
 
+        $user = factory(App\Droit\User\Entities\User::class,'admin')->create();
+        $this->actingAs($user);
     }
 
     public function tearDown()
     {
         Mockery::close();
+        DB::rollBack();
+        parent::tearDown();
     }
 
     protected function getPackageProviders($app)
@@ -81,7 +86,7 @@ class ImportTest extends Orchestra\Testbench\TestCase
         $app['config']->set('database.connections.test', [
             'driver' => 'mysql',
             'host' => 'localhost',
-            'database' => 'dev',
+            'database' => 'newdev',
             'username' => 'root',
             'password' => 'root',
             'unix_socket' => '/Applications/MAMP/tmp/mysql/mysql.sock',
@@ -196,9 +201,17 @@ class ImportTest extends Orchestra\Testbench\TestCase
 
         $mock->shouldReceive('import')->once();
 
-        $response = $this->call('POST', 'build/import', ['title' => 'Titre', 'newsletter_id' => 1], [], ['file' => $upload]);
+        $newsletter = new designpond\newsletter\Newsletter\Entities\Newsletter();
+        $newsletters = $newsletter->all();
 
-        $this->assertRedirectedTo('build/import');
+        $this->newsletter->shouldReceive('getAll')->twice()->andReturn($newsletters);
+
+        $this->visit('/build/import')
+            ->type($newsletters->first()->id,'newsletter_id')
+            ->attach($file, 'file')
+            ->press('Envoyer');
+
+        $this->seePageIs('build/import');
     }
 
     /**
@@ -207,6 +220,7 @@ class ImportTest extends Orchestra\Testbench\TestCase
     public function testImportListFormatFails()
     {
         $file       = dirname(__DIR__).'/excel/test-notok.xlsx';
+
         $upload     = $this->prepareFileUpload($file);
         $collection = new Maatwebsite\Excel\Collections\RowCollection([]);
 

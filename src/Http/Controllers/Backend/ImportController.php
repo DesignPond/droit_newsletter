@@ -18,6 +18,7 @@ class ImportController extends Controller
     {
         $this->newsletter = $newsletter;
         $this->worker     = $worker;
+
         view()->share('isNewsletter',true);
     }
 

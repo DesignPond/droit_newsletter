@@ -1,0 +1,1 @@
+<script type="text/javascript" src="<?php echo e(asset('newsletter/js/jquery.dataTables.min.js')); ?>"></script>

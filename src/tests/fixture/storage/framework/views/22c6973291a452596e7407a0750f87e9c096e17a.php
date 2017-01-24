@@ -1,34 +1,34 @@
-@if(Session::has('status'))
+<?php if(Session::has('status')): ?>
 
     <div class="row">
         <div class="col-md-12">
-            <div class="alert alert-dismissable alert-{{ Session::get('status') }}">
+            <div class="alert alert-dismissable alert-<?php echo e(Session::get('status')); ?>">
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 
-                @if(Session::has('message'))
-                    <p>{!! Session::get('message') !!}</p>
-                @endif
+                <?php if(Session::has('message')): ?>
+                    <p><?php echo Session::get('message'); ?></p>
+                <?php endif; ?>
 
             </div>
         </div>
     </div>
 
-@endif
+<?php endif; ?>
 
-@if( (isset($errors) && count($errors) > 0) )
+<?php if( (isset($errors) && count($errors) > 0) ): ?>
     <div class="row">
         <div class="col-md-12">
             <div class="alert alert-dismissable alert-error">
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 
-                @foreach($errors->all() as $message)
-                    <p>{!! $message !!}</p>
-                @endforeach
+                <?php $__currentLoopData = $errors->all(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $message): $__env->incrementLoopIndices(); $loop = $__env->getFirstLoop(); ?>
+                    <p><?php echo $message; ?></p>
+                <?php endforeach; $__env->popLoop(); $loop = $__env->getFirstLoop(); ?>
 
             </div>
         </div>
     </div>
-@endif
+<?php endif; ?>
 
 <div class="row" id="messageAlert">
     <div class="col-md-12">

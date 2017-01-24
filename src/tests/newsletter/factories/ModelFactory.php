@@ -20,7 +20,6 @@ $factory->define(designpond\newsletter\Newsletter\Entities\Newsletter_subscripti
 
 $factory->define(designpond\newsletter\Newsletter\Entities\Newsletter::class, function (Faker\Generator $faker) {
     return [
-        'id'           => 1,
         'titre'        => 'Titre',
         'list_id'      => '1',
         'from_name'    => 'Nom',
@@ -48,5 +47,17 @@ $factory->defineAs(App\Droit\User\Entities\User::class, 'admin' ,function ($fact
         'name'       => 'Cindy Leschaud',
         'email'      => 'cindy.leschaud@unine.ch',
         'password'   => bcrypt('cindy2')
+    ];
+});
+
+$factory->define(designpond\newsletter\Newsletter\Entities\Newsletter_lists::class, function (Faker\Generator $faker) {
+    return [
+        'title' => 'Sujet'
+    ];
+});
+
+$factory->define(designpond\newsletter\Newsletter\Entities\Newsletter_emails::class, function (Faker\Generator $faker) {
+    return [
+        'email'=> $faker->email
     ];
 });

@@ -58,7 +58,7 @@ class MailjetWorkerTest extends Orchestra\Testbench\TestCase
         $app['config']->set('database.connections.test', [
             'driver' => 'mysql',
             'host' => 'localhost',
-            'database' => 'dev',
+            'database' => 'newdev',
             'username' => 'root',
             'password' => 'root',
             'unix_socket' => '/Applications/MAMP/tmp/mysql/mysql.sock',

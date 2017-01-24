@@ -2,9 +2,9 @@
 
 namespace designpond\newsletter\Http\Requests;
 
-use App\Http\Requests\Request;
+use Illuminate\Foundation\Http\FormRequest;
 
-class CopyRequest extends Request
+class CopyRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.

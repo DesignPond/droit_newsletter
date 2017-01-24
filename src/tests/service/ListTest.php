@@ -1,5 +1,6 @@
 <?php
 use Illuminate\Foundation\Testing\WithoutMiddleware;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 class ListTest extends Orchestra\Testbench\TestCase
 {
@@ -8,7 +9,7 @@ class ListTest extends Orchestra\Testbench\TestCase
     protected $upload;
     protected $list;
 
-   // use WithoutMiddleware;
+    use DatabaseTransactions;
     
     public function setUp()
     {
@@ -26,19 +27,19 @@ class ListTest extends Orchestra\Testbench\TestCase
         $this->list = Mockery::mock('designpond\newsletter\Newsletter\Repo\NewsletterListInterface');
         $this->app->instance('designpond\newsletter\Newsletter\Repo\NewsletterListInterface', $this->list);
 
+        DB::beginTransaction();
         $this->withFactories(dirname(__DIR__).'/newsletter/factories');
 
-        $users = \App\Droit\User\Entities\User::all();
-        $user  = $users->first();
-
+        $user = factory(App\Droit\User\Entities\User::class,'admin')->create();
         $this->actingAs($user);
     }
 
     public function tearDown()
     {
         Mockery::close();
+        DB::rollBack();
+        parent::tearDown();
     }
-
 
     protected function getPackageProviders($app)
     {
@@ -60,7 +61,7 @@ class ListTest extends Orchestra\Testbench\TestCase
         $app['config']->set('database.connections.test', [
             'driver' => 'mysql',
             'host' => 'localhost',
-            'database' => 'dev',
+            'database' => 'newdev',
             'username' => 'root',
             'password' => 'root',
             'charset' => 'utf8',
@@ -119,40 +120,53 @@ class ListTest extends Orchestra\Testbench\TestCase
         $this->list->shouldReceive('create')->once();
         $this->upload->shouldReceive('upload')->once()->andReturn(['name' => 'uploaded']);
 
-        $response = $this->call('POST', 'build/liste', ['title' => 'Un titre' ,'list_id' => 1, 'campagne_id' => 1], [], ['file' => $upload]);
+        $this->list->shouldReceive('getAll')->twice()->andReturn(collect([]));
 
-        $this->assertRedirectedTo('build/liste');
+        $this->visit('/build/liste')
+            ->type('Un titre','title')
+            ->attach($file, 'file')
+            ->press('Envoyer');
+
+        $this->seePageIs('build/liste');
     }
 
-    /**
-     * @expectedException designpond\newsletter\Exceptions\FileUploadException
-     */
     public function testStoreListeUploadFails()
     {
-        $file   = dirname(__DIR__).'/excel/test.xlsx';
-        $upload = $this->prepareFileUpload($file);
+        try{
+            $file   = dirname(__DIR__).'/excel/test.xlsx';
+            $upload = $this->prepareFileUpload($file);
 
-        $this->upload->shouldReceive('upload')->once()->andReturn(null);
+            $response = $this->call('POST', 'build/liste', ['title' => 'Un titre' ,'list_id' => 1, 'campagne_id' => 1], [], ['file' => $upload]);
 
-        $response = $this->call('POST', 'build/liste', ['title' => 'Un titre' ,'list_id' => 1, 'campagne_id' => 1], [], ['file' => $upload]);
+        } catch (Exception $e) {
+            $this->assertType('designpond\newsletter\Exceptions\FileUploadException', $e);
+        }
     }
 
     public function testStoreListeFormatFails()
     {
-        $file   = dirname(__DIR__).'/excel/test-notok.xlsx';
-        $upload = $this->prepareFileUpload($file);
+        try{
 
-        $mock = Mockery::mock('designpond\newsletter\Newsletter\Worker\ImportWorkerInterface');
-        $this->app->instance('designpond\newsletter\Newsletter\Worker\ImportWorkerInterface', $mock);
+            $file   = dirname(__DIR__).'/excel/test-notok.xlsx';
+            $upload = $this->prepareFileUpload($file);
 
-        $this->upload->shouldReceive('upload')->once()->andReturn(['name' => 'title']);
+            $mock = Mockery::mock('designpond\newsletter\Newsletter\Worker\ImportWorkerInterface');
+            $this->app->instance('designpond\newsletter\Newsletter\Worker\ImportWorkerInterface', $mock);
 
-        $collection = new Maatwebsite\Excel\Collections\RowCollection([]);
-        $mock->shouldReceive('read')->once()->andReturn($collection);
+            $this->upload->shouldReceive('upload')->once()->andReturn(['name' => 'title']);
+            $this->list->shouldReceive('getAll')->twice()->andReturn(collect([]));
+            $collection = new Maatwebsite\Excel\Collections\RowCollection([]);
+            $mock->shouldReceive('read')->once()->andReturn($collection);
 
-        $response = $this->call('POST', 'build/liste', ['title' => 'Un titre' ,'list_id' => 1, 'campagne_id' => 1], [], ['file' => $upload]);
+            $this->visit('/build/liste')
+                ->type('Un titre','title')
+                ->attach($file, 'file')
+                ->press('Envoyer');
 
-        $this->assertSessionHas('alert.style', 'danger');
+        } catch (Exception $e) {
+            $this->assertType('\designpond\newsletter\Exceptions\BadFormatException', $e);
+        }
+
     }
     
     function prepareFileUpload($path)
