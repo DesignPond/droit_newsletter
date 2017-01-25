@@ -36,16 +36,20 @@ return [
         4 => 'Text et image à gauche',
         5 => 'Arrêt',
         6 => 'Text',
-        7 => 'Groupe'
+        7 => 'Groupe',
+        8 => 'Livre',
+        9 => 'Colloque'
     ],
 
     /*
      * Define Arrets and Categories models
      * */
     'models' => [
-        'arret'  => 'App\Droit\Arret\Entities\Arret',
-        'groupe' => 'App\Droit\Arret\Entities\Groupe',
-        'site'   => 'App\Droit\Site\Entities\Site',
+        'arret'    => 'App\Droit\Arret\Entities\Arret',
+        'groupe'   => 'App\Droit\Arret\Entities\Groupe',
+        'site'     => 'App\Droit\Site\Entities\Site',
+        'product'  => 'App\Droit\Shop\Product\Entities\Product',
+        'colloque' => 'App\Droit\Colloque\Entities\Colloque',
     ],
 
     /*
@@ -58,6 +62,19 @@ return [
         'analyse'   => 'files/analyses/',
         'author'    => 'files/authors/',
         'upload'    => 'files/',
+        'product'   => 'files/products/',
+        'colloque'  => 'files/colloques/',
+    ],
+
+    /*
+     * Define  contents relations
+     * */
+    'relations' => [
+        'arret',
+        'groupe',
+        'product',
+        'colloque',
+        'type'
     ],
 
     /*

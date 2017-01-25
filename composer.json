@@ -1,13 +1,13 @@
 {
-    "name": "designpond/newsletter",
+    "name": "designpond/droit_newsletter",
     "type": "library",
-    "description": "Newsletter building tool for UniNE websites",
+    "description": "Newsletter building tool for main UniNE websites",
     "keywords": [
         "designpond",
-        "newsletter",
+        "droit_newsletter",
         "laravel"
     ],
-    "homepage": "https://github.com/designpond/newsletter",
+    "homepage": "https://github.com/designpond/droit_newsletter",
     "license": "MIT",
     "authors": [
         {
