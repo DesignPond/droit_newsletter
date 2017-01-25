@@ -11,6 +11,12 @@
         <style type="text/css">
             #StyleNewsletter h2, #StyleNewsletterCreate h2{  color: {{ $campagne->newsletter->color }};  }
             #StyleNewsletter .contentForm h3, #StyleNewsletter .contentForm h4{  color: {{ $campagne->newsletter->color }};  }
+
+            #StyleNewsletter .contentForm > a.actionBtn,
+            #StyleNewsletterCreate .contentForm > a.actionBtn{
+                background: {{ $campagne->newsletter->color }};
+                color: #fff;
+            }
         </style>
     </head>
 

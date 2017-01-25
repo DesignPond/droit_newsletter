@@ -2,9 +2,7 @@
 @section('content')
 
 <style type="text/css">
-    #StyleNewsletter h2, #StyleNewsletterCreate h2{
-        color: {{ $campagne->newsletter->color }};
-    }
+    #StyleNewsletter h2, #StyleNewsletterCreate h2
     #StyleNewsletter .contentForm h3, #StyleNewsletter .contentForm h4,
     #StyleNewsletterCreate .contentForm h3, #StyleNewsletterCreate .contentForm h4
     {

@@ -6,7 +6,7 @@
             <tr>
                 <td valign="top" width="160" class="resetMarge">
                     <a href="{[{ select.colloque.link }]}">
-                        <img class="media-object" width="80px" src="{[{ select.colloque.illustration }]}" />
+                        <img class="media-object" style="max-width: 150px;" src="{[{ select.colloque.illustration }]}" />
                     </a>
                 </td>
                 <td valign="top" width="25" class="resetMarge"></td>
@@ -28,9 +28,7 @@
         <div class="panel panel-success">
             <div class="panel-body">
                 <label>Sélectionner le colloque</label>
-                <select class="form-control" name="colloque_id" ng-change="select.changed()" ng-model="selected" ng-options="colloque.titre for colloque in select.colloques track by colloque.id">
-                    <option value="">Choisir</option>
-                </select>
+                <select class="form-control" name="colloque_id" ng-change="select.changed()" ng-model="selected" ng-options="colloque.titre for colloque in select.colloques track by colloque.id"></select>
 
                 <div class="btn-group" style="margin-top: 10px;">
                     <input type="hidden" value="{[{ select.colloque.id }]}" name="colloque_id">

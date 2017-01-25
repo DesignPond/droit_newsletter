@@ -8,8 +8,6 @@ var App = angular.module('newsletter', ["angular-redactor","flow","ngSanitize","
 
 App.constant('__env', window.Laravel);
 
-console.log(window.Laravel.adminUrl);
-
 App.config(function(redactorOptions,__env) {
     /* Redactor wysiwyg editor configuration */
     redactorOptions.minHeight        = 120;
@@ -283,10 +281,11 @@ App.controller('SelectProductController', ['$scope','$http','Products','myServic
     this.changed = function(){
 
         /* hide product */
-        self.product  = false;
+        self.product = false;
 
         /* Get the id  */
         var id = $scope.selected.id
+        console.log($scope.selected.id);
 
         /* Get the selected arret infos */
         Products.simple(id).then(function (data) { self.product = data; });

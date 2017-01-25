@@ -16,6 +16,12 @@ class Newsletter_contents extends Model {
         elseif(isset($this->arret)){
             return $this->arret->reference;
         }
+        elseif(isset($this->product)){
+            return $this->product->title;
+        }
+        elseif(isset($this->colloque)){
+            return $this->colloque->titre;
+        }
         elseif(isset($this->groupe)){
             return $this->groupe->categorie->title;
         }

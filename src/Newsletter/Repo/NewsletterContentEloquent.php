@@ -19,7 +19,7 @@ class NewsletterContentEloquent implements NewsletterContentInterface{
 	
 	public function getByCampagne($newsletter_campagne_id)
     {
-        $with = in_array(5,array_keys(config('newsletter.components'))) ? ['type','arret'] : ['type'];
+        $with = config('newsletter.relations');
 
 		return $this->contents->where('newsletter_campagne_id','=',$newsletter_campagne_id)->with($with)->orderBy('newsletter_contents.rang','ASC')->get();
 	}
@@ -80,6 +80,8 @@ class NewsletterContentEloquent implements NewsletterContentInterface{
             'arret_id'               => (isset($data['arret_id']) ? $data['arret_id'] : 0),
             'categorie_id'           => (isset($data['categorie_id']) ? $data['categorie_id'] : 0),
             'groupe_id'              => (isset($data['groupe_id']) ? $data['groupe_id'] : null),
+            'product_id'             => (isset($data['product_id']) ? $data['product_id'] : null),
+            'colloque_id'            => (isset($data['colloque_id']) ? $data['colloque_id'] : null),
             'newsletter_campagne_id' => $data['campagne'],
             'rang'                   => $this->getRang($data['campagne']),
 			'created_at'             => date('Y-m-d G:i:s'),

@@ -6,7 +6,7 @@
             <tr>
                 <td valign="top" width="160" class="resetMarge">
                     <a href="{[{ select.product.link }]}">
-                        <img class="media-object" width="80px" src="{[{ select.product.image }]}" />
+                        <img class="media-object" style="max-width: 150px;" src="{[{ select.product.image }]}" />
                     </a>
                 </td>
                 <td valign="top" width="25" class="resetMarge"></td>
@@ -27,9 +27,7 @@
         <div class="panel panel-success">
             <div class="panel-body">
                 <label>Sélectionner le livre</label>
-                <select class="form-control" name="product_id" ng-change="select.changed()" ng-model="selected" ng-options="product.title for product in select.products track by product.id">
-                    <option value="">Choisir</option>
-                </select>
+                <select class="form-control" name="product_id" ng-change="select.changed()" ng-model="selected" ng-options="product.title for product in select.products track by product.id"></select>
 
                 <div class="btn-group" style="margin-top: 10px;">
                     <input type="hidden" value="{[{ select.product.id }]}" name="product_id">

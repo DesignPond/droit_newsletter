@@ -53,7 +53,7 @@ class CampagneController extends Controller
     {
         $campagne = $this->campagne->find($id);
         $blocs    = $this->type->getAll();
-
+        
         return view('newsletter::Backend.campagne.show')->with(['campagne' => $campagne, 'blocs' => $blocs]);
     }
 
