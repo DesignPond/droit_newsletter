@@ -6,31 +6,33 @@ var App = angular.module('newsletter', ["angular-redactor","flow","ngSanitize","
     $interpolateProvider.startSymbol('{[{').endSymbol('}]}');
 });
 
-App.constant('__env', window.__env);
+App.constant('__env', window.Laravel);
+
+console.log(window.Laravel.adminUrl);
 
 App.config(function(redactorOptions,__env) {
-        /* Redactor wysiwyg editor configuration */
-        redactorOptions.minHeight        = 120;
-        redactorOptions.maxHeight        = 240;
-        redactorOptions.formattingTags   = ['p', 'h2', 'h3','h4'];
-        redactorOptions.fileUpload       = __env.adminUrl + 'uploadRedactor?_token=' + $('meta[name="_token"]').attr('content');
-        redactorOptions.imageUpload      = __env.adminUrl + 'uploadRedactor?_token=' + $('meta[name="_token"]').attr('content');
-        redactorOptions.imageManagerJson = __env.adminUrl + 'imageJson';
-        redactorOptions.fileManagerJson  = __env.adminUrl + 'fileJson';
-        redactorOptions.plugins          = ['imagemanager','filemanager','source','iconic','alignment'];
-        redactorOptions.lang             = 'fr';
-        redactorOptions.buttons          = ['format','bold','italic','|','lists','|','image','file','link','alignment'];
-    
+    /* Redactor wysiwyg editor configuration */
+    redactorOptions.minHeight        = 120;
+    redactorOptions.maxHeight        = 240;
+    redactorOptions.formattingTags   = ['p', 'h2', 'h3','h4'];
+    redactorOptions.fileUpload       = __env.adminUrl + 'uploadRedactor?_token=' + $('meta[name="_token"]').attr('content');
+    redactorOptions.imageUpload      = __env.adminUrl + 'uploadRedactor?_token=' + $('meta[name="_token"]').attr('content');
+    redactorOptions.imageManagerJson = __env.adminUrl + 'imageJson';
+    redactorOptions.fileManagerJson  = __env.adminUrl + 'fileJson';
+    redactorOptions.plugins          = ['imagemanager','filemanager','source','iconic','alignment'];
+    redactorOptions.lang             = 'fr';
+    redactorOptions.buttons          = ['format','bold','italic','|','lists','|','image','file','link','alignment'];
+
 }).config(['flowFactoryProvider','__env', function (flowFactoryProvider,__env) {
-        /* Flow image upload configuration */
-        flowFactoryProvider.defaults = {
-            target    :  __env.adminUrl + 'uploadJS',
-            testChunks: false,
-            singleFile: true,
-            query     : { _token : $("meta[name='_token']").attr('content') } ,
-            permanentErrors: [404, 500, 501],
-            simultaneousUploads: 4
-        };
+    /* Flow image upload configuration */
+    flowFactoryProvider.defaults = {
+        target    :  __env.adminUrl + '/uploadJS',
+        testChunks: false,
+        singleFile: true,
+        query     : { _token : $("meta[name='_token']").attr('content') } ,
+        permanentErrors: [404, 500, 501],
+        simultaneousUploads: 4
+    };
 }]).service('myService',  function ($rootScope) {
     var blocDrop = 0;
     return {
@@ -92,14 +94,58 @@ App.factory('Arrets', ['$http', '$q','__env', function($http, $q,__env) {
     return {
         query: function(site_id) {
             var deferred = $q.defer();
-            $http.get( __env.ajaxUrl + 'arrets/' + site_id, { cache: true }).success(function(data) {
+            $http.get( __env.ajaxUrl + '/arrets/' + site_id, { cache: true }).success(function(data) {
                 deferred.resolve(data);
             }).error(function(data) {deferred.reject(data);});
             return deferred.promise;
         },
         simple: function(id) {
             var deferred = $q.defer();
-            $http.get( __env.ajaxUrl + 'arret/'+ id).success(function(data) {
+            $http.get( __env.ajaxUrl + '/arret/'+ id).success(function(data) {
+                deferred.resolve(data);
+            }).error(function(data) {deferred.reject(data);});
+            return deferred.promise;
+        }
+    };
+}]);
+
+/**
+ * Retrive all Products
+ */
+App.factory('Products', ['$http', '$q','__env', function($http, $q,__env) {
+    return {
+        query: function() {
+            var deferred = $q.defer();
+            $http.get( __env.ajaxUrl + '/product', { cache: true }).success(function(data) {
+                deferred.resolve(data);
+            }).error(function(data) {deferred.reject(data);});
+            return deferred.promise;
+        },
+        simple: function(id) {
+            var deferred = $q.defer();
+            $http.get( __env.ajaxUrl + '/product/'+ id).success(function(data) {
+                deferred.resolve(data);
+            }).error(function(data) {deferred.reject(data);});
+            return deferred.promise;
+        }
+    };
+}]);
+
+/**
+ * Retrive all Colloques
+ */
+App.factory('Colloques', ['$http', '$q','__env', function($http, $q,__env) {
+    return {
+        query: function() {
+            var deferred = $q.defer();
+            $http.get( __env.ajaxUrl + '/colloque', { cache: true }).success(function(data) {
+                deferred.resolve(data);
+            }).error(function(data) {deferred.reject(data);});
+            return deferred.promise;
+        },
+        simple: function(id) {
+            var deferred = $q.defer();
+            $http.get( __env.ajaxUrl + '/colloque/'+ id).success(function(data) {
                 deferred.resolve(data);
             }).error(function(data) {deferred.reject(data);});
             return deferred.promise;
@@ -206,13 +252,97 @@ App.controller("EditController",['$scope','$http','myService','__env', function(
 }]);
 
 /**
+ * Select products controller
+ */
+App.controller('SelectProductController', ['$scope','$http','Products','myService','__env',function($scope,$http,Products,myService,__env){
+
+    this.products = [];
+    this.product  = false;
+
+    /* capture this (the controller scope ) as self */
+    var self = this;
+
+    /* function for refreshing the asynchronus retrival of blocs */
+    this.refresh = function() {
+
+        Products.query().then(function (data) {
+            self.products = data;
+        });
+    }
+
+    if(self.products.length == 0){
+        this.refresh();
+    }
+
+    this.close = function(){
+        myService.setBloc(0);
+        $('.edit_content_form').hide();
+    };
+
+    /* When one arret is selected in the dropdown */
+    this.changed = function(){
+
+        /* hide product */
+        self.product  = false;
+
+        /* Get the id  */
+        var id = $scope.selected.id
+
+        /* Get the selected arret infos */
+        Products.simple(id).then(function (data) { self.product = data; });
+    };
+}]);
+
+/**
+ * Select colloque controller
+ */
+App.controller('SelectColloqueController', ['$scope','$http','Colloques','myService','__env',function($scope,$http,Colloques,myService,__env){
+
+    this.colloques = [];
+    this.colloque  = false;
+
+    /* capture this (the controller scope ) as self */
+    var self = this;
+
+    /* function for refreshing the asynchronus retrival of blocs */
+    this.refresh = function() {
+        Colloques.query().then(function (data) {
+            self.colloques = data;
+        });
+    }
+
+    if(self.colloques.length == 0){
+        this.refresh();
+    }
+
+    this.close = function(){
+        myService.setBloc(0);
+        $('.edit_content_form').hide();
+    };
+
+    /* When one arret is selected in the dropdown */
+    this.changed = function(){
+
+        /* hide colloque */
+        self.colloque = false;
+
+        /* Get the id of arret */
+        var id = $scope.selected.id
+
+        /* Get the selected */
+        Colloques.simple(id).then(function (data) { self.colloque = data; });
+    };
+}]);
+
+/**
  * Select arret controller, select an arret and display's it
  */
 App.controller('SelectController', ['$scope','$http','Arrets','myService','__env',function($scope,$http,Arrets,myService,__env){
-    
+
     /* assign empty values for arrets */
     this.arrets = [];
     this.arret  = false;
+
     /* capture this (the controller scope ) as self */
     var self = this;
 
