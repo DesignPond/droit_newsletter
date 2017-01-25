@@ -4,18 +4,18 @@
         <!-- Bloc content-->
         <table border="0" width="560" align="center" cellpadding="0" cellspacing="0" class="resetTable">
             <tr>
-                <td valign="top" width="160" class="resetMarge">
-                    <a href="{[{ select.product.link }]}">
-                        <img class="media-object" style="max-width: 150px;" src="{[{ select.product.image }]}" />
-                    </a>
-                </td>
-                <td valign="top" width="25" class="resetMarge"></td>
                 <td valign="top" width="375" class="resetMarge contentForm">
                     <div ng-show="select.product" ng-model="select.product">
                         <h3>{[{ select.product.title }]}</h3>
                         <p class="abstract">{[{ select.product.teaser }]}</p>
                         <div class="content" ng-bind-html='select.product.description'></div>
                     </div>
+                </td>
+                <td valign="top" width="25" class="resetMarge"></td>
+                <td valign="top" width="160" class="resetMarge">
+                    <a href="{[{ select.product.link }]}">
+                        <img class="media-object" style="max-width: 150px;" src="{[{ select.product.image }]}" />
+                    </a>
                 </td>
             </tr>
         </table>

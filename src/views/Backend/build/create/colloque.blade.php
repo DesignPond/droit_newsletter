@@ -4,12 +4,6 @@
         <!-- Bloc content-->
         <table border="0" width="560" align="center" cellpadding="0" cellspacing="0" class="resetTable">
             <tr>
-                <td valign="top" width="160" class="resetMarge">
-                    <a href="{[{ select.colloque.link }]}">
-                        <img class="media-object" style="max-width: 150px;" src="{[{ select.colloque.illustration }]}" />
-                    </a>
-                </td>
-                <td valign="top" width="25" class="resetMarge"></td>
                 <td valign="top" width="375" class="resetMarge contentForm">
                     <div ng-show="select.colloque" ng-model="select.colloque">
                         <h3>{[{ select.colloque.titre }]}</h3>
@@ -17,6 +11,12 @@
                         <p class="abstract">{[{ select.colloque.sujet }]}</p>
                         <p><cite>{[{ select.colloque.organisateur }]}</cite></p>
                     </div>
+                </td>
+                <td valign="top" width="25" class="resetMarge"></td>
+                <td valign="top" width="160" class="resetMarge">
+                    <a href="{[{ select.colloque.link }]}">
+                        <img class="media-object" style="max-width: 150px;" src="{[{ select.colloque.illustration }]}" />
+                    </a>
                 </td>
             </tr>
         </table>
