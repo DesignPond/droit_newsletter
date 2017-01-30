@@ -42,7 +42,6 @@ class SendController extends Controller
         $html = $this->worker->html($campagne->id);
 
         $this->mailjet->setList($campagne->newsletter->list_id); // list id
-        $this->mailjet->setSenderEmail($campagne->newsletter->from_email); // list from_email
 
         // Sync html content to api service and send to newsletter list!
         $response = $this->mailjet->setHtml($html,$campagne->api_campagne_id);
@@ -87,7 +86,6 @@ class SendController extends Controller
 
         // Sync html content to api service and send to newsletter list!
         $response = $this->mailjet->setHtml($html,$campagne->api_campagne_id);
-        $this->mailjet->setSenderEmail($campagne->newsletter->from_email); // list from_email 
 
         if(!$response)
         {
