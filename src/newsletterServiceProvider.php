@@ -81,9 +81,9 @@ class newsletterServiceProvider extends ServiceProvider
         );
 
         // Custom Facade for CampagneWorker
-        $this->app['newsworker'] = $this->app->share(function ()
-        {
-            return $this->app->make('\designpond\newsletter\Newsletter\Worker\CampagneInterface');
+
+        $this->app->singleton('newsworker', function ($app) {
+            return $app->make('designpond\newsletter\Newsletter\Worker\CampagneInterface');
         });
 
         $this->registerMailjetService();
